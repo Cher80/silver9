@@ -28,9 +28,5 @@
   <source path='client'/>
   <source path='shared'/>
   
-     <!-- Use ClientFactoryImpl by default -->
-    <replace-with class="my.client.common.ClientFactoryImpl">
-    <when-type-is class="my.client.common.ClientFactory"/>
-    </replace-with>
 
 </module>

@@ -29,6 +29,7 @@ public class MyFlowPanel extends FlowPanel implements AcceptsOneWidget {
 	private HashMap<String,Widget> widgetsStack=new HashMap<String, Widget>();
 	private Stack <Widget>widgetsStack2 =  new Stack<Widget>();
 	
+	
 	public MyFlowPanel() {
 		System.out.println("MyFlowPanel construct");
 		
@@ -41,12 +42,12 @@ public class MyFlowPanel extends FlowPanel implements AcceptsOneWidget {
 
 	
 	
-	public void doClearance(Widget widget) {
+	public void doClearance() {
 		System.out.println("doClearance");
-		
-	    System.out.println("widget.getElement().getOffsetLeft() = " + widget.getElement().getOffsetLeft());
+		ClientFactory.getHistoryKeeper().popWidget(currentWidget);
+	    //System.out.println("widget.getElement().getOffsetLeft() = " + widget.getElement().getOffsetLeft());
 	    	 
-		
+		/*
 	  	Activity curActivity = ((HavePresenter)widget).getPresenter();
 	  	HistoryKeeper historyKeeper = ((HaveClientFactory)curActivity).getClientFactory().getHistoryKeeper();
 	  	Boolean isNeedToRemove = ((HaveClientFactory)curActivity).getClientFactory().getHistoryKeeper().isNeedToRemove(widget,currentWidget);
@@ -56,6 +57,7 @@ public class MyFlowPanel extends FlowPanel implements AcceptsOneWidget {
 		  	
 
 	  	}
+	  	*/
 	}
 	
 	@Override
@@ -135,7 +137,7 @@ public class MyFlowPanel extends FlowPanel implements AcceptsOneWidget {
  		    	 
  		    	//this.getElement().getStyle().setProperty("left", -curWidgetLeft + "PX");
 		    	 MyFlowPanelAnimation animation = new MyFlowPanelAnimation(this); 	 
-		    	 animation.scrollTo(-curWidgetLeft, curWidgetTop, myFloatPanelLeft, curWidgetTop,2000);
+		    	 animation.scrollTo(-curWidgetLeft, curWidgetTop, myFloatPanelLeft, curWidgetTop,500);
 		    	 
    			widgetsStack2 = historyKeeper.getWidgetsToMove();
    			Iterator it = widgetsStack2.iterator();

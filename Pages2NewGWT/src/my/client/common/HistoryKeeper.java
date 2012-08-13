@@ -18,15 +18,18 @@ import com.google.gwt.user.client.ui.Widget;
 public class HistoryKeeper {
 	
 	private Stack <Activity>activityStack =  new Stack<Activity>();
-	private ClientFactory clientFactory;
-	public HistoryKeeper(ClientFactory clientFactory) {
-		this.clientFactory = clientFactory;
+	private Activity CurActivityAfterAnimation;
+	private Boolean needToClearStack = false;
+	private Boolean needToRemove = false;
+	//private ClientFactory clientFactory;
+	public HistoryKeeper() {
+		//this.clientFactory = clientFactory;
 	}
 	
 	public Activity checkIsVisited(Place newPlace) {
 		//
 //		String newToken = ((ForumView) widget).getPresenter().getName();
-		String newToken =	clientFactory.getHistoryMapper().getToken(newPlace);
+		String newToken =	ClientFactory.getHistoryMapper().getToken(newPlace);
     	System.out.println("checkIsVisited iterator newToken = " + newToken);
     	Log.debug("checkIsVisited iterator newToken = " + newToken);
 		Iterator<Activity> it = activityStack.iterator();
@@ -34,11 +37,13 @@ public class HistoryKeeper {
 	    	
 	    	Activity curActivity = (Activity) it.next();
 	    	Place oldPlace = ((HavePlace) curActivity).getPlace();
-			String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);
+			String oldToken =	ClientFactory.getHistoryMapper().getToken(oldPlace);
 	    	
 	    	System.out.println("checkIsVisited iterator oldToken = " + oldToken);
 	    	if (newToken.equals(oldToken)) {
 		    	System.out.println("Sovpadenie!");
+		    	needToClearStack = true;
+		    	CurActivityAfterAnimation = curActivity;
 		    	return curActivity;
 	    	}
 
@@ -54,9 +59,13 @@ public class HistoryKeeper {
 		Log.debug("activityStack.size() - 1 = " + (activityStack.size() - 1));
 		Activity curActivity = activityStack.elementAt(activityStack.size() - 1);
 		Place oldPlace = ((HavePlace) curActivity).getPlace();
-		String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);
+		String oldToken =	ClientFactory.getHistoryMapper().getToken(oldPlace);
 		Log.debug("oldToken " + oldToken);
-		return activityStack.elementAt(activityStack.size() - 2);
+		
+		Activity prevActivity = activityStack.elementAt(activityStack.size() - 2);
+		//activityStack.pop();
+		needToRemove = true;
+		return prevActivity;
 	}
 	
 	
@@ -66,6 +75,60 @@ public class HistoryKeeper {
 //		int historyLengh = activityStack.size();
 //		int i = 0;
 	   
+		int curActivityPosition;
+		int stackSize;
+		int numToPop = 0; 
+		
+		if (needToClearStack) {
+			curActivityPosition = activityStack.indexOf(CurActivityAfterAnimation);
+			Log.debug("curActivityPosition " + curActivityPosition); 
+		
+			stackSize = activityStack.size();
+			Log.debug("stackSize " + stackSize); 
+		
+			numToPop = stackSize - curActivityPosition - 1;
+			Log.debug("numToPop " + numToPop); 
+			needToClearStack = false;
+		}
+		
+		for (int i=0;i<numToPop;i++) {
+			//Widget curWidget = ((HaveView)curActivity).getView().asWidget();
+			
+			Activity activityToPop = activityStack.pop();
+			Widget widgetToPop = ((HaveView)activityToPop).getView().asWidget();
+			widgetToPop.removeFromParent();
+		}
+		
+		/*
+		while(it.hasNext()){
+	    	
+	    	Activity curActivity = it.next();
+	    	Widget curWidget = ((HaveView)curActivity).getView().asWidget();
+	    	if (widget.equals(curWidget)) {
+	    		System.out.println("popWidget sovpalo!" + activityStack.indexOf(curActivity));
+	    		//it.remove();
+	    		return; 
+	    	}
+	    	
+	    	
+	    	//this.activityStack.peek()
+	    	//Place oldPlace = ((HavePlace) curActivity).getPlace();
+			//String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);
+	    	//System.out.println("getHistoryWidget!");
+	    	
+
+	      }*/
+		
+		
+		
+		/*
+		if (needToRemove == true) {
+			activityStack.pop();
+			Log.debug("activityStack.pop()");
+			widget.removeFromParent();
+			needToRemove = false;
+		}*/
+		/*
 		while(it.hasNext()){
 	    	
 	    	Activity curActivity = it.next();
@@ -75,6 +138,8 @@ public class HistoryKeeper {
 	    		it.remove();
 	    		return;
 	    	}
+	    	
+	    	
 	    	//this.activityStack.peek()
 	    	//Place oldPlace = ((HavePlace) curActivity).getPlace();
 			//String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);
@@ -83,12 +148,32 @@ public class HistoryKeeper {
 
 	      }
 		
+		*/
+		
 		
 	}
 	
 	public void pushNewActivity(ForumActivity newWidget) {
 
 		activityStack.push(newWidget);
+		
+		Iterator<Activity> it = activityStack.iterator();
+//		int historyLengh = activityStack.size();
+//		int i = 0;
+	   
+		while(it.hasNext()){
+	    	
+	    	Activity curActivity = it.next();
+	    	//Widget curWidget = ((HaveView)curActivity).getView().asWidget();
+
+
+	    	Place thePlace = ((HavePlace) curActivity).getPlace();
+			String oldToken =	ClientFactory.getHistoryMapper().getToken(thePlace);
+			Log.debug("oldToken " + oldToken + " at position " + activityStack.indexOf(curActivity));
+	    	
+
+	      }
+		
 	}
 	
 	public Stack <Widget> getWidgetsToMove() {

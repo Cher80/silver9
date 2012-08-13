@@ -1,6 +1,6 @@
 package my.client.topmenu;
 
-import my.client.common.SimpleEventBusSingleton;
+
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

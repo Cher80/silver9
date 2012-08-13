@@ -1,6 +1,5 @@
 package my.client.compos2;
 
-import my.client.common.SimpleEventBusSingleton;
 import my.client.compos.ComposedEvent;
 import my.client.compos.IMyCompositeView.Presenter;
 

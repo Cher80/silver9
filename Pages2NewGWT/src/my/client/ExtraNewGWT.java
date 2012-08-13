@@ -29,8 +29,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.SimpleEventBus;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
@@ -48,6 +47,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.web.bindery.event.shared.EventBus;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -124,7 +124,7 @@ public class ExtraNewGWT implements EntryPoint {
 
         // Start ActivityManager for the main widget with our ActivityMapper
         ActivityMapper activityMapper = new AppActivityMapper(clientFactory);
-        MyActivityManager activityManager = new MyActivityManager(activityMapper, eventBus, clientFactory);
+        MyActivityManager activityManager = new MyActivityManager(activityMapper);
         activityManager.setDisplay(appWidNewNew);
 
         // Start PlaceHistoryHandler with our PlaceHistoryMapper

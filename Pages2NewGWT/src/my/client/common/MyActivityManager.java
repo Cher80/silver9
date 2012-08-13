@@ -6,6 +6,7 @@ import my.client.helpers.HaveView;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
+//import com.google.web.bindery.event.shared.ResettableEventBus;
 import com.google.gwt.event.shared.ResettableEventBus;
 import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.place.shared.Place;
@@ -83,11 +84,11 @@ public class MyActivityManager implements PlaceChangeEvent.Handler, PlaceChangeR
    * @param eventBus source of {@link PlaceChangeEvent} and
    *          {@link PlaceChangeRequestEvent} events.
    */
-  public MyActivityManager(ActivityMapper mapper, EventBus eventBus, ClientFactory clientFactory) {
+  public MyActivityManager(ActivityMapper mapper ) {
     this.mapper = mapper;
-    this.clientFactory = clientFactory;
-    this.eventBus = eventBus;
-    this.stopperedEventBus = new ResettableEventBus((com.google.gwt.event.shared.EventBus) eventBus);
+   // this.clientFactory = clientFactory;
+    this.eventBus = ClientFactory.getEventBus();
+    this.stopperedEventBus = new ResettableEventBus(eventBus);
   }
 
   /**
@@ -257,7 +258,7 @@ public class MyActivityManager implements PlaceChangeEvent.Handler, PlaceChangeR
        */
     	//Stack <Widget>widgetsStack3 =  ((HaveClientFactory)currentActivity).getClientFactory().getHistoryKeeper().getWidgetsToMove();
 
-    
+      //currentActivity.start(panel, eventBus)
       currentActivity.start(new ProtectedDisplay(currentActivity), stopperedEventBus);
     } catch (Throwable t) {
       caughtOnStart = t;

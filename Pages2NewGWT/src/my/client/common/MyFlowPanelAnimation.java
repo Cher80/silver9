@@ -49,8 +49,8 @@ public class MyFlowPanelAnimation extends Animation {
 	@Override
     protected void onComplete()
     {
-        super.onComplete();
-        //flowPanel.doClearance(this.widget);
+        flowPanel.doClearance();
+		super.onComplete();
         //this.element.getStyle().setLeft(this.finalX, Style.Unit.PX);
         //this.element.getStyle().setTop(this.finalY, Style.Unit.PX);
     }

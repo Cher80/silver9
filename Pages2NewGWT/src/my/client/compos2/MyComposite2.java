@@ -1,6 +1,7 @@
 package my.client.compos2;
 
-import my.client.common.SimpleEventBusSingleton;
+
+import my.client.common.ClientFactory;
 import my.client.compos.ComposedEvent;
 import my.client.compos.IMyCompositeEventHandler;
 
@@ -20,7 +21,7 @@ public class MyComposite2 extends Composite implements IMyCompositeEventHandler{
 		panel.add(myButt1);
 		
 		//myEventBus.addHandler(ComposedEvent.TYPE, new MyCompositeEventHandler2());
-		SimpleEventBusSingleton.getInstance().addHandler(ComposedEvent.TYPE, this);
+		ClientFactory.getEventBus().addHandler(ComposedEvent.TYPE, this);
 		
 		myButt1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
