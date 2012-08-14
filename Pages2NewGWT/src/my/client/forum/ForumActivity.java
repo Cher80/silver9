@@ -1,7 +1,7 @@
 package my.client.forum;
 
 import my.client.common.ClientFactory;
-import my.client.compos2.MyComposite2View;
+
 import my.client.helpers.HaveClientFactory;
 import my.client.helpers.HavePlace;
 import my.client.helpers.HaveView;
@@ -9,6 +9,7 @@ import my.client.helpers.HaveView;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 
@@ -98,6 +99,18 @@ public class ForumActivity extends AbstractActivity implements ForumViewInterfac
 		 this.activityView.populate();
 		 pageNum++;
 		 //clientFactory.getPlaceController().goTo(new ForumPlace(name + "/"+ pageNum));
+	}
+
+	@Override
+	public void setView(Composite view) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPlace(Place place) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

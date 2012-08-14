@@ -2,8 +2,9 @@ package my.client.theme;
 
 
 
+import my.client.albumspage.AlbumsPlace;
 import my.client.common.ClientFactory;
-import my.client.compos.MyCompositePlace;
+
 import my.client.forum.ForumPlace;
 import my.client.rpcs.GetForumService;
 import my.client.rpcs.GetForumServiceAsync;
@@ -50,7 +51,8 @@ public class ThemeActivity implements ThemeViewInterface.Presenter{
 	
 	public void gotoForum() {
 		//String forumIdStr = (String)forumId;
-		clientFactory.getPlaceController().goTo(new ForumPlace(Integer.toString(forumId)));
+		//clientFactory.getPlaceController().goTo(new ForumPlace(Integer.toString(forumId)));
+		clientFactory.getPlaceController().goTo(new AlbumsPlace(Integer.toString(forumId)));
 	}
 
 

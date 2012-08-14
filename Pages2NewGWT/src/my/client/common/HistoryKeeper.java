@@ -153,7 +153,7 @@ public class HistoryKeeper {
 		
 	}
 	
-	public void pushNewActivity(ForumActivity newWidget) {
+	public void pushNewActivity(Activity newWidget) {
 
 		activityStack.push(newWidget);
 		

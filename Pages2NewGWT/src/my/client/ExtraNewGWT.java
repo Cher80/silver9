@@ -6,14 +6,7 @@ import my.client.common.AppPlaceHistoryMapper;
 import my.client.common.ClientFactory;
 import my.client.common.MyActivityManager;
 import my.client.common.MyFlowPanel;
-import my.client.common.MySimpleLayoutPanel;
-import my.client.common.PanelForView;
-import my.client.compos.ComposedEvent;
-import my.client.compos.MyComposite;
-import my.client.compos.MyCompositePlace;
-import my.client.compos2.MyComposite2;
-import my.client.compos.MyCompositeEventHandler;
-import my.client.compos.MyCompositeEventHandler2;
+
 import my.client.forum.ForumPlace;
 import my.client.helpers.HavePlace;
 import my.client.topmenu.TopmenuView;
@@ -55,7 +48,7 @@ import com.google.web.bindery.event.shared.EventBus;
 public class ExtraNewGWT implements EntryPoint {
 	
 	private Place defaultPlace = new ForumPlace("34");
-	private PanelForView appWidNew = new PanelForView();
+
     private SimplePanel appWidget = new SimplePanel();
     private SimplePanel appWidgetOld = new SimplePanel();
     private FlowPanel menuWidgetPanel = new FlowPanel();

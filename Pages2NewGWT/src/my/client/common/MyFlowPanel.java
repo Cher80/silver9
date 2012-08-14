@@ -96,8 +96,8 @@ public class MyFlowPanel extends FlowPanel implements AcceptsOneWidget {
 			//int windowCenter = this.getOffsetWidth()/2;
 			
    	  		Activity curActivity = ((HavePresenter)widget).getPresenter();
-   	  		HistoryKeeper historyKeeper = ((HaveClientFactory)curActivity).getClientFactory().getHistoryKeeper();
-   	  		Boolean isHistoryWidget = ((HaveClientFactory)curActivity).getClientFactory().getHistoryKeeper().isHistoryWidget(widget);
+   	  		HistoryKeeper historyKeeper = ClientFactory.getHistoryKeeper();
+   	  		Boolean isHistoryWidget = ClientFactory.getHistoryKeeper().isHistoryWidget(widget);
    			
    			
    			if (!isHistoryWidget) {

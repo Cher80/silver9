@@ -2,10 +2,9 @@ package my.client.common;
 
 import java.util.Stack;
 
-import my.client.compos.MyCompositeActivity;
-import my.client.compos.MyCompositePlace;
-import my.client.compos2.MyComposite2Activity;
-import my.client.compos2.MyComposite2Place;
+
+import my.client.albumspage.AlbumsActivity;
+import my.client.albumspage.AlbumsPlace;
 import my.client.forum.ForumActivity;
 import my.client.forum.ForumPlace;
 import my.client.helpers.HavePlace;
@@ -28,31 +27,11 @@ public class AppActivityMapper implements ActivityMapper {
 	@Override
 	public Activity getActivity(Place place) {
 		// TODO Auto-generated method stub
-		if (place instanceof MyCompositePlace)
-            return new MyCompositeActivity((MyCompositePlace) place, clientFactory);
-		else if (place instanceof MyComposite2Place)
-            return new MyComposite2Activity((MyComposite2Place) place, clientFactory);
-		else if (place instanceof ForumPlace) {
-
-			/*
-			ForumActivity toReturnActivity = (ForumActivity) clientFactory.getHistoryKeeper().checkIsVisited(place);
-			if (toReturnActivity == null) {
-				toReturnActivity = new ForumActivity((ForumPlace) place, clientFactory);
-				clientFactory.getHistoryKeeper().pushNewActivity((ForumActivity)toReturnActivity);
-			}
-			else {
-				Stack <Widget>widgetsStack =  clientFactory.getHistoryKeeper().getWidgetsToMove();
-			}
-			
-			Place oldPlace = ((HavePlace) toReturnActivity).getPlace();
-			String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);	    	
-	    	System.out.println("toReturnActivity oldToken = " + oldToken);
-			
-	    	//
-			//ForumActivity toReturnActivity = new ForumActivity((ForumPlace) place, clientFactory);
-			return toReturnActivity;*/
+		if (place instanceof ForumPlace)
 			return new ForumActivity((ForumPlace) place, clientFactory);
-		}
+		else if (place instanceof AlbumsPlace)
+            return new AlbumsActivity((AlbumsPlace) place);
+		
         return null;
 		
 	}

@@ -123,7 +123,7 @@ public class MyActivityManager implements PlaceChangeEvent.Handler, PlaceChangeR
 
 	 if (nextActivity == null) {
 		 nextActivity = getNextActivity(event);
-		clientFactory.getHistoryKeeper().pushNewActivity((ForumActivity)nextActivity);
+		clientFactory.getHistoryKeeper().pushNewActivity(nextActivity);
 
 	 //Bewitched by india The best exotic marigold hotel
 	 //Activity nextActivity = mapper.getActivity(event.getNewPlace());

@@ -2,7 +2,7 @@ package my.client.forum;
 
 import my.client.helpers.HaveClientFactory;
 import my.client.helpers.HavePresenter;
-import my.client.compos2.IMyComposite2View.Presenter;
+
 import my.client.theme.ThemeActivity;
 
 import com.google.gwt.activity.shared.Activity;
