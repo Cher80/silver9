@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-import my.client.rpcs.GetForumService;
+import my.client.rpcs.RPCService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.mongodb.DB;
@@ -15,11 +15,15 @@ import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 
-public class GetForumServiceImpl extends RemoteServiceServlet implements
-		GetForumService {
+public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
-	public int getForum(int fid) {
+	public int doRegister(int uid) {
 		
 		/*
 		Mongo m = null;
@@ -78,7 +82,7 @@ public class GetForumServiceImpl extends RemoteServiceServlet implements
 		Object curfid = fid1.get("fid");
 		System.out.println(curfid);
 		
-		return fid*2;
+		return uid*2;
 	}
 
 }

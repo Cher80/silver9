@@ -4,8 +4,8 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 
-@RemoteServiceRelativePath("getForum")
-public interface GetForumService extends RemoteService {
+@RemoteServiceRelativePath("makerpc")
+public interface RPCService extends RemoteService {
 
-	public int getForum(int fid);
+	public int doRegister(int uid);
 }

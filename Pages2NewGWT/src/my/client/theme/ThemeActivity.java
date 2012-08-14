@@ -6,8 +6,7 @@ import my.client.albumspage.AlbumsPlace;
 import my.client.common.ClientFactory;
 
 import my.client.forum.ForumPlace;
-import my.client.rpcs.GetForumService;
-import my.client.rpcs.GetForumServiceAsync;
+
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.AbstractActivity;
@@ -23,7 +22,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 public class ThemeActivity implements ThemeViewInterface.Presenter{
 	private int forumId;
 	private ClientFactory clientFactory;
-	private GetForumServiceAsync getForumSvc = GWT.create(GetForumService.class);
+//	private GetForumServiceAsync getForumSvc = GWT.create(GetForumService.class);
 	
 	public ThemeActivity(Panel panel, ClientFactory clientFactory, int forumId) {
 		//System.out.println("ThemeActivity constructor");
@@ -73,29 +72,14 @@ public class ThemeActivity implements ThemeViewInterface.Presenter{
 	@Override
 	public void makeRPC() {
 		// TODO Auto-generated method stub
-		if (getForumSvc == null) {
-			getForumSvc = GWT.create(GetForumService.class);
-		    }
-		
-		// Set up the callback object.
-	    AsyncCallback <Integer>  callback = new AsyncCallback <Integer> () {
-	      public void onFailure(Throwable caught) {
-	        // TODO: Do something with errors.
-	      }
-
-		
-
-		@Override
-		public void onSuccess(Integer result) {
-			// TODO Auto-generated method stub
-	    	  Log.debug("RPC result generic = " + result);			
-		}
-	    };
-
-	    // Make the call to the stock price service.
-	    getForumSvc.getForum(this.forumId, callback);
-
 		
 	}
+
+
+
+
+
+		
+	
 
 }

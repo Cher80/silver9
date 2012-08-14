@@ -13,6 +13,14 @@ body {
 	/**position: relative;**/
 }
 
+.registerPopup {
+    background: #dfefc8;
+    border: 1px solid #808080;
+    padding: 0.5em;
+    width: 350px;
+    height: 200px;
+}
+
 .layoutContainer {
 	/*position: relative;*/
 	width:800px;

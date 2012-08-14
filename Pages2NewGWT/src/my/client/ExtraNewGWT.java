@@ -1,45 +1,27 @@
 package my.client;
-
+ 
 //import my.client.MyComposite;
 import my.client.common.AppActivityMapper;
 import my.client.common.AppPlaceHistoryMapper;
 import my.client.common.ClientFactory;
 import my.client.common.MyActivityManager;
 import my.client.common.MyFlowPanel;
-
 import my.client.forum.ForumPlace;
 import my.client.helpers.HavePlace;
-import my.client.topmenu.TopmenuView;
-import my.shared.FieldVerifier;
 
 import com.google.gwt.activity.shared.Activity;
-import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-//import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.web.bindery.event.shared.EventBus;
 
 /**
@@ -62,8 +44,7 @@ public class ExtraNewGWT implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		//Label label = new Label("TopMenu");
-		//menuWidgetPanel.add(label);
+
 		menuWidgetPanel.setStyleName("topMenu");
 		
 		RootPanel.get().add(menuWidgetPanel);
@@ -108,7 +89,7 @@ public class ExtraNewGWT implements EntryPoint {
 		//Button myButt1 = new Button("Goback!");
 		//container.add(myButt1);
 		//RootPanel.get().add(myButt1);
-		//TopmenuView myTopmenuView = new TopmenuView();
+
 		//menuWidget.add(myTopmenuView);
 		
 		this.clientFactory = GWT.create(my.client.common.ClientFactory.class);
