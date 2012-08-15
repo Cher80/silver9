@@ -1,2 +1,0 @@
-serviceClass: my.client.rpcs.GetForumService
-path: 6697A24BECCC7B43EE45B41C88783FB2.gwt.rpc

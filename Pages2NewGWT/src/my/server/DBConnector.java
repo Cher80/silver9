@@ -69,7 +69,7 @@ public class DBConnector {
 	}
 	
 	
-	public DB getForumDB() {
+	public DB getMainDB() {
 		return db;
 	}
 	

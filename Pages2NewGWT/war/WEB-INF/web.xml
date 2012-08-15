@@ -9,6 +9,7 @@
   <servlet>
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>my.server.GreetingServiceImpl</servlet-class>
+    
   </servlet>
   
   <servlet-mapping>
@@ -18,14 +19,33 @@
   
   
    <!-- Servlets -->
+    <servlet>
+    <servlet-name>InitServlet</servlet-name>
+    <servlet-class>my.server.InitServlet</servlet-class>
+    <!--  
+    <init-param>
+			<param-name>log4j-properties-location</param-name>
+			<param-value>WEB-INF/log4j.xml</param-value>
+	</init-param>
+	-->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+   
   <servlet>
-    <servlet-name>getForumServiceImpl</servlet-name>
-    <servlet-class>my.server.GetForumServiceImpl</servlet-class>
+    <servlet-name>getServiceImpl</servlet-name>
+    <servlet-class>my.server.RPCServiceImpl</servlet-class>
+    <!--  
+    <init-param>
+    		
+			<param-name>log4j-properties-location</param-name>
+			<param-value>WEB-INF/log4j.xml</param-value>
+	</init-param>
+	-->
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>getForumServiceImpl</servlet-name>
-    <url-pattern>/extranewgwt/getForum</url-pattern>
+    <servlet-name>getServiceImpl</servlet-name>
+    <url-pattern>/extranewgwt/getrpc</url-pattern>
   </servlet-mapping>
   
   

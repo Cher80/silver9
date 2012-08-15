@@ -6,7 +6,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
+
 import my.client.rpcs.RPCService;
+import my.client.rpcs.RPCServiceExeption;
+import my.server.exutor.Register;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.mongodb.DB;
@@ -17,14 +27,40 @@ import com.mongodb.MongoException;
 
 public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 
+	Logger LOG=Logger.getLogger(RPCServiceImpl.class);
+	private static final long serialVersionUID = 1L;
+	/*
+	  public void init(ServletConfig config) throws ServletException {
+		    System.out.println("Log4JInitServlet init() starting.");
+		    String log4jfile = config.getInitParameter("log4j-properties-location");
+		    System.out.println("log4jfile: "+ log4jfile);
+		    //String log4jfile = getInitParameter("log4j-properties-location");
+		    ServletContext sc = config.getServletContext();
+		    //System.out.println("log4jfile: "+ log4jfile);
+		    if (log4jfile != null) {
+		    	
+		      String propertiesFilename = sc.getRealPath(log4jfile);
+		      System.out.println("propertiesFilename: "+ propertiesFilename);
+		      DOMConfigurator.configure(propertiesFilename);
+		      //LOG.info("logger configured.");
+		    }else{
+		      System.out.println("Error setting up logger.");
+		    }
+		  System.out.println("Log4JInitServlet init() done.");
+		      
+		  super.init(config);
+
+	}
+	  */
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 
 	@Override
-	public int doRegister(int uid) {
-		
+	public int doRegister(int uid) throws RPCServiceExeption {
+		//Logger LOG=Logger.getLogger(RPCServiceImpl.class);
+		LOG.info("doRegister LOG4J!");
 		/*
 		Mongo m = null;
 		try {
@@ -44,8 +80,8 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		ServerLogger.getInstance().getLogger().log(Level.INFO, myDoc.toString());
 		*/
 		
-		
-		DB db = DBConnector.getInstance().getForumDB();
+		/*
+		DB db = DBConnector.getInstance().getMainDB();
 		//DBConnector.getInstance();
 		
 		// TODO Auto-generated method stub
@@ -81,8 +117,13 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 
 		Object curfid = fid1.get("fid");
 		System.out.println(curfid);
+		*/
+		//if (true) 
+			//throw new RPCServiceExeption("Eto strashnaya oshibka");
 		
-		return uid*2;
+		Register register =  new Register();
+		int result = register.executeRegister();
+		return result*2;
 	}
 
 }
