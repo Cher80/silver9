@@ -1,5 +1,9 @@
 package my.shared;
 
+import com.google.gwt.regexp.shared.RegExp;
+
+
+
 /**
  * <p>
  * FieldVerifier validates that the name the user enters is valid.
@@ -33,10 +37,42 @@ public class FieldVerifier {
 	 * @param name the name to validate
 	 * @return true if valid, false if invalid
 	 */
-	public static boolean isValidName(String name) {
+	public static boolean isLenghtOK(String name, int min, int max) {
 		if (name == null) {
 			return false;
 		}
-		return name.length() > 3;
+		
+		Boolean isValid = false;
+		if (name.length() >= min && name.length() < max) {
+			isValid = true;
+		}
+		
+		return isValid;
 	}
+	
+	
+	public static boolean isNotEmpty(String text) {
+		return text.length() > 0;
+	}
+	
+	
+	public static boolean isValidEmailAddress(String email) {
+
+		RegExp rfc2822 = RegExp.compile(
+		        "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+		);
+
+		if (!rfc2822.test(email)) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	
+	
+	
+	
+
 }

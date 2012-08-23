@@ -2,6 +2,7 @@ package my.server;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -9,6 +10,7 @@ import java.util.logging.Level;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -16,7 +18,10 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceExeption;
+import my.server.exutor.Login;
 import my.server.exutor.Register;
+import my.server.exutor.UserCookie;
+import my.shared.User;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.mongodb.DB;
@@ -29,101 +34,72 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 
 	Logger LOG=Logger.getLogger(RPCServiceImpl.class);
 	private static final long serialVersionUID = 1L;
-	/*
-	  public void init(ServletConfig config) throws ServletException {
-		    System.out.println("Log4JInitServlet init() starting.");
-		    String log4jfile = config.getInitParameter("log4j-properties-location");
-		    System.out.println("log4jfile: "+ log4jfile);
-		    //String log4jfile = getInitParameter("log4j-properties-location");
-		    ServletContext sc = config.getServletContext();
-		    //System.out.println("log4jfile: "+ log4jfile);
-		    if (log4jfile != null) {
-		    	
-		      String propertiesFilename = sc.getRealPath(log4jfile);
-		      System.out.println("propertiesFilename: "+ propertiesFilename);
-		      DOMConfigurator.configure(propertiesFilename);
-		      //LOG.info("logger configured.");
-		    }else{
-		      System.out.println("Error setting up logger.");
-		    }
-		  System.out.println("Log4JInitServlet init() done.");
-		      
-		  super.init(config);
-
-	}
-	  */
-	/**
-	 * 
-	 */
 	
+	private void getUser () {
+		String serverInfo = getServletContext().getServerInfo();
+		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
+		LOG.info("userAgent " + userAgent);
+		LOG.info("serverInfo " + serverInfo);
+
+		
+		Cookie[] cookies=getThreadLocalRequest().getCookies();
+
+		//Cookie clientCookie=null;
+
+		//cookies.
+		/*
+		if(cookies!=null){
+			clientCookie=cookies[0];
+		}*/
+		if (cookies !=null) {
+			for (int i=0; i<cookies.length; i++) {
+				LOG.info("cookies[i].getName() " + cookies[i].getName());
+			}
+		}
+		else {
+			//Cookie cookie=new Cookie("silver9session","1234olo");
+			//getThreadLocalResponse().addCookie(cookie);
+			//getThreadLocalResponse()cookies
+			//this.getThreadLocalResponse()
+			LOG.info("Error: Please login!");
+			throw new RPCServiceExeption("Error: Please login!");
+			
+		}
+	}
 
 	@Override
-	public int doRegister(int uid) throws RPCServiceExeption {
-		//Logger LOG=Logger.getLogger(RPCServiceImpl.class);
+	public User doRegister(String nick,String email,String pass1,String pass2) throws RPCServiceExeption {
 		LOG.info("doRegister LOG4J!");
-		/*
-		Mongo m = null;
-		try {
-			m = new Mongo();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MongoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-		DB db = m.getDB( "leforum" );
-		DBCollection coll = db.getCollection("forums");
-		DBObject myDoc = coll.findOne();
-		ServerLogger.getInstance().getLogger().log(Level.INFO, myDoc.toString());
-		*/
-		
-		/*
-		DB db = DBConnector.getInstance().getMainDB();
-		//DBConnector.getInstance();
-		
-		// TODO Auto-generated method stub
-		
-		DBCollection coll = db.getCollection("forums");
-		//DBCollection coll = db.getCollection("forums");
-
-		DBObject myDoc = coll.findOne();
-		Map mapDoc = myDoc.toMap();
-		
-		//mapDoc.get(arg0)
-		//ServerLogger.getInstance().getLogger().log(Level.INFO, myDoc.toString());
-		
-		LinkedHashMap lhmDoc = (LinkedHashMap)myDoc;
-		
-		
-		System.out.println(myDoc);
-		System.out.println(lhmDoc);
-		System.out.println(mapDoc);
-		System.out.println(mapDoc.get("fid"));
-		
-		ArrayList groups = (ArrayList) mapDoc.get("groups"); 
-		System.out.println(groups);
-		
-		Map group1 = (Map)groups.get(1);
-		System.out.println(group1);
-		
-		ArrayList fids = (ArrayList) group1.get("fids"); 
-		System.out.println(fids);
-
-		Map fid1 = (Map)fids.get(1);
-		System.out.println(fid1);
-
-		Object curfid = fid1.get("fid");
-		System.out.println(curfid);
-		*/
-		//if (true) 
-			//throw new RPCServiceExeption("Eto strashnaya oshibka");
-		
 		Register register =  new Register();
-		int result = register.executeRegister();
-		return result*2;
+		User result = register.executeRegister( nick, email, pass1, pass2, getThreadLocalResponse(), this.getThreadLocalRequest());
+		
+		return result;
+	}
+
+	@Override
+	public User doLogin(String email, String pass1) throws RPCServiceExeption {
+		LOG.info("doLogin!");
+		Login login =  new Login();
+		User result = login.executeLogin( email, pass1, getThreadLocalResponse(), this.getThreadLocalRequest());
+
+		
+		return result;
+	}
+ 
+	@Override
+	public User getUserByCookie(String cookie) throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		LOG.info("do getUserByCookie!");
+			UserCookie userCookie =  new UserCookie();
+			User user =  userCookie.getUserByCookie(cookie);
+		/*
+		User user = new User();
+		user.setEmail("999@999.999");
+		user.setNick("bob");
+		*/
+		return user;
+		
+		
 	}
 
 }

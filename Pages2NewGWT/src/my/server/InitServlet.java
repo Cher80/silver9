@@ -33,8 +33,8 @@ public class InitServlet extends HttpServlet {
 		  LOG.info("InitServlet LOG4J!"); 
 		  
 		  
-		  MongoPool.getDB();
-		  
+		  MongoPool.getGrabberDB();
+		  MongoPool.getMainDB();
 		  super.init(config);
 
 	}

@@ -1,5 +1,7 @@
 package my.client.common;
 
+import my.shared.User;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.SimpleEventBus;
@@ -12,7 +14,7 @@ public class ClientFactory {
 	 private static PlaceController placeController = new PlaceController(eventBus);
 	 private static HistoryKeeper myHistoryKeeper = new HistoryKeeper();
 	 private static AppPlaceHistoryMapper historyMapper= GWT.create(AppPlaceHistoryMapper.class);
-
+	 private static User user;
 	 //private final GoodbyeView goodbyeView = new GoodbyeViewImpl();
 
 
@@ -35,5 +37,19 @@ public class ClientFactory {
 
 	public static AppPlaceHistoryMapper getHistoryMapper() {
 		return historyMapper;
+	}
+
+
+
+
+	public static User getUser() {
+		return user;
+	}
+
+
+
+
+	public static void setUser(User user) {
+		ClientFactory.user = user;
 	}
 }

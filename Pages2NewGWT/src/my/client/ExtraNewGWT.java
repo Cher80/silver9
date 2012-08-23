@@ -1,6 +1,7 @@
 package my.client;
  
 //import my.client.MyComposite;
+import my.client.blocks.TopMenu;
 import my.client.common.AppActivityMapper;
 import my.client.common.AppPlaceHistoryMapper;
 import my.client.common.ClientFactory;
@@ -9,6 +10,7 @@ import my.client.common.MyFlowPanel;
 import my.client.forum.ForumPlace;
 import my.client.helpers.HavePlace;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.EntryPoint;
@@ -18,6 +20,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -39,31 +42,21 @@ public class ExtraNewGWT implements EntryPoint {
     private MyFlowPanel appWidNewNew = new MyFlowPanel();
     private FlowPanel container = new FlowPanel();
     
+    private TopMenu topMenu = new TopMenu();
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		String cookie = Cookies.getCookie("silver9session");
+		Log.debug("ExtraNewGWT onModuleLoad cookie = " + cookie);
 
 		menuWidgetPanel.setStyleName("topMenu");
 		
 		RootPanel.get().add(menuWidgetPanel);
-		//RootLayoutPanel.get().add(menuWidgetPanel);
-		//container.getElement().getStyle().setProperty("width", "300px");
-		//container.getElement().getStyle().setProperty("overflow", "scroll");
-		//container.getElement().getStyle().setProperty("border", "1px solid green");
-		//appWidNewNew.getElement().getStyle().setProperty("width", "1300px");
+	
 		
-		//appWidNewNew.getElement().getStyle().setProperty("display", "inline-block");
-		
-		
-		/*
-		FlowPanel goBackContainer = new FlowPanel();
-		goBackContainer.setStyleName("goBackContainer");
-		RootPanel.get().add(goBackContainer);
-		*/
-		Button BackButt = new Button("BackButt");
-		menuWidgetPanel.add(BackButt);
+		menuWidgetPanel.add(topMenu);
 		
 		//myEventBus.addHandler(ComposedEvent.TYPE, new MyCompositeEventHandler2());
 		//SimpleEventBusSingleton.getInstance().addHandler(ComposedEvent.TYPE, this);
@@ -111,14 +104,7 @@ public class ExtraNewGWT implements EntryPoint {
         // Goes to the place represented on URL else default place
         historyHandler.handleCurrentHistory();
 
-        BackButt.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				//History.back();
-				Activity curActivity = clientFactory.getHistoryKeeper().getPrevious();
-				Place oldPlace = ((HavePlace) curActivity).getPlace();
-				clientFactory.getPlaceController().goTo(oldPlace);
-			}
-		});
+
 		
 		
 	}

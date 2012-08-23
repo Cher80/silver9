@@ -48,6 +48,31 @@
     <url-pattern>/extranewgwt/getrpc</url-pattern>
   </servlet-mapping>
   
+
+  <servlet>
+    <servlet-name>PostPhotos</servlet-name>
+    <servlet-class>my.server.grabber.PostPhotos</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PostPhotos</servlet-name>
+    <url-pattern>/extranewgwt/postphotos</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>GetPhoto</servlet-name>
+    <servlet-class>my.server.grabber.GetPhoto</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetPhoto</servlet-name>
+    <url-pattern>/extranewgwt/getphoto</url-pattern>
+  </servlet-mapping>
+  
+  
   
   <!-- Default page to serve -->
   <welcome-file-list>

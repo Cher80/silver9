@@ -22,47 +22,31 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class RegisterPopup extends PopupPanel {
+public class LoginPopup extends PopupPanel {
 
 	private FlowPanel panel = new FlowPanel();
 
 	private Button sendButt = new Button("sendButt");
 
-	private Label nickNameLabel = new Label("nickName:");
-	private TextBox nickNameBox = new TextBox();
 	private Label eMailLabel = new Label("eMailLabel:");
 	private TextBox eMailBox = new TextBox();
 
 	private Label pass1Label = new Label("pass1Label:");
 	private PasswordTextBox pass1Box = new PasswordTextBox();
-
-	private Label pass2Label = new Label("pass2Label:");
-	private PasswordTextBox pass2Box = new PasswordTextBox();
-	
 	private Label status = new Label("registration status");
 
-	public RegisterPopup() {
+	public LoginPopup() {
 		super(true);
-
-		
-		//ClientFactory.getEventBus().
-		
-		this.addStyleName("registerPopup");
-		//this.addStyleName("olo");
-		Log.debug("RegisterView created ");
+		this.addStyleName("loginPopup");
+		Log.debug("LoginView created ");
 		this.add(panel);
 
-		panel.add(nickNameLabel);
-		panel.add(nickNameBox);
 		panel.add(eMailLabel);
 		panel.add(eMailBox);
 		panel.add(pass1Label);
 		panel.add(pass1Box);
-		panel.add(pass2Label);
-		panel.add(pass2Box);
 		panel.add(sendButt);
 		panel.add(status);
-		
 
 		eMailBox.addBlurHandler(new BlurHandler() {
 			@Override
@@ -79,21 +63,6 @@ public class RegisterPopup extends PopupPanel {
 		});
 
 
-		nickNameBox.addBlurHandler(new BlurHandler() {
-			@Override
-			public void onBlur(BlurEvent event) {
-				Boolean isValid = FieldVerifier.isLenghtOK(nickNameBox.getText(),1,20);
-				if (isValid) {
-					Log.debug("Good Nick");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					nickNameLabel.setText("Nick name must be 1 character at least (max 20)!!");
-					Log.debug("Bad Nick");
-				}
-				// TODO Auto-generated method stub
-			}
-		});
-
 		pass1Box.addBlurHandler(new BlurHandler() {
 			@Override
 			public void onBlur(BlurEvent event) {
@@ -108,30 +77,7 @@ public class RegisterPopup extends PopupPanel {
 				// TODO Auto-generated method stub
 			}
 		});
-
-
-		pass2Box.addBlurHandler(new BlurHandler() {
-			@Override
-			public void onBlur(BlurEvent event) {
-				Boolean isValid = FieldVerifier.isLenghtOK(pass2Box.getText(),1,50);
-				if (isValid) {
-					Log.debug("Good Password2");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					pass2Label.setText("Password2 name must be 1 character at least!!");
-					Log.debug("Bad Password2");
-				}
-				
-				if (pass2Box.getText().equals(pass1Box.getText())) {
-					Log.debug("Good Password2");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					pass2Label.setText("Password2 doesnt match Password1");
-					Log.debug("Bad Password2 - no match");
-				}
-				// TODO Auto-generated method stub
-			}
-		});
+ 
 
 
 
@@ -159,37 +105,10 @@ public class RegisterPopup extends PopupPanel {
 				}
 
 
-				Boolean isValidPass2 = FieldVerifier.isLenghtOK(pass2Box.getText(),1,50);
-				if (isValidPass2) {
-					Log.debug("Good Password2");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					pass2Label.setText("Password2 name must be 1 character at least!!");
-					Log.debug("Bad Password2");
-				}
 
-				Boolean isValidNick = FieldVerifier.isLenghtOK(nickNameBox.getText(),1,20);;
-				if (isValidNick) {
-					Log.debug("Good Nick");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					nickNameLabel.setText("Nick name must be 1 character at least!!");
-					Log.debug("Bad Nick");
-				}
-				
-				Boolean isValidPassMutch = pass2Box.getText().equals(pass1Box.getText());
-				if (isValidPassMutch) {
-					Log.debug("Good Password2");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					pass2Label.setText("Password2 doesnt match Password1");
-					Log.debug("Bad Password2 - no match");
-				}
-
-
-				if (isValidNick && isValidPass2 && isValidPass1 && isValidEmail && isValidPassMutch) {
+				if (isValidPass1 && isValidEmail) {
 					Log.debug("Form valid");
-					sendToServer(nickNameBox.getText(),eMailBox.getText(),pass1Box.getText(), pass2Box.getText());
+					sendToServer(eMailBox.getText(),pass1Box.getText());
 				}
 
 
@@ -200,8 +119,8 @@ public class RegisterPopup extends PopupPanel {
 		//this.initWidget(panel);
 	}
 
-	void sendToServer(String nick, String email, String pass1, String pass2) {
-		status.setText("working");
+	void sendToServer(String email, String pass1) {
+
 		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
 
 		// Set up the callback object.
@@ -224,15 +143,15 @@ public class RegisterPopup extends PopupPanel {
 				UserHasLoggedEvent event = new UserHasLoggedEvent((User)result);
 				ClientFactory.getEventBus().fireEvent(event);
 				Log.debug("UserHasLoggedEvent fired");
-				Notifications notif = new Notifications("You have registered", true, true);
+				Notifications notif = new Notifications("You have logged", true, true);
 				//ClientFactory.getEventBus().
-				RegisterPopup.this.hide();
+				LoginPopup.this.hide();
 			}
 		};
 
 		//	Make the call
 		Log.debug("Make the call");
-		communicatorSvc.doRegister(nick, email, pass1, pass2, callback);
+		 communicatorSvc.doLogin(email, pass1, callback);
 
 	}
 }

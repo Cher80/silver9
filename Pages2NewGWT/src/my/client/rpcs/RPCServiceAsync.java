@@ -1,9 +1,17 @@
 package my.client.rpcs;
 
+import my.shared.User;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface RPCServiceAsync {
 
-	void doRegister(int uid, AsyncCallback<Integer> callback); 
+	void doRegister(String nick, String email, String pass1, String pass2,
+			AsyncCallback<User> callback);
+
+	void doLogin(String email, String pass1, AsyncCallback<User> callback);
+
+	void getUserByCookie(String cookie, AsyncCallback<User> callback); 
+	
 
 }

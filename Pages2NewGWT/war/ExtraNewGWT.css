@@ -3,6 +3,12 @@ body {
 	margin:0px;
 }
 
+.notifications {
+	border: 1px solid green;
+	background: #dfefc8;
+	width:150px;
+}
+
 .mainContainer {
 	position: relative;
 	overflow:hidden;
@@ -13,7 +19,14 @@ body {
 	/**position: relative;**/
 }
 
-.registerPopup {
+.TopMenu {
+	background: #dfefc8;
+    border: 1px solid #808080;
+    
+}
+
+.registerPopup,
+.loginPopup {
     background: #dfefc8;
     border: 1px solid #808080;
     padding: 0.5em;
@@ -30,7 +43,7 @@ body {
 
 .topMenu {
 	width: 100%;
-	height: 20px;
+	/*height: 20px;*/
 	border: 1px solid red;
 }
 

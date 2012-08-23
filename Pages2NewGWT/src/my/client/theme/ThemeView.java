@@ -1,5 +1,11 @@
 package my.client.theme;
 
+import my.client.common.ClientFactory;
+import my.client.windows.Notifications;
+import my.client.windows.UserHasLoggedEvent;
+import my.shared.User;
+
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -43,7 +49,15 @@ public class ThemeView extends Composite implements ThemeViewInterface {
 
     	myButt2.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				presenter.makeRPC();
+				//presenter.makeRPC();
+				User user = new User();
+				user.setEmail("email");
+				user.setNick("nick");
+				UserHasLoggedEvent eventToFire = new UserHasLoggedEvent(user);
+				ClientFactory.getEventBus().fireEvent(eventToFire);
+				Log.debug("UserHasLoggedEvent fired");
+				Notifications notif = new Notifications("You have registered", true, true);
+				//notif.show(3000);
 				//ComposedEvent myEvent = new ComposedEvent(654);
 				//myEvent.dispatch(new MyCompositeEventHandler());
 			}
