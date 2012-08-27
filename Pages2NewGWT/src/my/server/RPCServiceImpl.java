@@ -18,11 +18,17 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceExeption;
+import my.server.exutor.Albums;
+import my.server.exutor.Images;
 import my.server.exutor.Login;
 import my.server.exutor.Register;
 import my.server.exutor.UserCookie;
+import my.shared.AlbumObj;
+import my.shared.ImgsObj;
+import my.shared.ModelPageObj;
 import my.shared.User;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -100,6 +106,35 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		return user;
 		
 		
+	}
+
+	@Override
+	public ArrayList<AlbumObj> getAlbumsByTime(int offest, int limit) throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		LOG.info("do getAlbumsByTime!");
+		Albums albums =  new Albums();
+		ArrayList<AlbumObj> albumObjs= albums.getAlbumsByTime(offest, limit, null);
+		return albumObjs;
+	}
+	
+	
+
+	@Override
+	public ModelPageObj getModelPage(String albid, String photoID) throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		LOG.info("do getModelPage! albid=" + albid + " photoID=" + photoID);
+		ModelPageObj modelPageObj = new ModelPageObj();		
+		
+		Albums albums =  new Albums();
+		ArrayList<AlbumObj> albumObjs= albums.getAlbumsByTime(0, 0, albid);		
+		modelPageObj.setAlbumObj(albumObjs.get(0)); 
+		LOG.info("do getModelPage  4");
+		Images images =  new Images();
+		ImgsObj imgsObj= images.getImages(albid);
+		
+		modelPageObj.setImages(imgsObj); 
+		
+		return modelPageObj;
 	}
 
 }

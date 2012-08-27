@@ -105,7 +105,7 @@ public class PostPhotos extends HttpServlet {
 	private void doNewAlbum(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
 		PrintWriter out = response.getWriter();  
 		String albname = request.getParameter("albname");
-		String albage = request.getParameter("albage");
+		int albage = Integer.parseInt(request.getParameter("albage"));
 		String albcity = request.getParameter("albcity");
 		String albpage = request.getParameter("albpage");
 		int status = 2; //not published
@@ -128,7 +128,7 @@ public class PostPhotos extends HttpServlet {
 		album.put("albage", albage);
 		album.put("albcity", albcity);
 		album.put("albpage", albpage);
-		album.put("timestamp", (int)System.currentTimeMillis()/1000);
+		album.put("timestamp", (long)System.currentTimeMillis()/1000);
 		album.put("email", email);
 		album.put("status", status);
 
@@ -147,25 +147,36 @@ public class PostPhotos extends HttpServlet {
 		response.setContentType( "text/html" );  
 		PrintWriter out = response.getWriter();  
 
-		String pageurl = request.getParameter("pageurl");
-		String photourl = request.getParameter("photourl");
-		String album = request.getParameter("album");
+		String pageurl = request.getParameter("pageurl").trim();
+		String photourl = request.getParameter("photourl").trim();
+		String album = request.getParameter("album").trim();
 		int status = 2; //not published
 
-		FileGrabber fg = new FileGrabber();
-		HashMap photo = fg.getFile(photourl);
+		
 		
 		String toRet = null;
 		
 		if (pageurl==null) {
 			toRet = "Error: Parametr toRet is null";
+			out.println(toRet);  
+			out.close();  
+			return;
 		}
 		if (photourl==null) {
 			toRet = "Error: Parametr toRet is null";
+			out.println(toRet);  
+			out.close();  
+			return;
 		}
 		if (album==null) {
 			toRet = "Error: Parametr album is null";
+			out.println(toRet);  
+			out.close();  
+			return;
 		}
+		
+		FileGrabber fg = new FileGrabber();
+		HashMap photo = fg.getFile(photourl);
 		
 		if (photo.get("error")==null) {
 			User user = (new UserCookie()).getUserByCookie(email + "###" + session9 );	
@@ -178,20 +189,30 @@ public class PostPhotos extends HttpServlet {
 			BasicDBObject image = new BasicDBObject();
 			image.put("photourl", photourl);
 			image.put("pageurl", pageurl);
-			image.put("gridfs_id", photo.get("saved_id"));
-			image.put("md5", photo.get("md5"));
+			image.put("gridfs_id_m", photo.get("saved_id_m"));
+			image.put("gridfs_id_0", photo.get("saved_id_0"));
+			image.put("gridfs_id_1", photo.get("saved_id_1"));
+			image.put("gridfs_id_2", photo.get("saved_id_2"));
+			image.put("ishasorig", photo.get("ishasorig"));
+			image.put("md5", photo.get("md5"));			
 			image.put("album", new ObjectId(album));
+			LOG.info("images.insert(image); 2");
 			image.put("status", status);
 			image.put("email", email);
-			image.put("timestamp", (int)System.currentTimeMillis()/1000);
+			image.put("timestamp", (long)System.currentTimeMillis()/1000);
 
 
-
+			
 			images.insert(image);
+			
+			
+			
+			
 			ObjectId id = (ObjectId)image.get( "_id" );
 			LOG.info("ObjectId id  " + id);
 
 			LOG.info("doPostUrl DONE");
+			updateAlbumInfo(album, (ObjectId)photo.get("saved_id_2"));
 			toRet = "Success!";
 		}
 		else {
@@ -213,5 +234,33 @@ public class PostPhotos extends HttpServlet {
 		out.println( "</body></html>" );  
 		out.close();  */
 
+	}
+
+	
+	private void updateAlbumInfo(String albumID, ObjectId coverPhotoID) {
+		DBCollection albums = db.getCollection("albums");
+		BasicDBObject queryup = new BasicDBObject();
+		queryup.append("_id", new ObjectId(albumID));
+		
+		BasicDBObject inc = new BasicDBObject("$inc", new BasicDBObject("photocount", 1));
+
+		albums.update(
+		queryup,
+		inc,
+		true,
+		false);
+		
+
+		BasicDBObject queryup2 = new BasicDBObject();
+		
+		//queryup2.append("_id", new ObjectId("503a624322d2e3398fb64b0c"));		
+		queryup2.append("_id", new ObjectId(albumID));		
+		BasicDBObject inc2 = new BasicDBObject("$set",new BasicDBObject("coverphoto", coverPhotoID));
+		albums.update(
+		queryup2,
+		inc2,
+		true,
+		false);
+		
 	}
 }

@@ -1,4 +1,4 @@
-package my.server.grabber;
+package my.server;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,10 +19,6 @@ import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 
 import my.client.rpcs.RPCServiceExeption;
-import my.server.Commons;
-import my.server.MongoPool;
-import my.server.exutor.Register;
-import my.server.exutor.UserCookie;
 import my.shared.User;
 
 import com.mongodb.BasicDBObject;
@@ -39,8 +35,19 @@ public class GetPhoto extends HttpServlet {
 	DB db = MongoPool.getMainDB();
 
 	public static final Logger LOG=Logger.getLogger(GetPhoto.class);
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
+		
+		
+		
+		String photoId = request.getParameter("photoid").trim();
+		
+		
+		LOG.info("GetPhoto! photoId= " + photoId);
+		
+		if (!photoId.equals("null")&&photoId!=null) {
+			LOG.info("photoId!=null");
 		/*
 		File file = new File("/imgs/1.jpg");
 
@@ -62,12 +69,13 @@ public class GetPhoto extends HttpServlet {
 		byte[] ba = read(new File("/imgs/1.jpg"));
 
 		GridFS gfs = new GridFS(dbImgs, "images");
-		
+		//5039ce5e22d2dd8db32a1333
 		BasicDBObject query = new BasicDBObject();
-		query.append("_id", new ObjectId("5036625922d263caeed92c01"));
+		query.append("_id", new ObjectId(photoId));
 		
 		GridFSDBFile image = gfs.findOne(query);
 		image.getFilename();
+		
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
 		image.writeTo(buffer);
@@ -84,7 +92,17 @@ public class GetPhoto extends HttpServlet {
 		response.setContentLength(ba2.length);
 
 		response.getOutputStream().write(ba2);
-		
+		}
+		else {
+			//response.setContentType("image/jpeg");
+			//response.setContentLength(ba2.length);
+			response.setContentType( "text/html" );  
+			PrintWriter out = response.getWriter();  
+			out.println("No photo");  
+			out.close();  
+			
+			//response.getOutputStream().write("No photo".toCharArray());
+		}
 	}
 
 

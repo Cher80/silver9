@@ -13,6 +13,11 @@ public class InitServlet extends HttpServlet {
 	Logger LOG=Logger.getLogger(InitServlet.class);
 	
 	 public void init(ServletConfig config) throws ServletException {
+		 
+		
+		 
+		 LOG.info(" System.currentTimeMillis()/1000); " +  (long)System.currentTimeMillis()/1000); 
+		 
 		    System.out.println("Log4JInitServlet init() starting.");
 		    String log4jfile = "WEB-INF/classes/my/server/log4j.xml";
 		    //String log4jfile = config.getInitParameter("log4j-properties-location");

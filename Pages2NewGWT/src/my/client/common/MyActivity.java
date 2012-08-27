@@ -1,8 +1,11 @@
 package my.client.common;
 
+import java.util.HashMap;
+
 import my.client.helpers.HavePlace;
 import my.client.helpers.HaveView;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -16,6 +19,28 @@ public class MyActivity extends AbstractActivity implements HavePlace, HaveView 
 	
 	public MyActivity() {
 		super();
+	}
+	
+	protected String getParams(String paramsLine, String vartoget) {
+		String value = null;
+		String delimiter = "&";
+		/* given string will be split by the argument delimiter provided. */
+		String[] paramsArray;
+		
+		paramsArray = paramsLine.split(delimiter);
+		for (int i=0;i<paramsArray.length; i++) {
+			Log.debug("paramsArray = " + i + " " + paramsArray[i] );
+			
+			String delimiter2 = "=";
+			String[] paramsArray2;
+			paramsArray2 = paramsArray[i].split(delimiter2);
+			if (paramsArray2[0].trim().equals(vartoget)) {
+				Log.debug("We got it = " + paramsArray2[0] + " " + paramsArray2[1] );
+				 value = paramsArray2[1];
+				 return value;
+			}
+		}
+		return null;
 	}
 	
 	
