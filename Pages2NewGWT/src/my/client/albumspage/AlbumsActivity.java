@@ -63,13 +63,16 @@ public class AlbumsActivity extends MyActivity{
 	
 	
 	public void populateAlbumsView(ArrayList<AlbumObj> albumObjs) {
+		AlbumsView albumsView = (AlbumsView)this.getView();
+		albumsView.populateAlbumsView(albumObjs);
+		/*
 		for (int i=0; i<albumObjs.size(); i++) {
 			AlbumObj albumObj = albumObjs.get(i);
 			Log.debug("albumObj.getAlbname()" + albumObj.getAlbname());
 			Log.debug("albumObj.getAlbpage()" + albumObj.getAlbpage());
 			AlbumsView albumsView = (AlbumsView)this.getView();
 			albumsView.addAlbumThumb(albumObj);
-		}
+		}*/
 	}
 	
 	@Override

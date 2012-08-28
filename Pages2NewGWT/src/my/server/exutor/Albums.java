@@ -116,8 +116,10 @@ public class Albums {
 					albumObj.setTimestamp((long)album.get("timestamp"));
 				if (album.containsField("photocount")) 
 					albumObj.setPhotocount((int)album.get("photocount"));
-				if (album.containsField("coverphoto")) 
-					albumObj.setCoverphoto((String)album.get("coverphoto").toString());
+				if (album.containsField("coverimgobjid")) 
+					albumObj.setCoverImgObjID((String)album.get("coverimgobjid").toString());
+				if (album.containsField("coverpicid")) 
+					albumObj.setCoverPicID((String)album.get("coverpicid").toString());
 				if (album.containsField("_id")) 
 					albumObj.setAlbid((String)album.get("_id").toString());
 

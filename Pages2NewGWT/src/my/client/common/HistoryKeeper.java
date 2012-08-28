@@ -26,6 +26,14 @@ public class HistoryKeeper {
 		//this.clientFactory = clientFactory;
 	}
 	
+	public Activity getCurActivity() {
+		return activityStack.peek();
+	}
+	
+	public int getStackSize() {
+		return activityStack.size();
+	}
+	
 	public Activity checkIsVisited(Place newPlace) {
 		//
 //		String newToken = ((ForumView) widget).getPresenter().getName();

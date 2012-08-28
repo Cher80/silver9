@@ -66,7 +66,7 @@ public class GetPhoto extends HttpServlet {
 		LOG.info(strContent.toString());
 		 */
 		
-		byte[] ba = read(new File("/imgs/1.jpg"));
+		//byte[] ba = read(new File("/imgs/1.jpg"));
 
 		GridFS gfs = new GridFS(dbImgs, "images");
 		//5039ce5e22d2dd8db32a1333

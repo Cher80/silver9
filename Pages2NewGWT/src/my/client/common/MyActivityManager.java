@@ -24,6 +24,7 @@ import java.util.Stack;
 
 import my.client.helpers.HaveClientFactory;
 import my.client.helpers.HavePresenter;
+import my.client.modelpage.ModelPlace;
 
 /**
  * Manages {@link Activity} objects that should be kicked off in response to
@@ -117,9 +118,16 @@ public class MyActivityManager implements PlaceChangeEvent.Handler, PlaceChangeR
 	 System.out.println("MyActivityManager onPlaceChange");
 	 Place placeToGo = event.getNewPlace(); 
 	 
+	 
 	 Activity nextActivity;
 	 
-	 nextActivity = (Activity) clientFactory.getHistoryKeeper().checkIsVisited(placeToGo);
+	 if (placeToGo instanceof ModelPlace) {
+		 if ( ((ModelPlace)placeToGo).isSameAlbum() ) {
+			 return;
+		 }
+		 
+	 }
+		 nextActivity = (Activity) clientFactory.getHistoryKeeper().checkIsVisited(placeToGo);
 
 	 if (nextActivity == null) {
 		 nextActivity = getNextActivity(event);

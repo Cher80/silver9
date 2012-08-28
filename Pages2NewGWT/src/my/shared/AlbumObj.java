@@ -12,7 +12,8 @@ public class AlbumObj implements Serializable {
 	private int status;
 	private String albpage;
 	private int photocount;
-	private String coverphoto;
+	private String coverImgObjID;
+	private String coverPicID;
 	private String albid;
 	
 	
@@ -58,17 +59,24 @@ public class AlbumObj implements Serializable {
 	public void setPhotocount(int photocount) {
 		this.photocount = photocount;
 	}
-	public String getCoverphoto() {
-		return coverphoto;
-	}
-	public void setCoverphoto(String coverphoto) {
-		this.coverphoto = coverphoto;
-	}
+
 	public String getAlbid() {
 		return albid;
 	}
 	public void setAlbid(String albid) {
 		this.albid = albid;
+	}
+	public String getCoverImgObjID() {
+		return coverImgObjID;
+	}
+	public void setCoverImgObjID(String coverImgObjID) {
+		this.coverImgObjID = coverImgObjID;
+	}
+	public String getCoverPicID() {
+		return coverPicID;
+	}
+	public void setCoverPicID(String coverPicID) {
+		this.coverPicID = coverPicID;
 	}
 	
 

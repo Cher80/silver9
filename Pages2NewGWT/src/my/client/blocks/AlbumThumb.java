@@ -56,9 +56,9 @@ public class AlbumThumb extends Composite  {
  "<br/><b>Model page</b><br/>" + albumObj.getAlbpage() +
  "<br/><b>Model status</b><br/>" + albumObj.getStatus() +
  "<br/><b>Model timestamp</b><br/>" + date.toString() +
- "<br/><b>Model cover photo</b><br/>" +  albumObj.getCoverphoto() +
+ "<br/><b>Model cover photo objID</b><br/>" +  albumObj.getCoverImgObjID() +
   "<br/><b>Model photo amount</b><br/>" +  albumObj.getPhotocount() +
-  "<br/><b>Photo:</b> <br/><img src=\"/extranewgwt/getphoto?photoid=" +  albumObj.getCoverphoto() + "\"/>"
+  "<br/><b>Photo:</b> <br/><img src=\"/extranewgwt/getphoto?photoid=" +  albumObj.getCoverPicID() + "\"/>"
   
   , true);
 		
@@ -68,10 +68,10 @@ public class AlbumThumb extends Composite  {
 		 
 		 showAlbumButt.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverphoto();
-					ClientFactory.getPlaceController().goTo(new ModelPlace(params));
+					String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverImgObjID();
+					ClientFactory.getPlaceController().goTo(new ModelPlace(params,false, null));
 				}
-			});
+			}); 
 		 
 		initWidget(panel);
 	}

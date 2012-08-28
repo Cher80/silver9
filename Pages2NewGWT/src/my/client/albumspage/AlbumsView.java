@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -47,7 +48,7 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler 
 	
 	public AlbumsView(Activity presenter) {
 		this.presenter = presenter;
-		wrapper.setSize("300px", "400px");
+		wrapper.setSize("700px", "500px");
 		wrapper.getElement().getStyle().setProperty("border", "1px solid green");
 		wrapper.getElement().getStyle().setProperty("cssFloat", "left");
 		wrapper.getElement().getStyle().setProperty("left", "0px");
@@ -67,7 +68,7 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler 
     	
     	
     	
-    	
+    	/*
     	wrapper.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				//RegisterPopup registerView = new RegisterPopup();
@@ -92,24 +93,35 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler 
 					}
 					
 				}
-				//panel.
-				//event.getNativeEvent().getEventTarget();
 				
-				//Element target = Element.as(event.getNativeEvent().getEventTarget());
-
-				
-				//event.
-				//panel.add(registerView);
 				
 			}
 		});
-
-    	CellTable<Contact> table = new CellTable<Contact>();
+    	*/
 
     	
-		panel.add(myButt1);
+		//panel.add(myButt1);
 		wrapper.add(panel);
 		initWidget(wrapper);
+	}
+	
+	
+	
+	public void populateAlbumsView(ArrayList<AlbumObj> albumObjs) {
+		
+		 HTML html = new HTML(
+				 "<h3>Albums page<h3>"
+	  , true);
+		
+		 panel.add(html);
+		
+		for (int i=0; i<albumObjs.size(); i++) {
+			AlbumObj albumObj = albumObjs.get(i);
+			Log.debug("albumObj.getAlbname()" + albumObj.getAlbname());
+			Log.debug("albumObj.getAlbpage()" + albumObj.getAlbpage());
+			//AlbumsView albumsView = (AlbumsView)this.getView();
+			this.addAlbumThumb(albumObj);
+		}
 	}
 	
 	

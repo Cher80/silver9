@@ -207,12 +207,12 @@ public class PostPhotos extends HttpServlet {
 			
 			
 			
-			
-			ObjectId id = (ObjectId)image.get( "_id" );
-			LOG.info("ObjectId id  " + id);
+			ObjectId coverPicId = (ObjectId)photo.get("saved_id_2");
+			ObjectId coverImgObjId = (ObjectId)image.get( "_id" );
+			LOG.info("ObjectId id  " + coverImgObjId);
 
 			LOG.info("doPostUrl DONE");
-			updateAlbumInfo(album, (ObjectId)photo.get("saved_id_2"));
+			updateAlbumInfo(album, coverImgObjId, coverPicId);
 			toRet = "Success!";
 		}
 		else {
@@ -237,7 +237,7 @@ public class PostPhotos extends HttpServlet {
 	}
 
 	
-	private void updateAlbumInfo(String albumID, ObjectId coverPhotoID) {
+	private void updateAlbumInfo(String albumID, ObjectId coverImgObjId, ObjectId coverPicId) {
 		DBCollection albums = db.getCollection("albums");
 		BasicDBObject queryup = new BasicDBObject();
 		queryup.append("_id", new ObjectId(albumID));
@@ -250,17 +250,32 @@ public class PostPhotos extends HttpServlet {
 		true,
 		false);
 		
-
+		
+		///Set Cover Object Img
 		BasicDBObject queryup2 = new BasicDBObject();
 		
 		//queryup2.append("_id", new ObjectId("503a624322d2e3398fb64b0c"));		
 		queryup2.append("_id", new ObjectId(albumID));		
-		BasicDBObject inc2 = new BasicDBObject("$set",new BasicDBObject("coverphoto", coverPhotoID));
+		BasicDBObject inc2 = new BasicDBObject("$set",new BasicDBObject("coverimgobjid", coverImgObjId));
 		albums.update(
 		queryup2,
 		inc2,
 		true,
 		false);
+
+		
+		///Set cover pic
+		BasicDBObject queryup3 = new BasicDBObject();
+		
+		//queryup2.append("_id", new ObjectId("503a624322d2e3398fb64b0c"));		
+		queryup3.append("_id", new ObjectId(albumID));		
+		BasicDBObject inc3 = new BasicDBObject("$set",new BasicDBObject("coverpicid", coverPicId));
+		albums.update(
+		queryup3,
+		inc3,
+		true,
+		false);
+
 		
 	}
 }

@@ -10,6 +10,8 @@ import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceAsync;
 import my.client.rpcs.RPCServiceExeption;
 import my.shared.AlbumObj;
+import my.shared.ImgObj;
+import my.shared.ImgsObj;
 import my.shared.ModelPageObj;
 import my.shared.User;
 
@@ -23,8 +25,9 @@ import com.google.gwt.user.client.ui.Composite;
 
 public class ModelActivity extends MyActivity{
 
-	protected String albid;
-	protected String coverid;
+	private String albid;
+	private String coverid;
+	protected ModelPageObj modelPageObjCur;
 	
 	public ModelActivity(ModelPlace place) {
 		super();
@@ -51,8 +54,11 @@ public class ModelActivity extends MyActivity{
 			public void onSuccess(Object result) {
 				Log.debug("ModelActivity onSuccess ");
 				//ArrayList<AlbumObj> albumObjs = (ArrayList<AlbumObj>)result;
+				//this.modelPageObjCur = modelPageObj;
 				ModelPageObj modelPageObj = (ModelPageObj)result;
+				ModelActivity.this.modelPageObjCur = modelPageObj;
 				
+				renderPhotos(modelPageObj.getImages());
 				Log.debug("modelPageObj.getAlbumObj().getAlbname() " + modelPageObj.getAlbumObj().getAlbname());	
 			}
 		};
@@ -64,7 +70,24 @@ public class ModelActivity extends MyActivity{
 		communicatorSvc.getModelPage( albid , coverid, callback);
 	}
 
-
+	public void doPrevImg(ImgObj curImgObj) { 
+		String coverObjID = curImgObj.getImgID();
+		String params = "albid=" + albid + "&coverid=" + coverObjID;
+		ClientFactory.getPlaceController().goTo(new ModelPlace(params,true, this));
+	}
+	
+	public void doNextImg(ImgObj curImgObj) { 
+		String coverObjID = curImgObj.getImgID();
+		String params = "albid=" + albid + "&coverid=" + coverObjID;
+		ClientFactory.getPlaceController().goTo(new ModelPlace(params,true, this));
+	}
+	
+	public void renderPhotos(ImgsObj imgsObj) {
+		ModelView modelView = (ModelView) this.getView();
+		modelView.renderPhotoLayer(imgsObj,coverid);
+		modelView.renderPhotos(imgsObj);
+	} 
+	 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
