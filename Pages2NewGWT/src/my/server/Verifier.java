@@ -2,7 +2,8 @@ package my.server;
 
 import my.server.exutor.Register;
 
-import org.apache.commons.lang.StringEscapeUtils;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 public class Verifier {
@@ -11,7 +12,8 @@ public class Verifier {
 	
 	public static boolean isContainBadCharacters(String text) {
 		String cleanText;
-		cleanText = StringEscapeUtils.escapeHtml(text);
+		cleanText = StringEscapeUtils.escapeHtml3(text);
+		//StringEscapeUtils.escapeH
 		LOG.info("cleanText " + cleanText);	
 		LOG.info("text " + text);	
 

@@ -48,10 +48,23 @@ public final class MongoPool {
 	private static boolean isMainDBInited = false;
 	private static boolean isImgsDBInited = false;
 
+	public static String getFB_client_id() {
+		return MONGO_PROPS.getProperty("fb_client_id");
+	}
+	
+	public static String getFB_redirect_uri() {
+		return MONGO_PROPS.getProperty("fb_redirect_uri");
+	}
+	
+	public static String getFB_client_secret() {
+		return MONGO_PROPS.getProperty("fb_client_secret");
+	}
+	
+	
+	
 	public static String getSecretKey() {
 		return MONGO_PROPS.getProperty("secretkey");
 	}
-	
 	
 	public static DB getImgsDB() {
 		if (!isImgsDBInited) {

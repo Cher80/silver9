@@ -64,19 +64,19 @@ public class AlbumObj implements Serializable {
 		return albid;
 	}
 	public void setAlbid(String albid) {
-		this.albid = albid;
+		this.albid = albid.trim();
 	}
 	public String getCoverImgObjID() {
 		return coverImgObjID;
 	}
 	public void setCoverImgObjID(String coverImgObjID) {
-		this.coverImgObjID = coverImgObjID;
+		this.coverImgObjID = coverImgObjID.trim();
 	}
 	public String getCoverPicID() {
 		return coverPicID;
 	}
 	public void setCoverPicID(String coverPicID) {
-		this.coverPicID = coverPicID;
+		this.coverPicID = coverPicID.trim();
 	}
 	
 

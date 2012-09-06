@@ -9,6 +9,7 @@ import my.client.common.MyActivityManager;
 import my.client.common.MyFlowPanel;
 import my.client.forum.ForumPlace;
 import my.client.helpers.HavePlace;
+import my.shared.CookieObj;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
@@ -32,6 +33,7 @@ import com.google.web.bindery.event.shared.EventBus;
  */
 public class ExtraNewGWT implements EntryPoint {
 	
+	//private CookieObj cookieObj = (new CookieObj()).generateFromString(cookie);
 	private Place defaultPlace = new ForumPlace("34");
 
     private SimplePanel appWidget = new SimplePanel();
@@ -42,15 +44,27 @@ public class ExtraNewGWT implements EntryPoint {
     private MyFlowPanel appWidNewNew = new MyFlowPanel();
     private FlowPanel container = new FlowPanel();
     
-    private TopMenu topMenu = new TopMenu();
+    private TopMenu topMenu;
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 		String cookie = Cookies.getCookie("silver9session");
-		Log.debug("ExtraNewGWT onModuleLoad cookie = " + cookie);
-
+		CookieObj cookieObj = new CookieObj();
+		if (cookie!=null) {
+			
+			Log.debug("ExtraNewGWT onModuleLoad cookie = " + cookie);
+			cookieObj.generateFromString(cookie);
+		}
+		else {
+			cookieObj = null;
+		}
+		ClientFactory.setCookieObj(cookieObj);
+		
+		
+		
+		topMenu = new TopMenu();
 		menuWidgetPanel.setStyleName("topMenu");
 		
 		RootPanel.get().add(menuWidgetPanel);

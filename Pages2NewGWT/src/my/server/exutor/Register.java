@@ -17,6 +17,7 @@ import my.server.Commons;
 import my.server.MongoPool;
 import my.server.RPCServiceImpl;
 import my.server.Verifier;
+import my.shared.CookieObj;
 import my.shared.FieldVerifier;
 import my.shared.User;
 
@@ -29,6 +30,8 @@ public class Register {
 	String email;
 	String pass1;
 	String pass2;
+	boolean isFb;
+	int urole;
 	HttpServletRequest request;
 
 	public Register() {
@@ -87,6 +90,31 @@ public class Register {
 		}
 	}
 	
+	
+	
+	public boolean checkIfEmailExist(String emailp) {
+		DB db = MongoPool.getMainDB();
+		DBCollection users = db.getCollection("users");
+		
+		BasicDBObject query = new BasicDBObject();
+		query.append("email", emailp.trim());
+
+
+		DBCursor cur = users.find(query);
+		if (cur.size()==0) {
+			cur.close();
+			LOG.info("Email not found ");
+			return false;
+		}
+		else {
+			cur.close();
+			LOG.info("Email found ");
+			return true;
+		}
+		
+
+	}
+	
 	private void checkIfEmailExist() {
 		DB db = MongoPool.getMainDB();
 		DBCollection users = db.getCollection("users");
@@ -136,16 +164,23 @@ public class Register {
 		}
 	}
 
-	public User executeRegister(String nick,String email,String pass1,String pass2, HttpServletResponse response, HttpServletRequest request) throws RPCServiceExeption {
+	public User executeRegister(String nick,String email,String pass1,String pass2, boolean isFb, int urole, HttpServletResponse response, HttpServletRequest request) throws RPCServiceExeption {
 		this.request = request;
 		this.nick = nick;
 		this.email = email;
 		this.pass1 = pass1;
 		this.pass2 = pass2;
+		this.isFb = isFb;
+		this.urole = urole;
+		
+		if (nick.equals("Anonymous")) {
+			this.urole = 0;
+			urole = 0;
+		}
 		//if (true) 
 		//throw new RPCServiceExeption("Eto strashnaya oshibka");
 
-		LOG.info("executeRegister " + nick + email + pass1 + pass2);	
+		LOG.info("executeRegister " + nick + email + pass1 + pass2 + isFb + urole);	
 
 		checkIsAlreadyRegistered();
 		checkInput();
@@ -170,6 +205,10 @@ public class Register {
 		user.put("nick", nick);
 		user.put("email", email);
 		user.put("pass1", md5pass);
+		user.put("isfb", isFb);
+		user.put("urole", urole);
+		//this.isFb = isFb;
+		//this.urole = urole;
 		//user.put("session", md5session);
 		
 		//comment.put("text", "Comment text" + randomInt + "_" + s);
@@ -178,7 +217,11 @@ public class Register {
 		
 		users.insert(user);
 		
-		(new SilverCookie(response, email)).setCookie();
+		
+		CoomonUser coomonUser = new CoomonUser();
+		CookieObj cookieObj = coomonUser.getCookieObjFromDBO(user);
+		
+		(new SilverCookie(response, request)).setCookie(cookieObj);
 		//Cookie cookie=new Cookie("silver9session", email + "###" + md5session);
 		//cookie.setPath("/");
 		//response.addCookie(cookie);
@@ -190,6 +233,9 @@ public class Register {
 		User userObj = new User();
 		userObj.setEmail(email);
 		userObj.setNick(nick);
+		userObj.setFBUser(isFb);
+		userObj.setUserRole(urole);
+		userObj.setUid((String)id.toString());
 		return userObj;
 
 		//db.getCollection("users");
@@ -198,4 +244,34 @@ public class Register {
 		//return 4;
 	}
 
+	
+	public void setFBAccesToken(User user, String token,int token_expires) {
+		
+		DB db = MongoPool.getMainDB();
+		DBCollection users = db.getCollection("users");
+		
+		BasicDBObject query = new BasicDBObject();
+		
+		query.append("_id", new ObjectId(user.getUid()));		
+		BasicDBObject updt = new BasicDBObject("$set",new BasicDBObject("fbaccess_token", token));
+		
+		users.update(
+				query,
+				updt,
+		true,
+		false);
+		
+		
+		BasicDBObject query2 = new BasicDBObject();
+		
+		query2.append("_id", new ObjectId(user.getUid()));		
+		BasicDBObject updt2 = new BasicDBObject("$set",new BasicDBObject("fbexpires", token_expires));
+		
+		users.update(
+				query2,
+				updt2,
+		true,
+		false);
+		
+	}
 }

@@ -46,8 +46,8 @@ public class AlbumThumb extends Composite  {
 		this.albumObj = albumObjj;
 		
 		Date date = new java.util.Date((long)(albumObj.getTimestamp())*1000);
-
 		
+		//Need to check null objects in future
 		 HTML html = new HTML(
 				 "<br/><br/><b>=====================</b>" +
 				"<br/><b>Model age</b><br/>" + albumObj.getAlbage() +
@@ -55,10 +55,10 @@ public class AlbumThumb extends Composite  {
  "<br/><b>Model name</b><br/>" + albumObj.getAlbname() +
  "<br/><b>Model page</b><br/>" + albumObj.getAlbpage() +
  "<br/><b>Model status</b><br/>" + albumObj.getStatus() +
- "<br/><b>Model timestamp</b><br/>" + date.toString() +
- "<br/><b>Model cover photo objID</b><br/>" +  albumObj.getCoverImgObjID() +
-  "<br/><b>Model photo amount</b><br/>" +  albumObj.getPhotocount() +
-  "<br/><b>Photo:</b> <br/><img src=\"/extranewgwt/getphoto?photoid=" +  albumObj.getCoverPicID() + "\"/>"
+ "<br/><b>Model timestamp</b><br/>" + date.toString() 
+// "<br/><b>Model cover photo objID</b><br/>" +  albumObj.getCoverImgObjID() +
+ // "<br/><b>Model photo amount</b><br/>" +  albumObj.getPhotocount() +
+//  "<br/><b>Photo:</b> <br/><img src=\"/extranewgwt/getphoto?photoid=" +  albumObj.getCoverPicID() + "\"/>"
   
   , true);
 		

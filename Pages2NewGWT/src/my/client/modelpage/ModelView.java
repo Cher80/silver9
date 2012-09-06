@@ -5,12 +5,18 @@ import java.util.Arrays;
 
 import my.client.albumspage.AlbumsPlace;
 import my.client.blocks.AlbumThumb;
+import my.client.blocks.CommentPost;
+import my.client.blocks.CommentsBlock;
 import my.client.blocks.ImgThumb;
+import my.client.blocks.ImgsBlock;
 import my.client.blocks.PhotoLayer;
+import my.client.blocks.TagsSetBlock;
 import my.client.helpers.HavePresenter;
 import my.client.windows.RegisterPopup;
 import my.shared.AlbumObj;
+import my.shared.CommentsObj;
 import my.shared.ImgsObj;
+import my.shared.TagsObj;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
@@ -33,14 +39,24 @@ public class ModelView extends Composite implements HavePresenter  {
 	private FlowPanel panel = new FlowPanel();
 	private ModelActivity presenter;
 	private PhotoLayer photoLayer;
+	private CommentPost commentPost;
+	private CommentsBlock commentsBlock;
+	private AlbumObj albumObj;
+	private TagsSetBlock tagsSetBlock;
+
 	
-
-
+	public AlbumObj getAlbumObj() {
+		return this.albumObj;
+	}
 	
-
+	public void setAlbumObj(AlbumObj albumObj) {
+		this.albumObj = albumObj;
+	}
 	
 	public ModelView(final Activity presenter) {
 		this.presenter = (ModelActivity)presenter;
+		
+		//this.albumObj = this.presenter.getModelPageObjCur().getAlbumObj();
 		panel.setSize("700px", "500px");
 		panel.getElement().getStyle().setProperty("border", "1px solid green");
 		panel.getElement().getStyle().setProperty("cssFloat", "left");
@@ -62,8 +78,8 @@ public class ModelView extends Composite implements HavePresenter  {
     	
     	
 		
-
-    	
+		//renderCommentPost(albumObj);
+		//renderCommentsBlock(albumObj);
 		//panel.add(prevButt);
 		//panel.add(nextButt);
 		
@@ -72,25 +88,37 @@ public class ModelView extends Composite implements HavePresenter  {
 	
 	
 	
+	public void renderTags(TagsObj tagsObj) {
+		ArrayList<String> types = new ArrayList<String>();
+		types.add("LIKE");
+		types.add("DISLIKE");
+		tagsSetBlock = new TagsSetBlock(tagsObj, types, this.albumObj);
+		panel.add(tagsSetBlock); 
+	}
+	
 	public void renderPhotoLayer(ImgsObj imgsObj, String coverid) {
 		photoLayer = new PhotoLayer(imgsObj,coverid,(ModelActivity)this.getPresenter());
 		panel.add(photoLayer);
 	}
 	 
+	
+	
+	public void renderCommentPost(AlbumObj albumObj) {
+		commentPost = new CommentPost(albumObj);
+		panel.add(commentPost);
+	}
+	
+	public void renderCommentsBlock(CommentsObj commentsObj) {
+		CommentsBlock commentsBlock = new CommentsBlock(commentsObj);
+		panel.add(commentsBlock);
+	}
+	
 	public void renderPhotos(ImgsObj imgsObj) {
 		
+		ImgsBlock imgsBlock  = new ImgsBlock (imgsObj);
+		panel.add(imgsBlock);
 		
-		
-		 HTML html = new HTML(
-				 "<h3>Show album: " + imgsObj.getImages().get(0).getImgAlbum() + "<h3>"
-	  , true);
-		
-		 panel.add(html);
-		
-		for (int i=0; i<imgsObj.getImages().size(); i++) {
-			ImgThumb imgThumb = new ImgThumb(imgsObj.getImages().get(i));
-			panel.add(imgThumb);
-		}
+
 	}
 	
 	
@@ -98,6 +126,18 @@ public class ModelView extends Composite implements HavePresenter  {
 	public Activity getPresenter() {
 		// TODO Auto-generated method stub
 		return presenter;
+	}
+
+
+
+	public CommentsBlock getCommentsBlock() {
+		return commentsBlock;
+	}
+
+
+
+	public void setCommentsBlock(CommentsBlock commentsBlock) {
+		this.commentsBlock = commentsBlock;
 	}
 	
 }

@@ -121,6 +121,7 @@ public class MyActivityManager implements PlaceChangeEvent.Handler, PlaceChangeR
 	 
 	 Activity nextActivity;
 	 
+	 
 	 if (placeToGo instanceof ModelPlace) {
 		 if ( ((ModelPlace)placeToGo).isSameAlbum() ) {
 			 return;

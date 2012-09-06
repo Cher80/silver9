@@ -1,5 +1,6 @@
 package my.client.common;
 
+import my.shared.CookieObj;
 import my.shared.User;
 
 import com.google.gwt.core.client.GWT;
@@ -14,7 +15,8 @@ public class ClientFactory {
 	 private static PlaceController placeController = new PlaceController(eventBus);
 	 private static HistoryKeeper myHistoryKeeper = new HistoryKeeper();
 	 private static AppPlaceHistoryMapper historyMapper= GWT.create(AppPlaceHistoryMapper.class);
-	 private static User user;
+	 private static User user = null;
+	 private static CookieObj cookieObj;
 	 //private final GoodbyeView goodbyeView = new GoodbyeViewImpl();
 
 
@@ -51,5 +53,19 @@ public class ClientFactory {
 
 	public static void setUser(User user) {
 		ClientFactory.user = user;
+	}
+
+
+
+
+	public static CookieObj getCookieObj() {
+		return cookieObj;
+	}
+
+
+
+
+	public static void setCookieObj(CookieObj cookieObj) {
+		ClientFactory.cookieObj = cookieObj;
 	}
 }

@@ -76,7 +76,7 @@ public class PhotoLayer extends Composite {
 		  panel.remove(html);
 	  }
 		html = new HTML(
-				 "<br/><br/><b>=====================</b>" +
+				 "<h3>Photo layer</h3>" +
 				 "<img style=\"max-height:400px; max-width:400px\" src=\"/extranewgwt/getphoto?photoid=" + curImgObj.getImgGridfs_id_m() + "\"/>"
  , true);
 		panel.add(html);

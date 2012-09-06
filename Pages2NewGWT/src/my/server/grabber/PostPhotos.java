@@ -17,8 +17,10 @@ import org.bson.types.ObjectId;
 import my.client.rpcs.RPCServiceExeption;
 import my.server.Commons;
 import my.server.MongoPool;
+import my.server.exutor.Albums;
 import my.server.exutor.Register;
 import my.server.exutor.UserCookie;
+import my.shared.CookieObj;
 import my.shared.User;
 
 import com.mongodb.BasicDBObject;
@@ -104,6 +106,7 @@ public class PostPhotos extends HttpServlet {
 
 	private void doNewAlbum(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
 		PrintWriter out = response.getWriter();  
+		
 		String albname = request.getParameter("albname");
 		int albage = Integer.parseInt(request.getParameter("albage"));
 		String albcity = request.getParameter("albcity");
@@ -111,7 +114,11 @@ public class PostPhotos extends HttpServlet {
 		int status = 2; //not published
 
 
-		User user = (new UserCookie()).getUserByCookie(email + "###" + session9 );	
+		CookieObj cookieObj = new CookieObj(); 
+		cookieObj.setEmail(email);
+		cookieObj.setMd5session(session9);
+		
+		User user = (new UserCookie()).getUserByCookie(cookieObj);
 
 		LOG.info("doNewAlbum user " + user.toString());
 
@@ -134,6 +141,11 @@ public class PostPhotos extends HttpServlet {
 
 
 		albums.insert(album);
+		
+		Albums albumsExec = new Albums();
+		albumsExec.incAlbumsCount();
+		//incAlbumsCount
+		
 		ObjectId id = (ObjectId)album.get( "_id" );
 		LOG.info("ObjectId id  " + id);
 
@@ -179,7 +191,12 @@ public class PostPhotos extends HttpServlet {
 		HashMap photo = fg.getFile(photourl);
 		
 		if (photo.get("error")==null) {
-			User user = (new UserCookie()).getUserByCookie(email + "###" + session9 );	
+			
+			CookieObj cookieObj = new CookieObj(); 
+			cookieObj.setEmail(email);
+			cookieObj.setMd5session(session9);
+			
+			User user = (new UserCookie()).getUserByCookie(cookieObj);	
 
 
 			DBCollection images = db.getCollection("images");

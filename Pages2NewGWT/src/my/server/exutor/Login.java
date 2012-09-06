@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import my.client.rpcs.RPCServiceExeption;
 import my.server.Commons;
 import my.server.MongoPool;
+import my.shared.CookieObj;
 import my.shared.User;
 
 import org.apache.log4j.Logger;
@@ -25,6 +26,7 @@ public class Login {
 	String email;
 	String pass1;
 	HttpServletRequest request;
+	
 
 	public void checkIsAlreadyLogin() {
 		Cookie[] cookies=request.getCookies();
@@ -39,12 +41,12 @@ public class Login {
 		}
 	}
 
-	public User executeLogin(String email,String pass1,HttpServletResponse response, HttpServletRequest request) throws RPCServiceExeption {
+	public User executeLogin(String email,String pass1,boolean canSkipPassword, HttpServletResponse response, HttpServletRequest request) throws RPCServiceExeption {
 		this.request = request;
 		this.email = email;
 		this.pass1 = pass1;
 
-		LOG.info("executeRegister " + email + pass1);	
+		LOG.info("executeLogin " + email + pass1);	
 
 		checkIsAlreadyLogin();
 		LOG.info("no Cookie, do login");	
@@ -83,23 +85,28 @@ public class Login {
 					//System.out.println(cursor.next());
 					DBObject user = cur.next();
 					LOG.info("user " + user);
-					String pass1db = (String) user.get("pass1");
-					String nickdb = (String) user.get("nick");
-
+					
+					
+					String pass1db = null;
+					
+					
+					if (user.containsField("pass1")) 
+					pass1db = (String) user.get("pass1");
+					
 					String md5pass = Commons.MD5(MongoPool.getSecretKey() + pass1);
 
 					LOG.info("md5pass " + md5pass);
 					LOG.info("pass1db " + pass1db);
-					if (pass1db.equals(md5pass)) {
+					if (pass1db.equals(md5pass) || canSkipPassword) {
 						
+						CoomonUser coomonUser = new CoomonUser();
+						CookieObj cookieObj = coomonUser.getCookieObjFromDBO(user);
 						//SilverCookie silverCookie = new SilverCookie(response, email);
-						(new SilverCookie(response, email)).setCookie();
+						(new SilverCookie(response, request)).setCookie(cookieObj);
 						
 						cur.close();
-						User userObj = new User();
-						userObj.setEmail(email);
-						userObj.setNick(nickdb);
-						return userObj;
+						return coomonUser.getUserFromDBO(user);
+						//return userObj;
 						
 						
 					}

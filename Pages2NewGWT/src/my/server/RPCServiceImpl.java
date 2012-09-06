@@ -19,13 +19,21 @@ import org.apache.log4j.xml.DOMConfigurator;
 import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceExeption;
 import my.server.exutor.Albums;
+import my.server.exutor.CommentsExec;
 import my.server.exutor.Images;
 import my.server.exutor.Login;
 import my.server.exutor.Register;
+import my.server.exutor.SilverCookie;
+import my.server.exutor.TagExec;
 import my.server.exutor.UserCookie;
 import my.shared.AlbumObj;
+import my.shared.AlbumsObj;
+import my.shared.CommentObj;
+import my.shared.CommentsObj;
+import my.shared.CookieObj;
 import my.shared.ImgsObj;
 import my.shared.ModelPageObj;
+import my.shared.TagObj;
 import my.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -41,43 +49,42 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 	Logger LOG=Logger.getLogger(RPCServiceImpl.class);
 	private static final long serialVersionUID = 1L;
 	
-	private void getUser () {
-		String serverInfo = getServletContext().getServerInfo();
-		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
-		LOG.info("userAgent " + userAgent);
-		LOG.info("serverInfo " + serverInfo);
-
-		
-		Cookie[] cookies=getThreadLocalRequest().getCookies();
-
-		//Cookie clientCookie=null;
-
-		//cookies.
-		/*
-		if(cookies!=null){
-			clientCookie=cookies[0];
-		}*/
-		if (cookies !=null) {
-			for (int i=0; i<cookies.length; i++) {
-				LOG.info("cookies[i].getName() " + cookies[i].getName());
-			}
+	private void allowPermissions(int[] allowedrole) throws RPCServiceExeption {
+		LOG.info("allowPermissions");
+		int curuserrole = 0;
+		SilverCookie silverCookie = new SilverCookie(this.getThreadLocalResponse(), this.getThreadLocalRequest());
+		CookieObj cookieObj = silverCookie.getCookie();
+		if (cookieObj==null) {
+			curuserrole = 0;
 		}
 		else {
-			//Cookie cookie=new Cookie("silver9session","1234olo");
-			//getThreadLocalResponse().addCookie(cookie);
-			//getThreadLocalResponse()cookies
-			//this.getThreadLocalResponse()
-			LOG.info("Error: Please login!");
-			throw new RPCServiceExeption("Error: Please login!");
-			
+			UserCookie userCookie =  new UserCookie();
+			User user =  userCookie.getUserByCookie(cookieObj);
+			curuserrole = user.getUserRole();
 		}
+		//LOG.info("Email not found ");
+		LOG.info("curuserrole" + curuserrole);
+		boolean isCurUserInAllowPermissions = false;
+		for (int i=0;i<allowedrole.length;i++) {
+			if (curuserrole==allowedrole[i]) {
+				isCurUserInAllowPermissions = true;
+			}
+		}
+		
+		if (!isCurUserInAllowPermissions) {
+			throw new RPCServiceExeption("Error: no permissions");
+		}
+		
 	}
 
+	
+	
+	
 	@Override
 	public User doRegister(String nick,String email,String pass1,String pass2) throws RPCServiceExeption {
 		LOG.info("doRegister LOG4J!");
 		Register register =  new Register();
-		User result = register.executeRegister( nick, email, pass1, pass2, getThreadLocalResponse(), this.getThreadLocalRequest());
+		User result = register.executeRegister( nick, email, pass1, pass2, false, 1, getThreadLocalResponse(), this.getThreadLocalRequest());
 		
 		return result;
 	}
@@ -86,18 +93,18 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 	public User doLogin(String email, String pass1) throws RPCServiceExeption {
 		LOG.info("doLogin!");
 		Login login =  new Login();
-		User result = login.executeLogin( email, pass1, getThreadLocalResponse(), this.getThreadLocalRequest());
+		User result = login.executeLogin( email, pass1, false, getThreadLocalResponse(), this.getThreadLocalRequest());
 
 		
 		return result;
 	}
  
 	@Override
-	public User getUserByCookie(String cookie) throws RPCServiceExeption {
+	public User getUserByCookie(CookieObj cookieObj) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
 		LOG.info("do getUserByCookie!");
 			UserCookie userCookie =  new UserCookie();
-			User user =  userCookie.getUserByCookie(cookie);
+			User user =  userCookie.getUserByCookie(cookieObj);
 		/*
 		User user = new User();
 		user.setEmail("999@999.999");
@@ -107,14 +114,14 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		
 		
 	}
-
+ 
 	@Override
-	public ArrayList<AlbumObj> getAlbumsByTime(int offest, int limit) throws RPCServiceExeption {
+	public AlbumsObj getAlbumsByTime(int offest, int limit) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
 		LOG.info("do getAlbumsByTime!");
 		Albums albums =  new Albums();
-		ArrayList<AlbumObj> albumObjs= albums.getAlbumsByTime(offest, limit, null);
-		return albumObjs;
+		AlbumsObj albumsObj= albums.getAlbumsByTime(offest, limit, null);
+		return albumsObj; 
 	}
 	
 	
@@ -126,15 +133,62 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		ModelPageObj modelPageObj = new ModelPageObj();		
 		
 		Albums albums =  new Albums();
-		ArrayList<AlbumObj> albumObjs= albums.getAlbumsByTime(0, 0, albid);		
-		modelPageObj.setAlbumObj(albumObjs.get(0)); 
-		LOG.info("do getModelPage  4");
-		Images images =  new Images();
-		ImgsObj imgsObj= images.getImages(albid);
+		AlbumsObj albumsObj = albums.getAlbumsByTime(0, 0, albid);		
+		modelPageObj.setAlbumObj(albumsObj.getAlbums().get(0)); 
 		
+
+		Images images =  new Images();
+		ImgsObj imgsObj= images.getImages(albid);		
 		modelPageObj.setImages(imgsObj); 
+
+		CommentsExec commentsExec = new CommentsExec(); 
+		CommentsObj commentsObj = commentsExec.doGetComments(albid);
+		modelPageObj.setComments(commentsObj);
+		
+		
 		
 		return modelPageObj;
+	}
+
+	@Override
+	public CommentObj doPostComment(CommentObj commentObj) throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		
+		int[] permissions = {0,1,2};
+		allowPermissions(permissions);
+		//SilverCookie silverCookie = new SilverCookie(this.getThreadLocalResponse(), this.getThreadLocalRequest());
+		//silverCookie.getCookie();
+		//getUser ();
+		CommentsExec commentsExec = new CommentsExec(); 
+		commentObj = commentsExec.executeCommentPost(commentObj) ;
+		
+		return commentObj;
+	}
+
+	@Override
+	public CommentsObj doGetComments(String albid) throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		
+		CommentsExec commentsExec = new CommentsExec(); 
+		CommentsObj commentsObj = commentsExec.doGetComments(albid);
+		return commentsObj;
+	}
+
+
+
+
+	@Override
+	public TagObj doSetTag(TagObj tagObj, AlbumObj albumObj, User user) throws RPCServiceExeption {
+		
+			int[] permissions = {0,1,2};
+			allowPermissions(permissions);
+			//SilverCookie silverCookie = new SilverCookie(this.getThreadLocalResponse(), this.getThreadLocalRequest());
+			//silverCookie.getCookie();
+			//getUser ();
+			TagExec tagExec = new TagExec(); 
+			TagObj tagRetObj = tagExec.executeSetTag(tagObj,  albumObj, user);
+		
+		return tagRetObj;
 	}
 
 }

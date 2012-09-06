@@ -1,5 +1,9 @@
 package my.client.rpcs;
 
+import my.shared.AlbumObj;
+import my.shared.CommentObj;
+import my.shared.CookieObj;
+import my.shared.TagObj;
 import my.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -11,11 +15,22 @@ public interface RPCServiceAsync {
 
 	void doLogin(String email, String pass1, AsyncCallback<User> callback);
 
-	void getUserByCookie(String cookie, AsyncCallback<User> callback);
+	void getUserByCookie(CookieObj cookieObj, AsyncCallback<User> callback);
 
 	void getAlbumsByTime(int offest, int limit, AsyncCallback callback);
 
-	void getModelPage(String modelID, String photoID, AsyncCallback callback);  
+	void getModelPage(String modelID, String photoID, AsyncCallback callback);
+
+	void doPostComment(CommentObj commentObj, AsyncCallback callback);
+
+	void doGetComments(String albid, AsyncCallback callback);
+
+	void doSetTag(TagObj tagObj, AlbumObj albumObj, User user, AsyncCallback callback);
+
+	//void doSetTag(TagObj tagObj, AlbumObj albumObj, User user, AsyncCallback callback); 
+
+
+    
 	
 	
 

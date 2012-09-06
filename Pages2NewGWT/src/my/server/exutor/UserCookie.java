@@ -3,6 +3,7 @@ package my.server.exutor;
 import javax.servlet.http.Cookie;
 
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -13,6 +14,7 @@ import com.mongodb.DBObject;
 import my.client.rpcs.RPCServiceExeption;
 import my.server.Commons;
 import my.server.MongoPool;
+import my.shared.CookieObj;
 import my.shared.User;
 
 public class UserCookie {
@@ -22,17 +24,25 @@ public class UserCookie {
 
 	}
 
-	public User getUserByCookie(String cookie) {
+	public User getUserByCookie(CookieObj cookieObj) {
 
-		if (cookie==null) {
+		if (cookieObj==null) {
 			throw new RPCServiceExeption("Error: cookie = null!");
 		}
+		
+		/*
+		cookie = cookie.replace("\"", "");
+
 		String[] tokens = cookie.split("###");
 		String email = tokens[0];
 		String session = tokens[1];
-		LOG.info("email " + email);
-		LOG.info("session " + session);
-
+		LOG.info("UserCookie email " + email);
+		LOG.info("UserCookie session " + session);
+*/
+		String email = cookieObj.getEmail();
+		String session =  cookieObj.getMd5session();
+		
+		
 		DB db = MongoPool.getMainDB();
 		DBCollection users = db.getCollection("users");
 
@@ -53,29 +63,20 @@ public class UserCookie {
 			try {
 
 				while(cur.hasNext()) {
-					//System.out.println(cursor.next());
+
 					DBObject user = cur.next();
 					LOG.info("getUserByCookie user found" + user.get("email"));
-					//String pass1db = (String) user.get("pass1");
-					String nickdb = (String) user.get("nick");
+					
 
-					//String md5pass = Commons.MD5(MongoPool.getSecretKey() + pass1);
-
-					//LOG.info("md5pass " + md5pass);
-					//LOG.info("pass1db " + pass1db);
+										
+					
 					String sessionCalculated = Commons.MD5(MongoPool.getSecretKey() + email);
-					//String sessionCalculated = Commons.MD5(MongoPool.getSecretKey() + pass1);
-					if (sessionCalculated.equals(session)) {
-						//String md5session = Commons.MD5(MongoPool.getSecretKey() + email);
-						LOG.info("sessionCalculated.equals(session)");
-						//Cookie cookie=new Cookie("silver9session", email + "###" + md5session);
-						//response.addCookie(cookie);
-						cur.close();
-						User userObj = new User();
-						userObj.setEmail(email);
-						userObj.setNick(nickdb);
-						return userObj;
 
+					if (sessionCalculated.equals(session)) {
+						LOG.info("sessionCalculated.equals(session)");
+						cur.close();
+						CoomonUser coomonUser = new CoomonUser();
+						return coomonUser.getUserFromDBO(user);
 
 					}
 					else {
@@ -87,9 +88,6 @@ public class UserCookie {
 				cur.close();
 			} 
 
-			//cur.close();
-			//throw new RPCServiceExeption("Error: email already exist");
-			//			cursor.next();
 		}
 
 

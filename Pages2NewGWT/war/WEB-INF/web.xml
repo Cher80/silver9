@@ -72,6 +72,17 @@
     <url-pattern>/extranewgwt/getphoto</url-pattern>
   </servlet-mapping>
   
+     <servlet>
+    <servlet-name>FBCreateUser</servlet-name>
+    <servlet-class>my.server.FBCreateUser</servlet-class>
+    <!--<load-on-startup>1</load-on-startup>-->
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FBCreateUser</servlet-name>
+    <url-pattern>/extranewgwt/fbcreateUser</url-pattern>
+  </servlet-mapping>
+  
   
   
   <!-- Default page to serve -->

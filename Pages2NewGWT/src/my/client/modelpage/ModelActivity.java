@@ -10,9 +10,12 @@ import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceAsync;
 import my.client.rpcs.RPCServiceExeption;
 import my.shared.AlbumObj;
+import my.shared.CommentsObj;
 import my.shared.ImgObj;
 import my.shared.ImgsObj;
 import my.shared.ModelPageObj;
+import my.shared.TagObj;
+import my.shared.TagsObj;
 import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -27,7 +30,7 @@ public class ModelActivity extends MyActivity{
 
 	private String albid;
 	private String coverid;
-	protected ModelPageObj modelPageObjCur;
+	private ModelPageObj modelPageObjCur;
 	
 	public ModelActivity(ModelPlace place) {
 		super();
@@ -53,12 +56,63 @@ public class ModelActivity extends MyActivity{
 			@Override
 			public void onSuccess(Object result) {
 				Log.debug("ModelActivity onSuccess ");
+				//this.populate
 				//ArrayList<AlbumObj> albumObjs = (ArrayList<AlbumObj>)result;
 				//this.modelPageObjCur = modelPageObj;
 				ModelPageObj modelPageObj = (ModelPageObj)result;
-				ModelActivity.this.modelPageObjCur = modelPageObj;
+				ModelActivity.this.setModelPageObjCur(modelPageObj);
+				
+				ModelView modelView = (ModelView)ModelActivity.this.getView();
+				modelView.setAlbumObj(modelPageObj.getAlbumObj());
+				//ModelActivity.this.setModelPageObjCur
+				
+				//ModelActivity.this.getView().set
 				
 				renderPhotos(modelPageObj.getImages());
+				renderCommentPost(modelPageObj.getAlbumObj());
+				renderCommentsBlock(modelPageObj.getComments());
+				//////////////////////
+				
+				
+				TagObj tagObj1 = new TagObj();
+				tagObj1.setTagReadableName("like");
+				tagObj1.setTagType("LIKsE");
+				tagObj1.setTagTotalPluses(23);
+				tagObj1.setTagGroup("LIKES");
+				
+				TagObj tagObj2 = new TagObj();
+				tagObj2.setTagReadableName("dislike");
+				tagObj2.setTagType("DISLIKE");
+				tagObj2.setTagTotalPluses(5);
+				tagObj2.setTagGroup("LIKES");
+				
+				TagObj tagObj3 = new TagObj();
+				tagObj3.setTagReadableName("blond");
+				tagObj3.setTagType("BLOND");
+				tagObj3.setTagTotalPluses(23);
+				tagObj3.setTagGroup("HAIRS");
+				
+				TagObj tagObj4 = new TagObj();
+				tagObj4.setTagReadableName("dark");
+				tagObj4.setTagType("DARK");
+				tagObj4.setTagTotalPluses(5);
+				tagObj4.setTagGroup("HAIRS");
+				
+				TagObj tagObj5 = new TagObj();
+				tagObj5.setTagReadableName("red");
+				tagObj5.setTagType("RED");
+				tagObj5.setTagTotalPluses(5);
+				tagObj5.setTagGroup("HAIRS");
+				
+				TagsObj tagsObj = new TagsObj();
+				tagsObj.getTagsObj().add(tagObj1);
+				tagsObj.getTagsObj().add(tagObj2);
+				tagsObj.getTagsObj().add(tagObj3);
+				tagsObj.getTagsObj().add(tagObj4);
+				tagsObj.getTagsObj().add(tagObj5);
+				
+				
+				renderTags(tagsObj);
 				Log.debug("modelPageObj.getAlbumObj().getAlbname() " + modelPageObj.getAlbumObj().getAlbname());	
 			}
 		};
@@ -82,6 +136,24 @@ public class ModelActivity extends MyActivity{
 		ClientFactory.getPlaceController().goTo(new ModelPlace(params,true, this));
 	}
 	
+	
+	public void renderTags(TagsObj tagsObj) {
+		ModelView modelView = (ModelView) this.getView();
+		modelView.renderTags(tagsObj);
+	}
+	
+	public void renderCommentPost(AlbumObj albumObj) {
+		ModelView modelView = (ModelView) this.getView();
+		//modelView.renderPhotoLayer(imgsObj,coverid);
+		modelView.renderCommentPost(albumObj);
+	} 
+	
+	public void renderCommentsBlock(CommentsObj commentsObj) {
+		ModelView modelView = (ModelView) this.getView();
+		modelView.renderCommentsBlock(commentsObj);
+		//modelView.renderPhotos(imgsObj);
+	} 
+	
 	public void renderPhotos(ImgsObj imgsObj) {
 		ModelView modelView = (ModelView) this.getView();
 		modelView.renderPhotoLayer(imgsObj,coverid);
@@ -98,12 +170,22 @@ public class ModelActivity extends MyActivity{
 		/* delimiter */
 		albid = this.getParams(paramsLine,"albid");
 		coverid = this.getParams(paramsLine,"coverid");
-
+		
 
 		this.setView(modelView);
 		panel.setWidget(modelView.asWidget());
 		getModel();
 
+	}
+
+
+	public ModelPageObj getModelPageObjCur() {
+		return modelPageObjCur;
+	}
+
+
+	public void setModelPageObjCur(ModelPageObj modelPageObjCur) {
+		this.modelPageObjCur = modelPageObjCur;
 	}
 
 }

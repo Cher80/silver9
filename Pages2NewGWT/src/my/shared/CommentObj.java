@@ -7,8 +7,13 @@ public class CommentObj implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String commentText;
-	private String commentdAuthorName;
-	private long commentTimeStamp;
+	private long commentTimeStamp = 0;
+	private String commentAuthorID;
+	private String commentAuthorNick;
+	private String albumId;
+	private String albumModelName;
+	private String commentID = null;
+	
 	
 	public String getCommentText() {
 		return commentText;
@@ -16,16 +21,43 @@ public class CommentObj implements Serializable {
 	public void setCommentText(String commentText) {
 		this.commentText = commentText;
 	}
-	public String getCommentdAuthorName() {
-		return commentdAuthorName;
-	}
-	public void setCommentdAuthorName(String commentdAuthorName) {
-		this.commentdAuthorName = commentdAuthorName;
-	}
+
 	public long getCommentTimeStamp() {
 		return commentTimeStamp;
 	}
 	public void setCommentTimeStamp(long commentTimeStamp) {
 		this.commentTimeStamp = commentTimeStamp;
+	}
+
+
+	public String getCommentAuthorID() {
+		return commentAuthorID;
+	}
+	public void setCommentAuthorID(String commentAuthorID) {
+		this.commentAuthorID = commentAuthorID;
+	}
+	public String getCommentAuthorNick() {
+		return commentAuthorNick;
+	}
+	public void setCommentAuthorNick(String commentAuthorNick) {
+		this.commentAuthorNick = commentAuthorNick;
+	}
+	public String getAlbumId() {
+		return albumId;
+	}
+	public void setAlbumId(String albumId) {
+		this.albumId = albumId;
+	}
+	public String getCommentID() {
+		return commentID;
+	}
+	public void setCommentID(String commentID) {
+		this.commentID = commentID;
+	}
+	public String getAlbumModelName() {
+		return albumModelName;
+	}
+	public void setAlbumModelName(String albumModelName) {
+		this.albumModelName = albumModelName;
 	}
 }

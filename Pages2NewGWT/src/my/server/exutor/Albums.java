@@ -6,6 +6,7 @@ import my.client.rpcs.RPCServiceExeption;
 import my.server.Commons;
 import my.server.MongoPool;
 import my.shared.AlbumObj;
+import my.shared.AlbumsObj;
 import my.shared.User;
 
 import org.apache.log4j.Logger;
@@ -21,8 +22,51 @@ public class Albums {
 
 	public static final Logger LOG=Logger.getLogger(Albums.class);
 	DB db = MongoPool.getMainDB();
+	
+	
+	public void incAlbumsCount() {
+		DBCollection albums = db.getCollection("albums");
+		
+		/*
+		BasicDBObject  query1 = new BasicDBObject();
+		query1.append("countalbumsfield", 1);
+		DBCursor cur;
+		if (albidtoshow!=null) {
+			cur = albums.find(query)
+		*/
+		BasicDBObject queryup = new BasicDBObject();
+		queryup.append("albumscountobject", true);
+		
+		BasicDBObject inc = new BasicDBObject("$inc", new BasicDBObject("albumscount", 1));
 
-	public ArrayList<AlbumObj> getAlbumsByTime(int offset, int limit, String albidtoshow) throws RPCServiceExeption {
+		albums.update(
+		queryup,
+		inc,
+		true,
+		true);
+	}
+	
+	public int getAlbumsCount() {
+		DBCollection albums = db.getCollection("albums");
+		
+		BasicDBObject query = new BasicDBObject();
+		query.append("albumscountobject", true);
+		DBCursor cur = albums.find(query);
+		
+		int albumscount = 0;
+		try {
+            while(cur.hasNext()) {
+            	DBObject counters = cur.next();
+            	albumscount = (int)counters.get("albumscount");
+            }
+        } finally {
+        	cur.close();
+        }
+		return albumscount;
+	}
+	
+
+	public AlbumsObj getAlbumsByTime(int offset, int limit, String albidtoshow) throws RPCServiceExeption {
 
 
 		DBCollection albums = db.getCollection("albums");
@@ -45,7 +89,7 @@ public class Albums {
 			cur = albums.find().sort(sort).skip(offset).limit(limit);
 		}
 			
-		ArrayList<AlbumObj> albumObjs = new ArrayList<AlbumObj>();
+		AlbumsObj albumsObj = new AlbumsObj();
 
 		//DBCursor cur = users.find(query);
 
@@ -123,11 +167,15 @@ public class Albums {
 				if (album.containsField("_id")) 
 					albumObj.setAlbid((String)album.get("_id").toString());
 
-				albumObjs.add(albumObj);
+				albumsObj.getAlbums().add(albumObj);
 
 			}
+			
+			
+			int albumsCount = getAlbumsCount();
+			albumsObj.setTotalCount(albumsCount);
 
-			return albumObjs;
+			return albumsObj;
 		}
 	}
 }
