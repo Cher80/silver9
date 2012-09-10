@@ -98,6 +98,7 @@ public class CommentPost extends Composite {
 		commentObj.setAlbumId(albumObj.getAlbid());
 		commentObj.setAlbumModelName(albumObj.getAlbname());
 		commentObj.setCommentTimeStamp(1);
+		commentObj.setCoverImgObjID(albumObj.getCoverImgObjID());
 
 
 

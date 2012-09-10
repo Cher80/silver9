@@ -39,6 +39,7 @@ public class AlbumThumb extends Composite  {
 	
 	private FlowPanel panel = new FlowPanel();
 	private Button showAlbumButt = new Button("showAlbum");
+	private Button delAlbumButt = new Button("delAlbumButt");
 	private AlbumObj albumObj;
 
 	public AlbumThumb(AlbumObj albumObjj) {

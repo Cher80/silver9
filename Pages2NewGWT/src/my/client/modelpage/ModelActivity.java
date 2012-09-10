@@ -73,7 +73,7 @@ public class ModelActivity extends MyActivity{
 				renderCommentsBlock(modelPageObj.getComments());
 				//////////////////////
 				
-				
+				/*
 				TagObj tagObj1 = new TagObj();
 				tagObj1.setTagReadableName("like");
 				tagObj1.setTagType("LIKsE");
@@ -110,9 +110,10 @@ public class ModelActivity extends MyActivity{
 				tagsObj.getTagsObj().add(tagObj3);
 				tagsObj.getTagsObj().add(tagObj4);
 				tagsObj.getTagsObj().add(tagObj5);
-				
-				
 				renderTags(tagsObj);
+				*/
+				
+				renderTags(modelPageObj.getTagsObj());
 				Log.debug("modelPageObj.getAlbumObj().getAlbname() " + modelPageObj.getAlbumObj().getAlbname());	
 			}
 		};

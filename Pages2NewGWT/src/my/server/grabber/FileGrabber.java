@@ -112,18 +112,18 @@ public class FileGrabber {
 		
 		if (isHasOrig) {
 			//Save original
-			saved_id_0 = saveToGridFS(buffer2);
+			saved_id_0 = saveToGridFS(buffer2, md5String2+ "_orig");
 			
 			//Save main img resized
 			BufferedImage thumbnail_m = this.makeResize(bufferedImage, 1500);
 			ByteArrayOutputStream thumbnail_baos_m = SetJpegQuality(thumbnail_m);
-			saved_id_m = saveToGridFS(thumbnail_baos_m);
+			saved_id_m = saveToGridFS(thumbnail_baos_m, md5String2+ "_1500");
 		} else {
 			//Save original
-			saved_id_0 = saveToGridFS(buffer2);
+			saved_id_0 = saveToGridFS(buffer2, md5String2+ "_orig");
 			
 			//Save main img (same as original to avoid errors)
-			saved_id_m = saveToGridFS(buffer2);
+			saved_id_m = saveToGridFS(buffer2, md5String2+ "_1500");
 		}
 		
 		
@@ -132,14 +132,14 @@ public class FileGrabber {
 		BufferedImage thumbnail_squared = makeSquareImage(bufferedImage);
 		
 		//Save thumb 1
-		BufferedImage thumbnail_1 = this.makeResize(thumbnail_squared, 125);
+		BufferedImage thumbnail_1 = this.makeResize(thumbnail_squared, 120);
 		ByteArrayOutputStream thumbnail_baos_1 = SetJpegQuality(thumbnail_1);
-		ObjectId saved_id_1 = saveToGridFS(thumbnail_baos_1);
+		ObjectId saved_id_1 = saveToGridFS(thumbnail_baos_1, md5String2+ "_120");
 		
 		//Save thumb 2
 		BufferedImage thumbnail_2 = this.makeResize(thumbnail_squared, 245);
 		ByteArrayOutputStream thumbnail_baos_2 = SetJpegQuality(thumbnail_2);
-		ObjectId saved_id_2 = saveToGridFS(thumbnail_baos_2);
+		ObjectId saved_id_2 = saveToGridFS(thumbnail_baos_2, md5String2+ "_245");
 
 
 		long endTime = System.currentTimeMillis();
@@ -229,10 +229,10 @@ public boolean isHasOriginal(BufferedImage bufferedImage) {
 	}
 
 
-	public ObjectId saveToGridFS(ByteArrayOutputStream buffer2) {
+	public ObjectId saveToGridFS(ByteArrayOutputStream buffer2, String fname) {
 		GridFS fs = new GridFS(dbImgs, "images");
 		GridFSInputFile gfsFile = fs.createFile(buffer2.toByteArray());
-		gfsFile.setFilename("999.jpg");
+		gfsFile.setFilename(fname +".jpg");
 		gfsFile.save();
 		ObjectId saved_id = (ObjectId)gfsFile.get( "_id" );
 		String md5 = (String)gfsFile.get( "md5" );

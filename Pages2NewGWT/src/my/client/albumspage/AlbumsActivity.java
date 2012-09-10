@@ -6,6 +6,9 @@ import my.client.common.ActivityHasPages;
 import my.client.common.ClientFactory;
 import my.client.common.MyActivity;
 import my.client.common.ViewHasPages;
+import my.client.events.NewCommentEvent;
+import my.client.events.ReloadAlbumsEvent;
+import my.client.events.ReloadAlbumsEventHandler;
 import my.client.forum.ForumPlace;
 import my.client.paginator.Paginator;
 import my.client.rpcs.RPCService;
@@ -23,12 +26,14 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 
-public class AlbumsActivity extends MyActivity implements ActivityHasPages{
+public class AlbumsActivity extends MyActivity implements ActivityHasPages, ReloadAlbumsEventHandler{
 
 	private int albumsTotalCount = 0;
 	private int currentPage = 0;
-	private Paginator paginator;
+	private Paginator paginator = null;
 	private boolean isFirstTimeLoaded=true;
+	private String tagType = null;
+	private int statusPublished = -1;
 
 	public AlbumsActivity(AlbumsPlace place) {
 		super();
@@ -50,6 +55,9 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages{
 
 				if (caught instanceof RPCServiceExeption) {
 					Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
+					if (forceClearOnFinish) {
+						clearViewAlbums();
+					}
 				}
 			}
 
@@ -72,14 +80,18 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages{
 		int offest = 6*page;
 		int limit = 6;
 
-		communicatorSvc.getAlbumsByTime( offest, limit, callback);
+		communicatorSvc.getAlbumsByTime( offest, limit, tagType, statusPublished, callback);
 	}
 
 
 	public void populateAlbumsView(AlbumsObj albumsObj, boolean forceClearOnFinish) {
 		AlbumsView albumsView = (AlbumsView)this.getView();
-
+		Log.debug("isFirstTimeLoaded=" + isFirstTimeLoaded);
 		if (isFirstTimeLoaded) {
+			Log.debug("do new paginator");
+			if (paginator!=null) {
+				paginator.removeFromParent();
+			}
 			paginator = new Paginator(albumsObj.getTotalCount(),this, (ViewHasPages)this.getView());
 			albumsView.setPaginator(paginator);
 			paginator.setCurrentPage(0);		
@@ -89,8 +101,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages{
 
 		this.albumsTotalCount = albumsObj.getTotalCount();
 		if (forceClearOnFinish) {
-			albumsView.clearWidget(0);
-			albumsView.scrollToTop();
+			clearViewAlbums();
 		}
 
 		
@@ -108,9 +119,17 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages{
 		}*/
 	}
 
+	public void clearViewAlbums() {
+		AlbumsView albumsView = (AlbumsView)this.getView();
+		albumsView.clearWidget(0);
+		albumsView.scrollToTop();
+	}
+	
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
+		ClientFactory.getEventBus().addHandler(ReloadAlbumsEvent.TYPE, this);
+		
 		AlbumsView albumsView = new AlbumsView(this);
 
 		//String params = plac;
@@ -165,6 +184,20 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages{
 	public void scrollToTop() {
 		// TODO Auto-generated method stub
 
+	}
+
+
+
+
+	@Override
+	public void onDoReload(ReloadAlbumsEvent event) {
+		// TODO Auto-generated method stub
+		Log.debug("event.getTagType()  " + event.getTagType());
+		this.tagType = event.getTagType(); 
+		this.statusPublished = -1;
+		isFirstTimeLoaded = true;
+		getAlbums(0, true);
+		
 	}
 
 }

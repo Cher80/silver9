@@ -20,6 +20,7 @@ import my.server.Commons;
 import my.server.MongoPool;
 import my.server.RPCServiceImpl;
 import my.server.Verifier;
+import my.shared.ActivityObj;
 import my.shared.AlbumObj;
 import my.shared.CommentObj;
 import my.shared.CommentsObj;
@@ -100,10 +101,11 @@ public class CommentsExec {
 		BasicDBObject comment = new BasicDBObject();
 		comment.put("commenttext", commentObj.getCommentText());
 		comment.put("commenttimestamp", commentObj.getCommentTimeStamp());
-		comment.put("commentauthorid", new ObjectId(commentObj.getCommentAuthorID().trim()));
+		comment.put("commentauthorid",  Commons.normalizeID(commentObj.getCommentAuthorID().trim()));
 		comment.put("commentauthornick", commentObj.getCommentAuthorNick());
-		comment.put("albumid", new ObjectId(commentObj.getAlbumId().trim()));
+		comment.put("albumid",  Commons.normalizeID(commentObj.getAlbumId().trim()));
 		comment.put("albummodelname", commentObj.getAlbumModelName());
+		comment.put("albumcoverImgObjID", Commons.normalizeID(commentObj.getCoverImgObjID())); 
 		//user.put("session", md5session);
 		
 		//comment.put("text", "Comment text" + randomInt + "_" + s);
@@ -119,6 +121,7 @@ public class CommentsExec {
 		
 		commentObj.setCommentID((String)id.toString());
 		
+		setActivity();
 		
 		return commentObj;
 
@@ -128,6 +131,29 @@ public class CommentsExec {
 		//return 4;
 	}
 
+	
+	
+	///////////////////////////////////////
+	
+	public void setActivity() {
+		ActivityObj activityObj = new ActivityObj();
+		
+		//activityObj.setActivityID(activityID);
+		activityObj.setActivityType("COMMENT");
+		activityObj.setAlbid(this.commentObj.getAlbumId());
+		activityObj.setAlbname(this.commentObj.getAlbumModelName());
+		activityObj.setCommentID(this.commentObj.getCommentID());
+		activityObj.setCommentText(this.commentObj.getCommentText());
+		activityObj.setCoverImgObjID(this.commentObj.getCoverImgObjID());
+		activityObj.setNick(this.commentObj.getCommentAuthorNick());
+		
+		activityObj.setTagReadableName(null);
+		activityObj.setTagType(null);
+		activityObj.setUid(this.commentObj.getCommentAuthorID());
+		
+		ActivityExec activityExec = new ActivityExec();
+		activityExec.setActivity(activityObj);
+	}
 	
 	
 	

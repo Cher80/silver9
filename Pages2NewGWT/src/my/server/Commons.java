@@ -1,5 +1,7 @@
 package my.server;
 
+import org.bson.types.ObjectId;
+
 public class Commons {
 
 	public static String MD5(String md5) {
@@ -15,5 +17,19 @@ public class Commons {
 		    }
 		    return null;
 		}
+	
+	
+	public static ObjectId normalizeID (String id) {
+		if (id==null||id.equals("")) {
+			//id = null;
+			return null;
+		}
+		else {
+			return new ObjectId(id.trim());
+		}
+	
+	}
+	
+	
 
 }

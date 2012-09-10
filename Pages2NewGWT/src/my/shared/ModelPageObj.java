@@ -9,6 +9,7 @@ public class ModelPageObj implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private CommentsObj comments;
 	private ImgsObj images;
+	private TagsObj tagsObj;
 	private String curimgID;
 	private AlbumObj albumObj;
 	private String curImg;
@@ -42,5 +43,11 @@ public class ModelPageObj implements Serializable {
 	}
 	public void setCurImg(String curImg) {
 		this.curImg = curImg;
+	}
+	public TagsObj getTagsObj() {
+		return tagsObj;
+	}
+	public void setTagsObj(TagsObj tagsObj) {
+		this.tagsObj = tagsObj;
 	}
 }

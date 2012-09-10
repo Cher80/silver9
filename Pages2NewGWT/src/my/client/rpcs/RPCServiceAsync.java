@@ -1,6 +1,7 @@
 package my.client.rpcs;
 
 import my.shared.AlbumObj;
+import my.shared.AlbumsObj;
 import my.shared.CommentObj;
 import my.shared.CookieObj;
 import my.shared.TagObj;
@@ -17,7 +18,8 @@ public interface RPCServiceAsync {
 
 	void getUserByCookie(CookieObj cookieObj, AsyncCallback<User> callback);
 
-	void getAlbumsByTime(int offest, int limit, AsyncCallback callback);
+	void getAlbumsByTime(int offest, int limit, String tagType,
+			int statusPublished, AsyncCallback<AlbumsObj> callback);
 
 	void getModelPage(String modelID, String photoID, AsyncCallback callback);
 

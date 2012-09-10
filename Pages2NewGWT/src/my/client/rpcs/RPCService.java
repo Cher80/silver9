@@ -23,7 +23,7 @@ public interface RPCService extends RemoteService {
 	public User doLogin(String email, String pass1) throws RPCServiceExeption;
 	public User getUserByCookie(CookieObj cookieObj) throws RPCServiceExeption;
   
-	AlbumsObj getAlbumsByTime(int offest, int limit) throws RPCServiceExeption;
+	AlbumsObj getAlbumsByTime(int offest, int limit, String tagType, int statusPublished) throws RPCServiceExeption;
 
 	ModelPageObj getModelPage(String modelID, String photoID) throws RPCServiceExeption;
 

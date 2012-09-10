@@ -53,10 +53,11 @@ public class Paginator extends Composite {
 	private int curScrollatLoad = 0;
 	private ViewHasPages view;
 
-	public Paginator(int totalItems, ActivityHasPages activityy, ViewHasPages vieww) {
+	public Paginator(int totalItemss, ActivityHasPages activityy, ViewHasPages vieww) {
 		super();
 		this.activity = activityy;
-		this.totalItems = totalItems;
+		//We count from 0
+		this.totalItems = totalItemss - 1;
 		this.totalPages = totalItems/ITEMS_PER_PAGE;
 		this.view = vieww;
 

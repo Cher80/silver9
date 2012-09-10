@@ -1,9 +1,8 @@
 package my.client.blocks;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import my.client.albumspage.AlbumsActivity;
 import my.client.common.ClientFactory;
 import my.client.events.NewCommentEvent;
 import my.client.modelpage.ModelActivity;
@@ -18,7 +17,6 @@ import my.shared.CommentObj;
 import my.shared.ImgObj;
 import my.shared.ModelPageObj;
 import my.shared.TagObj;
-import my.shared.TagsObj;
 import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -35,34 +33,36 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class TagsSetGroup extends Composite {
-
-
+public class TagAlbumsBlock extends Composite {
 
 	private FlowPanel panel = new FlowPanel();
-	private TagsObj tagsObjGroup;
-	private String type;
-	private AlbumObj albumObj;
-	private List<TagUnit>tagsInGroup = new ArrayList<TagUnit>();
 
-	public TagsSetGroup(String typee, TagsObj tagsObjj, AlbumObj albumObjj) {
-		super();
-		this.tagsObjGroup = tagsObjj;
-		this.type = typee;
-		this.albumObj = albumObjj;
-		Log.debug("TagsSetGroup this.type " + this.type );
+private AlbumsActivity albumsActivity;
+	//private Button doTagMark;
 
-		for (int i=0; i<tagsObjGroup.getTagsObj().size(); i++) {
-			TagObj curTagObj = tagsObjGroup.getTagsObj().get(i);
-			Log.debug("TagsSetGroup " + curTagObj.getTagGroup() + curTagObj.getTagReadableName() );
-			TagUnit tagUnit = new TagUnit(curTagObj,albumObj, this);
-			tagsInGroup.add(tagUnit);
-			panel.add(tagUnit);
-		} 
+	//private int 
+	
+	public TagAlbumsBlock() {
 		
-		//Date date = new java.util.Date((long)(imgObj.getImgTimestamp())*1000);
-
-
+		super();
+		
+		TagAlbumsGroup likesGroup = new TagAlbumsGroup("LIKES");
+		TagAlbumsUnit likeUnit = new TagAlbumsUnit("LIKE");
+		TagAlbumsUnit dislikeUnit = new TagAlbumsUnit("DISLIKE");
+		likesGroup.addTag(likeUnit);
+		likesGroup.addTag(dislikeUnit);
+		panel.add(likesGroup);
+		
+		
+		TagAlbumsGroup hairsGroup = new TagAlbumsGroup("HAIRS");
+		TagAlbumsUnit blondUnit = new TagAlbumsUnit("BLOND");
+		TagAlbumsUnit redUnit = new TagAlbumsUnit("RED");
+		TagAlbumsUnit darkUnit = new TagAlbumsUnit("DARK");
+		hairsGroup.addTag(blondUnit);
+		hairsGroup.addTag(redUnit);
+		hairsGroup.addTag(darkUnit);
+		panel.add(hairsGroup);
+			
 
 
 
@@ -70,14 +70,8 @@ public class TagsSetGroup extends Composite {
 
 		initWidget(panel);
 	}
-	
-	
-	public void setGroupVoted() {
-		for (int i=0;i<tagsInGroup.size();i++) {
-			tagsInGroup.get(i).setVoted();
-		}
-	}
 
+	
 
 
 

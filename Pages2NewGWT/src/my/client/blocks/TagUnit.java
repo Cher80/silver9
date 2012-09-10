@@ -41,22 +41,32 @@ public class TagUnit extends Composite {
 	private AlbumObj albumObj;
 	private Button doTagMark;
 	private Label marksCountLabel;
+	private Label isAlredyVotedLabel;
 	private Label statusLabel = new Label("");
+	private TagsSetGroup tagsSetGroup;
+	//private int 
 	
-	public TagUnit(TagObj tagobjj, AlbumObj albumObjj) {
+	public TagUnit(TagObj tagobjj, AlbumObj albumObjj, TagsSetGroup tagsSetGroupp) {
 		super();
 		this.tagObj = tagobjj;
 		this.albumObj = albumObjj;
+		this.tagsSetGroup = tagsSetGroupp;
 		
 		doTagMark = new Button(tagObj.getTagReadableName());
-		marksCountLabel = new Label("Counts" + tagObj.getTagTotalPluses());
+		marksCountLabel = new Label("Counts " + tagObj.getTagTotalPluses());
+		isAlredyVotedLabel = new Label("isAllowVoteToUser " + tagObj.isAllowVoteToUser());
 		
+		if (!tagObj.isAllowVoteToUser()) {
+			doTagMark.setEnabled(false);
+		}
 		
 		panel.add(doTagMark);
 		panel.add(marksCountLabel);
+		panel.add(isAlredyVotedLabel);
 		doTagMark.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
+				
 				doSetTag(tagObj, albumObj, ClientFactory.getUser());
 				
 			}
@@ -73,6 +83,20 @@ public class TagUnit extends Composite {
 		initWidget(panel);
 	}
 
+	
+	public void setVoted() {
+		doTagMark.setEnabled(false);
+		//tagObj.setTagTotalPluses(tagObj.getTagTotalPluses() + 1 );
+		//int tagTotalPluses = tagObj.getTagTotalPluses();
+		//marksCountLabel.setText("" + tagTotalPluses);
+	}
+	
+	public void setPlusVote() {
+		//doTagMark.setEnabled(false);
+		tagObj.setTagTotalPluses(tagObj.getTagTotalPluses() + 1 );
+		int tagTotalPluses = tagObj.getTagTotalPluses();
+		marksCountLabel.setText("" + tagTotalPluses);
+	}
 	
 	
 	public void doSetTag(TagObj tagObj, AlbumObj albumObj, User user) {
@@ -104,7 +128,8 @@ public class TagUnit extends Composite {
 				//Log.debug("NewCommentEvent fired");
 				//Notifications notif = new Notifications("You have posted comment", true, true);
 				statusLabel.setText("Posted tag! Thanks!");
-				
+				tagsSetGroup.setGroupVoted();
+				setPlusVote();
 
 			}
 		};

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import my.client.blocks.AlbumThumb;
+import my.client.blocks.TagAlbumsBlock;
 import my.client.common.ActivityHasPages;
 import my.client.common.ViewHasPages;
 import my.client.helpers.HavePresenter;
@@ -36,11 +37,13 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 	private Button myButt1 = new Button("AlbumsView");
 	
 	private FlowPanel wrapperTop = new FlowPanel();
+	private FlowPanel panelContent = new FlowPanel();
 	private ScrollPanel wrapperScroll = new ScrollPanel();
 	private FlowPanel panel = new FlowPanel();
 	private Activity presenter;
 	private Paginator paginator;
 	private boolean isScrollFrezed = false;
+	private TagAlbumsBlock tagAlbumsBlock;
 	
 	
 	  private static class Contact {
@@ -86,13 +89,16 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 		wrapperTop.getElement().getStyle().setProperty("border", "1px solid green");
 		wrapperTop.getElement().getStyle().setProperty("cssFloat", "left");
 		wrapperTop.getElement().getStyle().setProperty("left", "0px");
+		wrapperTop.getElement().getStyle().setProperty("position", "relative");
 		wrapperScroll.setSize("700px", "500px");
 		wrapperScroll.getElement().getStyle().setProperty("border", "1px solid green");
 		wrapperScroll.getElement().getStyle().setProperty("cssFloat", "left");
 		wrapperScroll.getElement().getStyle().setProperty("left", "0px");
 		//wrapper.getElement().getStyle().setProperty("overflow", "scroll");
 		
-    	
+		TagAlbumsBlock tagAlbumsBlock = new TagAlbumsBlock();
+		panelContent.add(tagAlbumsBlock);
+		
     	myButt1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				RegisterPopup registerView = new RegisterPopup();
@@ -140,8 +146,10 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
     	
 		//panel.add(myButt1);
     	this.wrapperScroll.addScrollHandler(this);  	
+    	
     	wrapperTop.add(wrapperScroll);
-    	wrapperScroll.add(panel);
+    	wrapperScroll.add(panelContent);
+    	panelContent.add(panel);
 		initWidget(wrapperTop);
 	}
 	

@@ -23,13 +23,13 @@ public class User implements Serializable {
 
 
 	public String getUid() {
-		return uid;
+		return uid.trim();
 	}
 
 
 
 	public void setUid(String uid) {
-		this.uid = uid;
+		this.uid = uid.trim();
 	}
 
 
@@ -102,5 +102,14 @@ public class User implements Serializable {
 
 	public void setFBexpires(int fBexpires) {
 		FBexpires = fBexpires;
+	}
+	
+	public boolean isAnonymous() {
+		if (this.nick.equals("Anonymous")) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

@@ -65,15 +65,33 @@ public class Albums {
 		return albumscount;
 	}
 	
+	
+	
+	public int getSimpleAlbumsCount(DBCursor cur) {
+		int count = cur.count();
+		return count;
+	}
 
-	public AlbumsObj getAlbumsByTime(int offset, int limit, String albidtoshow) throws RPCServiceExeption {
+	public AlbumsObj getAlbumsByTime(int offset, int limit, String tagType, int statusPublished, String albidtoshow) throws RPCServiceExeption {
 
 
 		DBCollection albums = db.getCollection("albums");
-		BasicDBObject query = null;
+		//BasicDBObject query = null;
+		BasicDBObject query = new BasicDBObject();
 		if (albidtoshow!=null) {
-		query = new BasicDBObject();
-		query.append("_id", new ObjectId(albidtoshow.trim()));
+			query.append("_id", new ObjectId(albidtoshow.trim()));
+		}
+		LOG.debug("getAlbumsByTime " + tagType);
+		if (tagType!=null) {
+			BasicDBObject inTagElements = new BasicDBObject();
+			inTagElements.append("tagtype", tagType); 
+			inTagElements.append("tagiswinner", true);
+			BasicDBObject tagElemMatch = new BasicDBObject("$elemMatch",inTagElements);
+			query.append("tags", tagElemMatch);
+			LOG.debug("tagType!=null ");
+		}
+		if (statusPublished>=0) {
+			query.append("status", statusPublished);
 		}
 
 		BasicDBObject sort = new BasicDBObject();
@@ -86,7 +104,7 @@ public class Albums {
 		if (albidtoshow!=null) {
 			cur = albums.find(query).limit(1);
 		} else {
-			cur = albums.find().sort(sort).skip(offset).limit(limit);
+			cur = albums.find(query).sort(sort).skip(offset).limit(limit);
 		}
 			
 		AlbumsObj albumsObj = new AlbumsObj();
@@ -157,7 +175,8 @@ public class Albums {
 				if (album.containsField("status")) 
 					albumObj.setStatus((int)album.get("status"));
 				if (album.containsField("timestamp")) 
-					albumObj.setTimestamp((long)album.get("timestamp"));
+					//albumObj.setTimestamp((long)album.get("timestamp"));
+					albumObj.setTimestamp(new Long(23));
 				if (album.containsField("photocount")) 
 					albumObj.setPhotocount((int)album.get("photocount"));
 				if (album.containsField("coverimgobjid")) 
@@ -172,7 +191,7 @@ public class Albums {
 			}
 			
 			
-			int albumsCount = getAlbumsCount();
+			int albumsCount = getSimpleAlbumsCount(cur);
 			albumsObj.setTotalCount(albumsCount);
 
 			return albumsObj;

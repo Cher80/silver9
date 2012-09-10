@@ -1,9 +1,8 @@
 package my.client.blocks;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import my.client.albumspage.AlbumsActivity;
 import my.client.common.ClientFactory;
 import my.client.events.NewCommentEvent;
 import my.client.modelpage.ModelActivity;
@@ -18,7 +17,6 @@ import my.shared.CommentObj;
 import my.shared.ImgObj;
 import my.shared.ModelPageObj;
 import my.shared.TagObj;
-import my.shared.TagsObj;
 import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -35,34 +33,21 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class TagsSetGroup extends Composite {
-
-
+public class TagAlbumsGroup extends Composite {
 
 	private FlowPanel panel = new FlowPanel();
-	private TagsObj tagsObjGroup;
-	private String type;
-	private AlbumObj albumObj;
-	private List<TagUnit>tagsInGroup = new ArrayList<TagUnit>();
+	private String group;
+	
+private AlbumsActivity albumsActivity;
+	//private Button doTagMark;
 
-	public TagsSetGroup(String typee, TagsObj tagsObjj, AlbumObj albumObjj) {
-		super();
-		this.tagsObjGroup = tagsObjj;
-		this.type = typee;
-		this.albumObj = albumObjj;
-		Log.debug("TagsSetGroup this.type " + this.type );
-
-		for (int i=0; i<tagsObjGroup.getTagsObj().size(); i++) {
-			TagObj curTagObj = tagsObjGroup.getTagsObj().get(i);
-			Log.debug("TagsSetGroup " + curTagObj.getTagGroup() + curTagObj.getTagReadableName() );
-			TagUnit tagUnit = new TagUnit(curTagObj,albumObj, this);
-			tagsInGroup.add(tagUnit);
-			panel.add(tagUnit);
-		} 
+	//private int 
+	
+	public TagAlbumsGroup(String groupp) {
 		
-		//Date date = new java.util.Date((long)(imgObj.getImgTimestamp())*1000);
-
-
+		super();
+		this.group = groupp;
+			
 
 
 
@@ -71,13 +56,11 @@ public class TagsSetGroup extends Composite {
 		initWidget(panel);
 	}
 	
-	
-	public void setGroupVoted() {
-		for (int i=0;i<tagsInGroup.size();i++) {
-			tagsInGroup.get(i).setVoted();
-		}
-	}
+	public void addTag(TagAlbumsUnit tagAlbumsUnit) {
+		panel.add(tagAlbumsUnit);
+	} 
 
+	
 
 
 

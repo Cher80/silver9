@@ -58,5 +58,6 @@ public class TagObj implements Serializable {
 	public void setTagGroup(String tagGroup) {
 		this.tagGroup = tagGroup.trim();
 	}
+	
 
 }
