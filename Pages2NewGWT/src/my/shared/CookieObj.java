@@ -2,8 +2,6 @@ package my.shared;
 
 import java.io.Serializable;
 
-import com.allen_sauer.gwt.log.client.Log;
-
 public class CookieObj implements Serializable {
 	
 	/**
@@ -51,7 +49,7 @@ public class CookieObj implements Serializable {
 	
 	public void generateFromString(String cookie) {
 		
-		Log.debug("generateFromString " + cookie);
+		//Log.debug("generateFromString " + cookie);
 		
 		cookie = cookie.replace("\"", "");
 
@@ -59,27 +57,27 @@ public class CookieObj implements Serializable {
 		if (tokens.length>=1)
 		this.email = tokens[0];
 		
-		Log.debug("generateFromString 1 " + cookie);
+		//Log.debug("generateFromString 1 " + cookie);
 		
 		if (tokens.length>=2)
 		this.setMd5session(tokens[1]);
 		
-		Log.debug("generateFromString 3 " + cookie);
+		//Log.debug("generateFromString 3 " + cookie);
 		
 		if (tokens.length>=3)
 		this.isFBUser = Boolean.parseBoolean(tokens[2]);
 		
-		Log.debug("generateFromString 4 " + cookie);
+		//Log.debug("generateFromString 4 " + cookie);
 		
 		if (tokens.length>=4)
 		this.userRole = Integer.parseInt(tokens[3]);
 		
-		Log.debug("generateFromString 5 " + cookie);
+		//Log.debug("generateFromString 5 " + cookie);
 		
 		if (tokens.length>=5)
 		this.nick = tokens[4];
 		
-		Log.debug("generateFromString 6 " + cookie);
+		//Log.debug("generateFromString 6 " + cookie);
 		//Log.debug("CookieObj generateFromString md5session " + md5session);
 		///Log.debug("CookieObj generateFromString isFBUser " + isFBUser);
 		//Log.debug("CookieObj generateFromString userRole " + userRole);

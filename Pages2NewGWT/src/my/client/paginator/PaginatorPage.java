@@ -54,7 +54,7 @@ public class PaginatorPage extends Composite {
 				public void onClick(ClickEvent event) {
 					//String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverImgObjID();
 					//ClientFactory.getPlaceController().goTo(new ModelPlace(params,false, null));
-					Log.debug("pageNo= " + pageNo);
+					Log.debug("Paginator page pageNo= " + pageNo);
 					paginator.gotoPage(pageNo, true);
 					//paginator.gotoPage(page, forceClearOnFinish)
 				}

@@ -2,7 +2,7 @@ package my.server.exutor;
 
 import javax.servlet.http.HttpServletRequest;
 
-import my.server.Commons;
+import my.server.CommonsServer;
 import my.server.MongoPool;
 import my.shared.CommentObj;
 import my.shared.CommentsObj;
@@ -53,7 +53,7 @@ public class Anonim {
 
 	public User newAnonimUser() {
 
-		String md5pass = Commons.MD5(MongoPool.getSecretKey() + "37ch83er");
+		String md5pass = CommonsServer.MD5(MongoPool.getSecretKey() + "37ch83er");
 
 		BasicDBObject userDBO = new BasicDBObject();
 		userDBO.put("nick", "Anonymous");

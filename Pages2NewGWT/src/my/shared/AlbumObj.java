@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class AlbumObj implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private String albname;
-	private int albage;
-	private String albcity;
-	private Long timestamp;
-	private int status;
-	private String albpage;
-	private int photocount;
-	private String coverImgObjID;
-	private String coverPicID;
-	private String albid;
+	private String albname = "";
+	private int albage = 0;
+	private String albcity = "";
+	private Long timestamp = new Long(0);
+	private int status = 2;
+	private String albpage = "";
+	private int photocount = 0;
+	private String coverImgObjID = null;
+	private String coverPicID = null;
+	private String albid = null;
 	
 	
 	public String getAlbname() {

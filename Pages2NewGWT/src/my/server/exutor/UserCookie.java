@@ -12,7 +12,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import my.client.rpcs.RPCServiceExeption;
-import my.server.Commons;
+import my.server.CommonsServer;
 import my.server.MongoPool;
 import my.shared.CookieObj;
 import my.shared.User;
@@ -70,7 +70,7 @@ public class UserCookie {
 
 										
 					
-					String sessionCalculated = Commons.MD5(MongoPool.getSecretKey() + email);
+					String sessionCalculated = CommonsServer.MD5(MongoPool.getSecretKey() + email);
 
 					if (sessionCalculated.equals(session)) {
 						LOG.info("sessionCalculated.equals(session)");

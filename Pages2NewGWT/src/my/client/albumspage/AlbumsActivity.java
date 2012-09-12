@@ -16,6 +16,8 @@ import my.client.rpcs.RPCServiceAsync;
 import my.client.rpcs.RPCServiceExeption;
 import my.shared.AlbumObj;
 import my.shared.AlbumsObj;
+import my.shared.AlbumsPageObj;
+import my.shared.Settings;
 import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -34,6 +36,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 	private boolean isFirstTimeLoaded=true;
 	private String tagType = null;
 	private int statusPublished = -1;
+	private AlbumsPageObj albumsPageObj;
 
 	public AlbumsActivity(AlbumsPlace place) {
 		super();
@@ -57,6 +60,8 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 					Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
 					if (forceClearOnFinish) {
 						clearViewAlbums();
+						isFirstTimeLoaded=true;
+						paginator.removeFromParent();
 					}
 				}
 			}
@@ -77,8 +82,8 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 		};
 
 		Log.debug("Make the call");
-		int offest = 6*page;
-		int limit = 6;
+		int offest = Settings.ALBUMS_PER_PAGE*page;
+		int limit =  Settings.ALBUMS_PER_PAGE;
 
 		communicatorSvc.getAlbumsByTime( offest, limit, tagType, statusPublished, callback);
 	}
@@ -90,6 +95,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 		if (isFirstTimeLoaded) {
 			Log.debug("do new paginator");
 			if (paginator!=null) {
+				//isFirstTimeLoaded=true;
 				paginator.removeFromParent();
 			}
 			paginator = new Paginator(albumsObj.getTotalCount(),this, (ViewHasPages)this.getView());
@@ -102,11 +108,14 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 		this.albumsTotalCount = albumsObj.getTotalCount();
 		if (forceClearOnFinish) {
 			clearViewAlbums();
+		} 
+		else {
+			paginator.onSuccessLoad();
 		}
 
 		
 		albumsView.populateAlbumsView(albumsObj);
-		paginator.onSuccessLoad();
+		
 
 
 		/*
@@ -145,9 +154,43 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 
 		this.setView(albumsView);
 		panel.setWidget(albumsView.asWidget());
-		getAlbums(0,false);
+		//getAlbums(0,false);
+		doInitPageLoad();
 
 
+
+	}
+	
+	public void doInitPageLoad() {
+		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
+
+		AsyncCallback callback = new AsyncCallback() {
+
+			public void onFailure(Throwable caught) { 
+
+				if (caught instanceof RPCServiceExeption) {
+					Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
+				}
+			}
+
+			@Override
+			public void onSuccess(Object result) {
+				Log.debug("UserArea onSuccess ");
+				albumsPageObj = (AlbumsPageObj)result;
+				/*
+				for (int i=0; i<albumsObj.getAlbums().size(); i++) {
+					AlbumObj albumObj = albumsObj.getAlbums().get(i);
+					//Log.debug("albumObj.getAlbname()" + albumObj.getAlbname());
+					//Log.debug("albumObj.getAlbpage()" + albumObj.getAlbpage());
+				}*/
+
+				populateAlbumsView(albumsPageObj.getAlbumsObj(),false);
+			}
+		};
+
+		Log.debug("Make the call");
+
+		communicatorSvc.getAlbumsPageObj(callback);
 
 	}
 
@@ -194,7 +237,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 		// TODO Auto-generated method stub
 		Log.debug("event.getTagType()  " + event.getTagType());
 		this.tagType = event.getTagType(); 
-		this.statusPublished = -1;
+		this.statusPublished =  event.getStatus();
 		isFirstTimeLoaded = true;
 		getAlbums(0, true);
 		

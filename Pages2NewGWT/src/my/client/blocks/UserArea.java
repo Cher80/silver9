@@ -236,6 +236,8 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 					Log.debug("UserArea onSuccess ");
 
 					setUser((User)result);
+					
+					Log.debug("UserArea result.getClass() = " + result.getClass());
 					// TODO Auto-generated method stub
 					/*
 				Log.debug("onSuccess");

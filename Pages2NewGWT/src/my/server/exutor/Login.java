@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import my.client.rpcs.RPCServiceExeption;
-import my.server.Commons;
+import my.server.CommonsServer;
 import my.server.MongoPool;
 import my.shared.CookieObj;
 import my.shared.User;
@@ -93,7 +93,7 @@ public class Login {
 					if (user.containsField("pass1")) 
 					pass1db = (String) user.get("pass1");
 					
-					String md5pass = Commons.MD5(MongoPool.getSecretKey() + pass1);
+					String md5pass = CommonsServer.MD5(MongoPool.getSecretKey() + pass1);
 
 					LOG.info("md5pass " + md5pass);
 					LOG.info("pass1db " + pass1db);

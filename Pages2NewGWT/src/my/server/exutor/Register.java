@@ -13,7 +13,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
 import my.client.rpcs.RPCServiceExeption;
-import my.server.Commons;
+import my.server.CommonsServer;
 import my.server.MongoPool;
 import my.server.RPCServiceImpl;
 import my.server.Verifier;
@@ -194,7 +194,7 @@ public class Register {
 
 		DB db = MongoPool.getMainDB();
 
-		String md5pass = Commons.MD5(MongoPool.getSecretKey() + pass1);
+		String md5pass = CommonsServer.MD5(MongoPool.getSecretKey() + pass1);
 		//String md5session = Commons.MD5(MongoPool.getSecretKey() + email);
 		
 		LOG.info("getSecretKey " + MongoPool.getSecretKey());

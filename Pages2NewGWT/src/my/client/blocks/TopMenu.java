@@ -21,10 +21,13 @@ public class TopMenu extends Composite {
     private Button backButt = new Button("BackButt");
     
     private UserArea userArea = new UserArea();
+    private AdminsStuffBlock adminsStuffBlock = new AdminsStuffBlock();
+    //AdminsStuffBlock
     
     public TopMenu() {
     	
     	panel.addStyleName("TopMenu");
+    	panel.add(adminsStuffBlock);
     	panel.add(backButt);
     	
     	panel.add(userArea);

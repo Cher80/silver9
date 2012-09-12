@@ -95,12 +95,25 @@ public class TagsSetBlock extends Composite {
 	}
 	
 	
+	private boolean isCreatedGroupInVotedGroup(String group) {
+		for(int i=0;i<tagsObj.getTagsObj().size(); i++) {
+			TagObj curTagObj = tagsObj.getTagsObj().get(i);
+			if (curTagObj.getTagGroup().equals(group) && curTagObj.isAllowVoteToUser() == false) {
+				return true; 
+			}
+		}
+		return false;
+	}
+	
 	
 	private TagObj createNewTagObj(String type,String group) {
 		TagObj tagObj = new TagObj();
 		tagObj.setTagGroup(group);
 		tagObj.setTagType(type);
 		tagObj.setTagReadableName("Namegen" + type);
+		if (isCreatedGroupInVotedGroup(group)) {
+			tagObj.setAllowVoteToUser(false);
+		}
 		return tagObj;
 	}
 	

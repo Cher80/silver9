@@ -18,6 +18,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceExeption;
+import my.server.exutor.ActivityExec;
 import my.server.exutor.Albums;
 import my.server.exutor.Anonim;
 import my.server.exutor.CommentsExec;
@@ -27,13 +28,18 @@ import my.server.exutor.Register;
 import my.server.exutor.SilverCookie;
 import my.server.exutor.TagExec;
 import my.server.exutor.UserCookie;
+import my.shared.ActivitiesObj;
 import my.shared.AlbumObj;
 import my.shared.AlbumsObj;
+import my.shared.AlbumsPageObj;
 import my.shared.CommentObj;
 import my.shared.CommentsObj;
 import my.shared.CookieObj;
+import my.shared.ImgObj;
 import my.shared.ImgsObj;
 import my.shared.ModelPageObj;
+import my.shared.ResponseStatus;
+import my.shared.Settings;
 import my.shared.TagObj;
 import my.shared.TagsObj;
 import my.shared.User;
@@ -159,7 +165,7 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		modelPageObj.setComments(commentsObj);
 		
 		TagExec tagExec = new TagExec();
-		TagsObj tagsObj = tagExec.getTagObjs(albumObj, user);
+		TagsObj tagsObj = tagExec.getTagObjs2(albumObj, user);
 		modelPageObj.setTagsObj(tagsObj);
 		
 		
@@ -204,9 +210,98 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 			//silverCookie.getCookie();
 			//getUser ();
 			TagExec tagExec = new TagExec(); 
-			TagObj tagRetObj = tagExec.executeSetTag(tagObj,  albumObj, user);
+			//TagObj tagRetObj = tagExec.executeSetTag(tagObj,  albumObj, user);
+			TagObj tagRetObj = tagExec.executeSetTag2(tagObj,  albumObj, user);
 		
 		return tagRetObj;
+	}
+
+
+
+
+	@Override
+	public ResponseStatus doAlbumStatus(AlbumObj albumObj, int statusPublished)
+			throws RPCServiceExeption {
+		
+		int[] permissions = {2};
+		User user = allowPermissions(permissions);
+		// TODO Auto-generated method stub
+		Albums albums =  new Albums();
+		ResponseStatus responseStatus = albums.doAlbumStatus(albumObj, statusPublished);	
+		
+		return responseStatus;
+	}
+
+
+
+
+	@Override
+	public ResponseStatus doDeAlbum(AlbumObj albumObj)
+			throws RPCServiceExeption {
+		
+		int[] permissions = {2};
+		User user = allowPermissions(permissions);
+		// TODO Auto-generated method stub
+		Albums albums =  new Albums();
+		ResponseStatus responseStatus = albums.doDeAlbum(albumObj);	
+
+		
+		return responseStatus;
+	}
+
+
+
+
+	@Override
+	public AlbumsPageObj getAlbumsPageObj() throws RPCServiceExeption {
+		
+		int[] permissions = {0,1,2};
+		User user = allowPermissions(permissions);
+		
+		Albums albums =  new Albums();
+		AlbumsObj albumsObj = albums.getAlbumsByTime(0, Settings.ALBUMS_PER_PAGE, null, 1, null);
+		
+		ActivityExec activityExec = new ActivityExec();
+		ActivitiesObj activitiesObj = activityExec.getActivitiesBlock();
+		
+		AlbumsObj albumsObjBlock = albums.getAlbumsBestBloc();
+		
+		AlbumsPageObj albumsPageObj = new AlbumsPageObj();
+		albumsPageObj.setAlbumsObj(albumsObj);
+		albumsPageObj.setActivitiesObj(activitiesObj);
+		albumsPageObj.setBestAlbumsObj(albumsObjBlock);
+		
+		return albumsPageObj;
+	}
+
+
+
+
+	@Override
+	public ResponseStatus doImgStatus(ImgObj imgObj,  int statusPublished) throws RPCServiceExeption {
+		int[] permissions = {2};
+		User user = allowPermissions(permissions);
+
+		
+		Images images = new Images();
+		ResponseStatus responseStatus = images.doImgStatus(imgObj, statusPublished);
+		// TODO Auto-generated method stub
+		return responseStatus;
+	}
+
+
+
+
+	@Override 
+	public ResponseStatus doImgCover(AlbumObj albumObj, ImgObj imgObj) throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		int[] permissions = {2};
+		User user = allowPermissions(permissions);
+		
+		Images images = new Images();
+		ResponseStatus responseStatus = images.doImgCover(albumObj, imgObj);
+		
+		return responseStatus;
 	}
 
 }

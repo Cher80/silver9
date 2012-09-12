@@ -41,7 +41,12 @@ public class PhotoLayer extends Composite {
 		
 	//	Date date = new java.util.Date((long)(imgObj.getImgTimestamp())*1000);
 
-		curImgObj = imgsObj.getImgByID(curID); 
+		if (curID==null||curID.equals("")||curID.equals("null")) {
+			curImgObj = new ImgObj();
+		}
+		else {
+			curImgObj = imgsObj.getImgByID(curID); 
+		}
 		 
 		doRenderPhoto();
 		
@@ -75,6 +80,8 @@ public class PhotoLayer extends Composite {
 	  if (html != null) {
 		  panel.remove(html);
 	  }
+	  
+	  //if ()
 		html = new HTML(
 				 "<h3>Photo layer</h3>" +
 				 "<img style=\"max-height:400px; max-width:400px\" src=\"/extranewgwt/getphoto?photoid=" + curImgObj.getImgGridfs_id_m() + "\"/>"

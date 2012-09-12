@@ -8,21 +8,21 @@ public class ImgObj implements Serializable {
 	 * 
 	 */
 	
-	private String imgPhotourl;
-	private String imgPageurl;
-	private String imgGridfs_id_m;
-	private String imgGridfs_id_0;
-	private String imgGridfs_id_1;
-	private String imgGridfs_id_2;
-	private boolean imgIshasorig;
-	private String imgMd5;		
-	private String imgAlbum;
-	private int imgStatus;
-	private String imgEmail;
+	private String imgPhotourl = "";
+	private String imgPageurl = "";
+	private String imgGridfs_id_m = null;
+	private String imgGridfs_id_0= null;
+	private String imgGridfs_id_1= null;
+	private String imgGridfs_id_2= null;
+	private boolean imgIshasorig = false;
+	private String imgMd5= "";	
+	private String imgAlbum= "";
+	private int imgStatus = 1;
+	private String imgEmail= "";
 	
 	private static final long serialVersionUID = 1L;
-	private String imgID;
-	private long imgTimestamp;
+	private String imgID= null;
+	private long imgTimestamp = new Long(0);
 	
 	public String getImgID() {
 		return imgID;
@@ -57,7 +57,12 @@ public class ImgObj implements Serializable {
 	}
 
 	public String getImgGridfs_id_m() {
-		return imgGridfs_id_m;
+		if (imgGridfs_id_m==null||imgGridfs_id_m.equals("")) {
+			return imgGridfs_id_m; 
+		}
+		else {
+			return imgGridfs_id_m;
+		}
 	}
 
 	public void setImgGridfs_id_m(String imgGridfs_id_m) {

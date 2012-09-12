@@ -2,6 +2,8 @@ package my.shared;
 
 import java.io.Serializable;
 
+import my.server.CommonsServer;
+
 public class ActivityObj implements Serializable {
 
 	/**
@@ -32,10 +34,10 @@ public class ActivityObj implements Serializable {
 	
 	
 	public String getActivityID() {
-		return activityID.trim();
+		return CommonsShared.safeString(activityID);
 	}
 	public void setActivityID(String activityID) {
-		this.activityID = activityID.trim();
+		this.activityID = CommonsShared.safeString(activityID);
 	}
 	public String getActivityType() {
 		return activityType;
@@ -50,10 +52,10 @@ public class ActivityObj implements Serializable {
 		this.timestamp = timestamp;
 	}
 	public String getUid() {
-		return uid.trim();
+		return CommonsShared.safeString(uid);
 	}
 	public void setUid(String uid) {
-		this.uid = uid.trim();
+			this.uid = CommonsShared.safeString(uid);
 	}
 	public String getNick() {
 		return nick;
@@ -67,18 +69,22 @@ public class ActivityObj implements Serializable {
 	public void setAlbname(String albname) {
 		this.albname = albname;
 	}
+	
 	public String getCoverImgObjID() {
-		return coverImgObjID.trim();
+		return CommonsShared.safeString(coverImgObjID);		
 	}
+	
 	public void setCoverImgObjID(String coverImgObjID) {
-		this.coverImgObjID = coverImgObjID.trim();
+			this.coverImgObjID = CommonsShared.safeString(coverImgObjID);
 	}
+	
 	public String getAlbid() {
-		return albid.trim();
+		return CommonsShared.safeString(albid);
 	}
 	public void setAlbid(String albid) {
-		this.albid = albid.trim();
+			this.albid = CommonsShared.safeString(albid);
 	}
+	
 	public String getTagType() {
 		return tagType;
 	}
@@ -98,11 +104,12 @@ public class ActivityObj implements Serializable {
 		this.commentText = commentText;
 	}
 	public String getCommentID() {
-		return commentID.trim();
+		return CommonsShared.safeString(commentID);
 	}
 	public void setCommentID(String commentID) {
-		this.commentID = commentID.trim();
+			this.commentID = CommonsShared.safeString(commentID);
 	}
+	
 	public String getTagGroup() {
 		return tagGroup;
 	}

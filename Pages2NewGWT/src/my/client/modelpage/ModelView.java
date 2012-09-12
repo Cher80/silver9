@@ -115,7 +115,7 @@ public class ModelView extends Composite implements HavePresenter  {
 	
 	public void renderPhotos(ImgsObj imgsObj) {
 		
-		ImgsBlock imgsBlock  = new ImgsBlock (imgsObj);
+		ImgsBlock imgsBlock  = new ImgsBlock (albumObj, imgsObj);
 		panel.add(imgsBlock);
 		
 

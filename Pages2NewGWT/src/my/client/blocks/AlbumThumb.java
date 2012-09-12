@@ -17,6 +17,7 @@ import my.client.windows.RegisterPopup;
 import my.client.windows.UserHasLoggedEvent;
 import my.client.windows.UserHasLoggedEventHandler;
 import my.shared.AlbumObj;
+import my.shared.AlbumsObj;
 import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -36,10 +37,10 @@ import com.google.gwt.user.client.ui.Label;
 public class AlbumThumb extends Composite  {
 
 
-	
+	private Button adminSetPublishedButt = new Button("adminSetPublishedButt");
 	private FlowPanel panel = new FlowPanel();
 	private Button showAlbumButt = new Button("showAlbum");
-	private Button delAlbumButt = new Button("delAlbumButt");
+	private Button adminDelAlbumButt = new Button("adminDelAlbumButt");
 	private AlbumObj albumObj;
 
 	public AlbumThumb(AlbumObj albumObjj) {
@@ -66,6 +67,18 @@ public class AlbumThumb extends Composite  {
 		 panel.add(html);
 		 panel.add(showAlbumButt);
 		 
+		 if (ClientFactory.getCookieObj().getUserRole()==2) {
+				panel.add(adminSetPublishedButt);
+				panel.add(adminDelAlbumButt);
+				
+				if (albumObj.getStatus()==2) {
+					adminSetPublishedButt.setText("adminSetPublishedButt to " + 1);
+				} else {
+					adminSetPublishedButt.setText("adminSetPublishedButt to " + 2);
+				}
+				
+			}
+		 
 		 
 		 showAlbumButt.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -74,9 +87,80 @@ public class AlbumThumb extends Composite  {
 				}
 			}); 
 		 
+		 adminSetPublishedButt.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					if (albumObj.getStatus()==2) {
+						doSetPublished(1);
+					} else {
+						doSetPublished(2);
+					}
+				}
+			}); 
+		 
+		 adminDelAlbumButt.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					doDeleteAlbum();
+				}
+			}); 
+		 
+		 
+		 
 		initWidget(panel);
 	}
 
+	public void doSetPublished(int statusPublished) {
+		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
+
+		// Set up the callback object.
+		AsyncCallback callback = new AsyncCallback() {
+
+			public void onFailure(Throwable caught) { 
+
+				if (caught instanceof RPCServiceExeption) {
+				}
+			}
+
+			@Override
+			public void onSuccess(Object result) {
+				Log.debug("UserArea onSuccess ");
+				Notifications notif = new Notifications("Status has changed", true, true);
+			}
+		};
+
+		communicatorSvc.doAlbumStatus(albumObj, statusPublished, callback);
+
+	}
+	
+	
+	
+	public void doDeleteAlbum() {
+		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
+
+		// Set up the callback object.
+		AsyncCallback callback = new AsyncCallback() {
+
+			public void onFailure(Throwable caught) { 
+
+				if (caught instanceof RPCServiceExeption) {
+				}
+			}
+
+			@Override
+			public void onSuccess(Object result) {
+				Log.debug("UserArea onSuccess ");
+				Notifications notif = new Notifications("Album deleted", true, true);
+				doClear();
+			}
+		};
+
+		communicatorSvc.doDeAlbum(albumObj, callback);
+
+	}
+	
+	
+	void doClear() {
+		this.removeFromParent();
+	}
 	
 
 

@@ -16,7 +16,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import my.client.rpcs.RPCServiceExeption;
-import my.server.Commons;
+import my.server.CommonsServer;
 import my.server.MongoPool;
 import my.server.RPCServiceImpl;
 import my.server.Verifier;
@@ -24,6 +24,7 @@ import my.shared.ActivityObj;
 import my.shared.AlbumObj;
 import my.shared.CommentObj;
 import my.shared.CommentsObj;
+import my.shared.CommonsShared;
 import my.shared.FieldVerifier;
 import my.shared.User;
 
@@ -101,11 +102,11 @@ public class CommentsExec {
 		BasicDBObject comment = new BasicDBObject();
 		comment.put("commenttext", commentObj.getCommentText());
 		comment.put("commenttimestamp", commentObj.getCommentTimeStamp());
-		comment.put("commentauthorid",  Commons.normalizeID(commentObj.getCommentAuthorID().trim()));
+		comment.put("commentauthorid",  CommonsServer.normalizeID(commentObj.getCommentAuthorID().trim()));
 		comment.put("commentauthornick", commentObj.getCommentAuthorNick());
-		comment.put("albumid",  Commons.normalizeID(commentObj.getAlbumId().trim()));
+		comment.put("albumid",  CommonsServer.normalizeID(commentObj.getAlbumId().trim()));
 		comment.put("albummodelname", commentObj.getAlbumModelName());
-		comment.put("albumcoverImgObjID", Commons.normalizeID(commentObj.getCoverImgObjID())); 
+		comment.put("albumcoverImgObjID", CommonsServer.normalizeID(commentObj.getCoverImgObjID())); 
 		//user.put("session", md5session);
 		
 		//comment.put("text", "Comment text" + randomInt + "_" + s);

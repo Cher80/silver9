@@ -211,6 +211,7 @@ public class Paginator extends Composite {
 			
 			currPage = page;
 			setCurrentPage(currPage);
+			Log.debug("Paginator click  pageNo= " + currPage);
 			activity.gotoPage(currPage,forceClearOnFinish);
 			activity.scrollToTop();
 		}
@@ -218,7 +219,7 @@ public class Paginator extends Composite {
 
 	
 	public void onSuccessLoad() {
-		loadPositions.put(currPage, curScrollatLoad);
+		loadPositions.put(currPage, curScrollatLoad - 20);
 		Log.debug("loadPositions " + loadPositions.toString());
 	}
 
@@ -228,6 +229,7 @@ public class Paginator extends Composite {
 			Log.debug("paginator getNext");
 			view.freezeScroll();
 			currPage = currPage + 1;
+			Log.debug("Paginator scroll  pageNo= " + currPage);
 			setCurrentPage(currPage);
 			activity.gotoPage(currPage,false);
 		}

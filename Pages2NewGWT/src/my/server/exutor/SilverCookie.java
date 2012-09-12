@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import my.client.rpcs.RPCServiceExeption;
-import my.server.Commons;
+import my.server.CommonsServer;
 import my.server.MongoPool;
 import my.shared.CookieObj;
 
@@ -34,7 +34,7 @@ public class SilverCookie {
 	}
 	
 	public void setCookie(CookieObj cookieObj) {
-		String md5session = Commons.MD5(MongoPool.getSecretKey() + cookieObj.getEmail());
+		String md5session = CommonsServer.MD5(MongoPool.getSecretKey() + cookieObj.getEmail());
 		String cookieStr = cookieObj.generateCookieString(md5session);
 		//String cookieStr =  cookieObj.getEmail() + "###" + md5session + "###" + cookieObj.isFBUser() + "###" + cookieObj.getUserRole() + "###" + cookieObj.getNick();
 		//String cookieEnc = null;

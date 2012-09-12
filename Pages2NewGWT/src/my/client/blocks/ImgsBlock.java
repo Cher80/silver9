@@ -39,12 +39,13 @@ public class ImgsBlock extends Composite {
 
 	private ImgsObj imgsObj;
 	private HTML headerHTML = new HTML("<h3>Album images</h3>");
+private AlbumObj albumObj;
 
-
-	public ImgsBlock(ImgsObj imgsObj) {
+	public ImgsBlock(AlbumObj albumObjj, ImgsObj imgsObj) {
 		super();
 		this.imgsObj = imgsObj;
-
+		this.albumObj =  albumObjj;
+		
 		panel.add(headerHTML);
 		
 		/*
@@ -55,7 +56,7 @@ public class ImgsBlock extends Composite {
 		 
 		
 		for (int i=0; i<imgsObj.getImages().size(); i++) {
-			ImgThumb imgThumb = new ImgThumb(imgsObj.getImages().get(i));
+			ImgThumb imgThumb = new ImgThumb(albumObj,imgsObj.getImages().get(i));
 			panel.add(imgThumb);
 		}
 		
