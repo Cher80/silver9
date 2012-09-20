@@ -8,6 +8,7 @@ import my.shared.CookieObj;
 import my.shared.ImgObj;
 import my.shared.ResponseStatus;
 import my.shared.TagObj;
+import my.shared.TopBlockObj;
 import my.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -39,10 +40,12 @@ public interface RPCServiceAsync {
  
 	void getAlbumsPageObj(AsyncCallback<AlbumsPageObj> callback);
 
-	void doImgStatus(ImgObj imgObj, int statusPublished,
+	void doImgStatus(ImgObj imgObj, int statusPublished, 
 			AsyncCallback<ResponseStatus> callback);
  
 	void doImgCover(AlbumObj albumObj, ImgObj imgObj, AsyncCallback<ResponseStatus> callback);
+
+	void getTopBlock(CookieObj cookieObj, AsyncCallback<TopBlockObj> callback);
    
 	//void doSetTag(TagObj tagObj, AlbumObj albumObj, User user, AsyncCallback callback); 
 

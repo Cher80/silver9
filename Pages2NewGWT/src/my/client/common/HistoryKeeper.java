@@ -3,6 +3,7 @@ package my.client.common;
 import java.util.Iterator;
 import java.util.Stack;
 
+import my.client.events.PageChangedEvent;
 import my.client.forum.ForumActivity;
 import my.client.forum.ForumView;
 import my.client.helpers.HavePlace;
@@ -107,6 +108,9 @@ public class HistoryKeeper {
 			widgetToPop.removeFromParent();
 		}
 		
+		firePlaceChangedEvent();
+		
+		
 		/*
 		while(it.hasNext()){
 	    	
@@ -161,6 +165,12 @@ public class HistoryKeeper {
 		
 	}
 	
+	
+	public void firePlaceChangedEvent() {
+		PageChangedEvent pageChangedEvent = new PageChangedEvent(activityStack.size());
+		ClientFactory.getEventBus().fireEvent(pageChangedEvent);
+	}
+	
 	public void pushNewActivity(Activity newWidget) {
 
 		activityStack.push(newWidget);
@@ -182,6 +192,8 @@ public class HistoryKeeper {
 
 	      }
 		
+		firePlaceChangedEvent();
+		
 	}
 	
 	public Stack <Widget> getWidgetsToMove() {
@@ -198,6 +210,9 @@ public class HistoryKeeper {
 		//activityStack.push(newWidget);
 	}
 	
+	public void doEmptyStack() {
+		activityStack =  new Stack<Activity>();
+	}
 	
 	public Boolean isNeedToRemove (Widget movedWidget, Widget currShowedWidget) {
 	

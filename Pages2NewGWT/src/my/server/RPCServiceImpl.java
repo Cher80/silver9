@@ -26,6 +26,7 @@ import my.server.exutor.Images;
 import my.server.exutor.Login;
 import my.server.exutor.Register;
 import my.server.exutor.SilverCookie;
+import my.server.exutor.StatExec;
 import my.server.exutor.TagExec;
 import my.server.exutor.UserCookie;
 import my.shared.ActivitiesObj;
@@ -40,8 +41,10 @@ import my.shared.ImgsObj;
 import my.shared.ModelPageObj;
 import my.shared.ResponseStatus;
 import my.shared.Settings;
+import my.shared.StatObj;
 import my.shared.TagObj;
 import my.shared.TagsObj;
+import my.shared.TopBlockObj;
 import my.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -56,7 +59,7 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 
 	Logger LOG=Logger.getLogger(RPCServiceImpl.class);
 	private static final long serialVersionUID = 1L;
-	
+
 	private User allowPermissions(int[] allowedrole) throws RPCServiceExeption {
 		LOG.info("allowPermissions");
 		User userToRet;
@@ -82,24 +85,24 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 				isCurUserInAllowPermissions = true;
 			}
 		}
-		
+
 		if (!isCurUserInAllowPermissions) {
 			throw new RPCServiceExeption("Error: no permissions");
 		}
-		
+
 		return userToRet;
-		
+
 	}
 
-	
-	
-	
+
+
+
 	@Override
 	public User doRegister(String nick,String email,String pass1,String pass2) throws RPCServiceExeption {
 		LOG.info("doRegister LOG4J!");
 		Register register =  new Register();
 		User result = register.executeRegister( nick, email, pass1, pass2, false, 1, getThreadLocalResponse(), this.getThreadLocalRequest());
-		
+
 		return result;
 	}
 
@@ -109,26 +112,26 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		Login login =  new Login();
 		User result = login.executeLogin( email, pass1, false, getThreadLocalResponse(), this.getThreadLocalRequest());
 
-		
+
 		return result;
 	}
- 
+
 	@Override
 	public User getUserByCookie(CookieObj cookieObj) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
 		LOG.info("do getUserByCookie!");
-			UserCookie userCookie =  new UserCookie();
-			User user =  userCookie.getUserByCookie(cookieObj);
+		UserCookie userCookie =  new UserCookie();
+		User user =  userCookie.getUserByCookie(cookieObj);
 		/*
 		User user = new User();
 		user.setEmail("999@999.999");
 		user.setNick("bob");
-		*/
+		 */
 		return user;
-		
-		
+
+
 	}
- 
+
 	@Override
 	public AlbumsObj getAlbumsByTime(int offest, int limit, String tagType, int statusPublished) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
@@ -137,24 +140,30 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		AlbumsObj albumsObj= albums.getAlbumsByTime(offest, limit, tagType, statusPublished, null);
 		return albumsObj; 
 	}
-	
-	
+
+
 
 	@Override
 	public ModelPageObj getModelPage(String albid, String photoID) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
 		int[] permissions = {0,1,2};
 		User user = allowPermissions(permissions);
-		
+
 		LOG.info("do getModelPage! albid=" + albid + " photoID=" + photoID);
 		ModelPageObj modelPageObj = new ModelPageObj();		
-		
+
 		Albums albums =  new Albums();
-		AlbumsObj albumsObj = albums.getAlbumsByTime(0, 0, null, -1, albid);		
-		AlbumObj albumObj = albumsObj.getAlbums().get(0);
-		modelPageObj.setAlbumObj(albumObj); 
+		AlbumsObj albumsObj = albums.getAlbumsByTime(0, 0, null, -1, albid);	
 		
-		
+		AlbumObj albumObj = null;
+		if (albumsObj.getAlbums().size()>0) {
+			albumObj = albumsObj.getAlbums().get(0);
+			modelPageObj.setAlbumObj(albumObj); 
+		} else {
+			modelPageObj.setAlbumObj(new AlbumObj()); 
+		}
+
+
 
 		Images images =  new Images();
 		ImgsObj imgsObj= images.getImages(albid);		
@@ -163,19 +172,19 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		CommentsExec commentsExec = new CommentsExec(); 
 		CommentsObj commentsObj = commentsExec.doGetComments(albid);
 		modelPageObj.setComments(commentsObj);
-		
+
 		TagExec tagExec = new TagExec();
 		TagsObj tagsObj = tagExec.getTagObjs2(albumObj, user);
 		modelPageObj.setTagsObj(tagsObj);
-		
-		
+
+
 		return modelPageObj;
 	}
 
 	@Override
 	public CommentObj doPostComment(CommentObj commentObj) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
-		
+
 		int[] permissions = {0,1,2};
 		User user = allowPermissions(permissions);
 		commentObj.setCommentAuthorID(user.getUid());
@@ -185,14 +194,14 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		//getUser ();
 		CommentsExec commentsExec = new CommentsExec(); 
 		commentObj = commentsExec.executeCommentPost(commentObj) ;
-		
+
 		return commentObj;
 	}
 
 	@Override
 	public CommentsObj doGetComments(String albid) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
-		
+
 		CommentsExec commentsExec = new CommentsExec(); 
 		CommentsObj commentsObj = commentsExec.doGetComments(albid);
 		return commentsObj;
@@ -203,16 +212,16 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 
 	@Override
 	public TagObj doSetTag(TagObj tagObj, AlbumObj albumObj, User user) throws RPCServiceExeption {
-		
-			int[] permissions = {1,2};
-			user = allowPermissions(permissions);
-			//SilverCookie silverCookie = new SilverCookie(this.getThreadLocalResponse(), this.getThreadLocalRequest());
-			//silverCookie.getCookie();
-			//getUser ();
-			TagExec tagExec = new TagExec(); 
-			//TagObj tagRetObj = tagExec.executeSetTag(tagObj,  albumObj, user);
-			TagObj tagRetObj = tagExec.executeSetTag2(tagObj,  albumObj, user);
-		
+
+		int[] permissions = {1,2};
+		user = allowPermissions(permissions);
+		//SilverCookie silverCookie = new SilverCookie(this.getThreadLocalResponse(), this.getThreadLocalRequest());
+		//silverCookie.getCookie();
+		//getUser ();
+		TagExec tagExec = new TagExec(); 
+		//TagObj tagRetObj = tagExec.executeSetTag(tagObj,  albumObj, user);
+		TagObj tagRetObj = tagExec.executeSetTag2(tagObj,  albumObj, user);
+
 		return tagRetObj;
 	}
 
@@ -222,13 +231,13 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 	@Override
 	public ResponseStatus doAlbumStatus(AlbumObj albumObj, int statusPublished)
 			throws RPCServiceExeption {
-		
+
 		int[] permissions = {2};
 		User user = allowPermissions(permissions);
 		// TODO Auto-generated method stub
 		Albums albums =  new Albums();
 		ResponseStatus responseStatus = albums.doAlbumStatus(albumObj, statusPublished);	
-		
+
 		return responseStatus;
 	}
 
@@ -238,14 +247,14 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 	@Override
 	public ResponseStatus doDeAlbum(AlbumObj albumObj)
 			throws RPCServiceExeption {
-		
+
 		int[] permissions = {2};
 		User user = allowPermissions(permissions);
 		// TODO Auto-generated method stub
 		Albums albums =  new Albums();
 		ResponseStatus responseStatus = albums.doDeAlbum(albumObj);	
 
-		
+
 		return responseStatus;
 	}
 
@@ -254,23 +263,23 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 
 	@Override
 	public AlbumsPageObj getAlbumsPageObj() throws RPCServiceExeption {
-		
+
 		int[] permissions = {0,1,2};
 		User user = allowPermissions(permissions);
-		
+
 		Albums albums =  new Albums();
 		AlbumsObj albumsObj = albums.getAlbumsByTime(0, Settings.ALBUMS_PER_PAGE, null, 1, null);
-		
+
 		ActivityExec activityExec = new ActivityExec();
 		ActivitiesObj activitiesObj = activityExec.getActivitiesBlock();
-		
+
 		AlbumsObj albumsObjBlock = albums.getAlbumsBestBloc();
-		
+
 		AlbumsPageObj albumsPageObj = new AlbumsPageObj();
 		albumsPageObj.setAlbumsObj(albumsObj);
 		albumsPageObj.setActivitiesObj(activitiesObj);
 		albumsPageObj.setBestAlbumsObj(albumsObjBlock);
-		
+
 		return albumsPageObj;
 	}
 
@@ -282,7 +291,7 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		int[] permissions = {2};
 		User user = allowPermissions(permissions);
 
-		
+
 		Images images = new Images();
 		ResponseStatus responseStatus = images.doImgStatus(imgObj, statusPublished);
 		// TODO Auto-generated method stub
@@ -297,11 +306,35 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		// TODO Auto-generated method stub
 		int[] permissions = {2};
 		User user = allowPermissions(permissions);
-		
+
 		Images images = new Images();
 		ResponseStatus responseStatus = images.doImgCover(albumObj, imgObj);
-		
+
 		return responseStatus;
+	}
+
+
+
+
+	@Override
+	public TopBlockObj getTopBlock(CookieObj cookieObj)
+			throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		User user = null;
+		if (cookieObj!=null) {
+			UserCookie userCookie =  new UserCookie();
+			user =  userCookie.getUserByCookie(cookieObj);
+		}
+
+		//StatObj statObj = new StatObj();
+		StatExec statExec = new StatExec();
+		StatObj statObj = statExec.getStat();
+
+		TopBlockObj topBlockObj = new TopBlockObj();
+		topBlockObj.setUser(user);
+		topBlockObj.setStatObj(statObj);
+
+		return topBlockObj;
 	}
 
 }

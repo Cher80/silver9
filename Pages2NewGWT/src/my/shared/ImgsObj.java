@@ -24,7 +24,7 @@ public class ImgsObj implements Serializable {
 				return curImgObj;
 			}
 		}
-		return null;
+		return new ImgObj();
 		
 	}
 	
@@ -59,7 +59,7 @@ public class ImgsObj implements Serializable {
 			return images.get(nextPos);
 		}
 		else {
-			return null;
+			return new ImgObj();
 		}
 		//return null;
 	}
@@ -81,7 +81,7 @@ public class ImgsObj implements Serializable {
 			return images.get(nextPos);
 		}
 		else {
-			return null;
+			return new ImgObj();
 		}
 		//return null;
 	}

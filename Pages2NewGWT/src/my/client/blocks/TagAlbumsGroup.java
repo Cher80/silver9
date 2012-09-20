@@ -36,19 +36,28 @@ import com.google.gwt.user.client.ui.TextBox;
 public class TagAlbumsGroup extends Composite {
 
 	private FlowPanel panel = new FlowPanel();
-	private String group;
+	private String groupType;
+	private String  groupReadableName;
+	Label gropNameLabel = new Label();
 	
 private AlbumsActivity albumsActivity;
 	//private Button doTagMark;
 
 	//private int 
 	
-	public TagAlbumsGroup(String groupp) {
+	public TagAlbumsGroup(String groupTypee, String groupReadableNamee) {
 		
 		super();
-		this.group = groupp;
-			
-
+		this.groupType = groupTypee;
+		this.groupReadableName = groupReadableNamee;
+		panel.addStyleName("TagAlbumsGroup");
+		panel.addStyleName(groupType + "_TagAlbumsGroup");
+		//this.group = groupp;
+		gropNameLabel.setText(groupReadableName);
+		gropNameLabel.addStyleName("text_12_white_bold");
+		if (!groupType.equals("LIKES")) {
+		panel.add(gropNameLabel);	
+		}
 
 
 

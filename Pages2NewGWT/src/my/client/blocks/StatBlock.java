@@ -19,6 +19,7 @@ import my.shared.AlbumObj;
 import my.shared.CommentObj;
 import my.shared.ImgObj;
 import my.shared.ModelPageObj;
+import my.shared.StatObj;
 import my.shared.TagObj;
 import my.shared.User;
 
@@ -36,45 +37,29 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
-public class AdminsStuffBlock extends Composite {
+public class StatBlock extends Composite {
 
+	
 	private FlowPanel panel = new FlowPanel();
-	private Button showAdminsWindowButt;
+	private Label showSomeStat;
 	//	private String tag;
 
-	private AlbumsActivity albumsActivity;
+	private StatObj statObj;
 	//private Button doTagMark;
 
 	//private int 
 
-	public AdminsStuffBlock() {
+	public StatBlock(StatObj statObjj) {
 
 		super();
-
-		if (ClientFactory.getUser().getUserRole()==2) {
-			showAdminsWindowButt= new Button("showAdminsWindowButt");
-			//if (ClientFactory.getCookieObj().getUserRole()==2) {
-				panel.add(showAdminsWindowButt);
-			//}
-
-			showAdminsWindowButt.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-
-					AdminsPopup adminsPopup = new AdminsPopup();
-					adminsPopup.center(); 
-					adminsPopup.show();
-
-					//Log.debug("doTagButt " + tag);
-					//ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(tag,1);
-					//ClientFactory.getEventBus().fireEvent(eventReload);
-
-					//doSetTag(tagObj, albumObj, ClientFactory.getUser());
-
-				}
-			});
-
-		}
-
+		panel.addStyleName("StatBlock");
+		this.statObj = statObjj;
+		
+		
+		showSomeStat = new Label("social networks belle collection // " + statObj.getTotalAlbums() + " models " + statObj.getTotalImgs() + " photos");
+		//+ statObj.getLastAlbums() + " LastImgs " + statObj.getLastImgs());
+		showSomeStat.addStyleName("text11_White");
+		panel.add(showSomeStat);
 		initWidget(panel);
 	}
 

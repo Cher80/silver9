@@ -45,7 +45,7 @@ public class PhotoLayer extends Composite {
 			curImgObj = new ImgObj();
 		}
 		else {
-			curImgObj = imgsObj.getImgByID(curID); 
+			curImgObj = imgsObj.getImgByID(curID);
 		}
 		 
 		doRenderPhoto();

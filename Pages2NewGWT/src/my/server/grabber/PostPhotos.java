@@ -106,7 +106,7 @@ public class PostPhotos extends HttpServlet {
 
 	private void doNewAlbum(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
 		PrintWriter out = response.getWriter();  
-		
+
 		String albname = request.getParameter("albname");
 		int albage = Integer.parseInt(request.getParameter("albage"));
 		String albcity = request.getParameter("albcity");
@@ -117,7 +117,7 @@ public class PostPhotos extends HttpServlet {
 		CookieObj cookieObj = new CookieObj(); 
 		cookieObj.setEmail(email);
 		cookieObj.setMd5session(session9);
-		
+
 		User user = (new UserCookie()).getUserByCookie(cookieObj);
 
 		LOG.info("doNewAlbum user " + user.toString());
@@ -141,18 +141,22 @@ public class PostPhotos extends HttpServlet {
 
 
 		albums.insert(album);
-		
-		Albums albumsExec = new Albums();
-		albumsExec.incAlbumsCount();
+
+		//Albums albumsExec = new Albums();
+		//albumsExec.incAlbumsCount();
 		//incAlbumsCount
-		
+
 		ObjectId id = (ObjectId)album.get( "_id" );
 		LOG.info("ObjectId id  " + id);
 
 		LOG.info("doNewAlbum DONE");
 
+		updateNewAlbumsStat();
+		
 		out.println( id );  
 		out.close();  
+		
+		
 	}
 
 	private void doPostUrl(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
@@ -162,12 +166,12 @@ public class PostPhotos extends HttpServlet {
 		String pageurl = request.getParameter("pageurl").trim();
 		String photourl = request.getParameter("photourl").trim();
 		String album = request.getParameter("album").trim();
-		int status = 2; //not published
+		int status = 1; //not published
 
-		
-		
+
+
 		String toRet = null;
-		
+
 		if (pageurl==null) {
 			toRet = "Error: Parametr toRet is null";
 			out.println(toRet);  
@@ -186,16 +190,16 @@ public class PostPhotos extends HttpServlet {
 			out.close();  
 			return;
 		}
-		
+
 		FileGrabber fg = new FileGrabber();
 		HashMap photo = fg.getFile(photourl);
-		
+
 		if (photo.get("error")==null) {
-			
+
 			CookieObj cookieObj = new CookieObj(); 
 			cookieObj.setEmail(email);
 			cookieObj.setMd5session(session9);
-			
+
 			User user = (new UserCookie()).getUserByCookie(cookieObj);	
 
 
@@ -219,11 +223,11 @@ public class PostPhotos extends HttpServlet {
 			image.put("timestamp", (long)System.currentTimeMillis()/1000);
 
 
-			
+
 			images.insert(image);
-			
-			
-			
+
+
+
 			ObjectId coverPicId = (ObjectId)photo.get("saved_id_2");
 			ObjectId coverImgObjId = (ObjectId)image.get( "_id" );
 			LOG.info("ObjectId id  " + coverImgObjId);
@@ -253,46 +257,96 @@ public class PostPhotos extends HttpServlet {
 
 	}
 
-	
+
 	private void updateAlbumInfo(String albumID, ObjectId coverImgObjId, ObjectId coverPicId) {
 		DBCollection albums = db.getCollection("albums");
 		BasicDBObject queryup = new BasicDBObject();
 		queryup.append("_id", new ObjectId(albumID));
-		
+
 		BasicDBObject inc = new BasicDBObject("$inc", new BasicDBObject("photocount", 1));
 
 		albums.update(
-		queryup,
-		inc,
-		true,
-		false);
-		
-		
+				queryup,
+				inc,
+				true,
+				false);
+
+
 		///Set Cover Object Img
 		BasicDBObject queryup2 = new BasicDBObject();
-		
+
 		//queryup2.append("_id", new ObjectId("503a624322d2e3398fb64b0c"));		
 		queryup2.append("_id", new ObjectId(albumID));		
 		BasicDBObject inc2 = new BasicDBObject("$set",new BasicDBObject("coverimgobjid", coverImgObjId));
 		albums.update(
-		queryup2,
-		inc2,
-		true,
-		false);
+				queryup2,
+				inc2,
+				true,
+				false);
 
-		
+
 		///Set cover pic
 		BasicDBObject queryup3 = new BasicDBObject();
-		
+
 		//queryup2.append("_id", new ObjectId("503a624322d2e3398fb64b0c"));		
 		queryup3.append("_id", new ObjectId(albumID));		
 		BasicDBObject inc3 = new BasicDBObject("$set",new BasicDBObject("coverpicid", coverPicId));
 		albums.update(
-		queryup3,
-		inc3,
-		true,
-		false);
+				queryup3,
+				inc3,
+				true,
+				false);
 
-		
+
+
+		updateNewPicsStat();
+
+
+	}
+
+
+
+
+	private void updateNewPicsStat() {
+
+
+		//Some total aggregation pics stat
+		DBCollection misc = db.getCollection("misc");
+		BasicDBObject queryup4 = new BasicDBObject();
+		queryup4.append("stat", new BasicDBObject("$exists", true));
+		//queryup.append("_id", new ObjectId(albumID));
+
+		BasicDBObject inc4 = new BasicDBObject("$inc", new BasicDBObject("stat.totalImgs", 1));
+
+		misc.update(
+				queryup4,
+				inc4,
+				true,
+				false);
+
+
+	}
+
+
+
+
+	private void updateNewAlbumsStat() {
+
+
+		//Some total aggregation pics stat
+		DBCollection misc = db.getCollection("misc");
+		BasicDBObject queryup4 = new BasicDBObject();
+		queryup4.append("stat", new BasicDBObject("$exists", true));
+		//queryup.append("_id", new ObjectId(albumID));
+
+		BasicDBObject inc4 = new BasicDBObject("$inc", new BasicDBObject("stat.totalAlbums", 1));
+
+		misc.update(
+				queryup4,
+				inc4,
+				true,
+				false);
+
+
 	}
 }

@@ -30,10 +30,10 @@ import com.google.gwt.user.client.ui.Composite;
 
 public class AlbumsActivity extends MyActivity implements ActivityHasPages, ReloadAlbumsEventHandler{
 
-	private int albumsTotalCount = 0;
-	private int currentPage = 0;
+	//private int albumsTotalCount = 0;
+	//private int currentPage = 0;
 	private Paginator paginator = null;
-	private boolean isFirstTimeLoaded=true;
+	//private boolean isFirstTimeLoaded=true;
 	private String tagType = null;
 	private int statusPublished = -1;
 	private AlbumsPageObj albumsPageObj;
@@ -41,14 +41,14 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 	public AlbumsActivity(AlbumsPlace place) {
 		super();
 		super.setPlace(place);
-		this.currentPage = 0;
+		//this.currentPage = 0;
 
 	}
 
 
 
 
-	public void getAlbums(int page, final boolean forceClearOnFinish) {
+	public void getAlbums(int page) {
 		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
 
 		// Set up the callback object.
@@ -58,10 +58,14 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 
 				if (caught instanceof RPCServiceExeption) {
 					Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
-					if (forceClearOnFinish) {
-						clearViewAlbums();
-						isFirstTimeLoaded=true;
+					if (paginator.isForceClearOnFinish()) {
+						//clearViewAlbums();
+						//isFirstTimeLoaded=true;
+						
+						
+						((ViewHasPages)AlbumsActivity.this.getView()).clearWidget(0);
 						paginator.removeFromParent();
+						
 					}
 				}
 			}
@@ -70,14 +74,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 			public void onSuccess(Object result) {
 				Log.debug("UserArea onSuccess ");
 				AlbumsObj albumsObj = (AlbumsObj)result;
-				/*
-				for (int i=0; i<albumsObj.getAlbums().size(); i++) {
-					AlbumObj albumObj = albumsObj.getAlbums().get(i);
-					//Log.debug("albumObj.getAlbname()" + albumObj.getAlbname());
-					//Log.debug("albumObj.getAlbpage()" + albumObj.getAlbpage());
-				}*/
-
-				populateAlbumsView(albumsObj,forceClearOnFinish);
+				populateAlbumsView(albumsObj);
 			}
 		};
 
@@ -89,34 +86,39 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 	}
 
 
-	public void populateAlbumsView(AlbumsObj albumsObj, boolean forceClearOnFinish) {
+	public void populateAlbumsView(AlbumsObj albumsObj) {
 		AlbumsView albumsView = (AlbumsView)this.getView();
-		Log.debug("isFirstTimeLoaded=" + isFirstTimeLoaded);
-		if (isFirstTimeLoaded) {
-			Log.debug("do new paginator");
-			if (paginator!=null) {
-				//isFirstTimeLoaded=true;
-				paginator.removeFromParent();
-			}
+		//Log.debug("isFirstTimeLoaded=" + isFirstTimeLoaded);
+		
+		/*
+		if (paginator!=null && paginator.isFirstTimeLoaded()) {
+			//isFirstTimeLoaded=true;
+			paginator.removeFromParent();
+			paginator=null;
+		}*/
+		
+		if (paginator==null) {
+			//Log.debug("do new paginator");
 			paginator = new Paginator(albumsObj.getTotalCount(),this, (ViewHasPages)this.getView());
 			albumsView.setPaginator(paginator);
-			paginator.setCurrentPage(0);		
-			isFirstTimeLoaded=false;
+			//paginator.setCurrentPage(0);		
+			//paginator.setFirstTimeLoaded(false);
+			//isFirstTimeLoaded=false;
 		}
-
-
-		this.albumsTotalCount = albumsObj.getTotalCount();
-		if (forceClearOnFinish) {
-			clearViewAlbums();
-		} 
-		else {
-			paginator.onSuccessLoad();
-		}
-
 		
+		
+
+
+		//this.albumsTotalCount = albumsObj.getTotalCount();
+		
+		
+			
+		
+		paginator.onSuccessLoad();
+
 		albumsView.populateAlbumsView(albumsObj);
-		
 
+		
 
 		/*
 		for (int i=0; i<albumObjs.size(); i++) {
@@ -128,17 +130,18 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 		}*/
 	}
 
+	/*
 	public void clearViewAlbums() {
 		AlbumsView albumsView = (AlbumsView)this.getView();
 		albumsView.clearWidget(0);
 		albumsView.scrollToTop();
-	}
-	
+	}*/
+
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
 		ClientFactory.getEventBus().addHandler(ReloadAlbumsEvent.TYPE, this);
-		
+
 		AlbumsView albumsView = new AlbumsView(this);
 
 		//String params = plac;
@@ -160,7 +163,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 
 
 	}
-	
+
 	public void doInitPageLoad() {
 		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
 
@@ -184,7 +187,11 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 					//Log.debug("albumObj.getAlbpage()" + albumObj.getAlbpage());
 				}*/
 
-				populateAlbumsView(albumsPageObj.getAlbumsObj(),false);
+				renderBlocks(albumsPageObj);
+
+				populateAlbumsView(albumsPageObj.getAlbumsObj());
+
+
 			}
 		};
 
@@ -194,7 +201,13 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 
 	}
 
+	public void renderBlocks(AlbumsPageObj albumsPageObj) {
+		 ((AlbumsView)getView()).renderBlocks(albumsPageObj);
+		// ((AlbumsView)getView()).renderBlocks(albumsPageObj);
+		 
+	}
 
+	/*
 	public int getAlbumsTotalCount() {
 		return albumsTotalCount;
 	}
@@ -202,13 +215,13 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 
 	public void setAlbumsTotalCount(int albumsTotalCount) {
 		this.albumsTotalCount = albumsTotalCount;
-	}
+	}*/
 
 
 	@Override
-	public void gotoPage(int page, boolean forceClearOnFinish) {
+	public void gotoPage(int page) {
 		// TODO Auto-generated method stub
-		getAlbums(page,forceClearOnFinish);
+		getAlbums(page);
 	}
 
 
@@ -223,12 +236,6 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 
 
 
-	@Override
-	public void scrollToTop() {
-		// TODO Auto-generated method stub
-
-	}
-
 
 
 
@@ -238,9 +245,14 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 		Log.debug("event.getTagType()  " + event.getTagType());
 		this.tagType = event.getTagType(); 
 		this.statusPublished =  event.getStatus();
-		isFirstTimeLoaded = true;
-		getAlbums(0, true);
+		//isFirstTimeLoaded = true;
+		//paginator.setFirstTimeLoaded(true);
 		
+		paginator.removeFromParent();
+		paginator=null;
+		
+		getAlbums(0);
+
 	}
 
 }

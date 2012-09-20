@@ -8,11 +8,11 @@ public class CookieObj implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String email = null;
-	private String md5session = null;
+	private String email = "";
+	private String md5session = "";
 	private boolean isFBUser = false;
-	private int userRole = 1;
-	private String nick = null;
+	private int userRole = 0;
+	private String nick = "Anonymous";
 	 
 	public String getEmail() {
 		return email;

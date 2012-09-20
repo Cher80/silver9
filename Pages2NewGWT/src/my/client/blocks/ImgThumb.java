@@ -57,7 +57,7 @@ public class ImgThumb extends Composite {
 		panel.add(show1500pxButt);
 		panel.add(showOrigpxButt);
 
-		if (ClientFactory.getCookieObj().getUserRole()==2) {
+		if (ClientFactory.getUser().getUserRole()==2) {
 			panel.add(adminSetPublishedButt);
 			panel.add(adminSetCoverButt);
 

@@ -5,6 +5,7 @@ import java.util.Date;
 import my.client.albumspage.AlbumsActivity;
 import my.client.common.ClientFactory;
 import my.client.events.NewCommentEvent;
+import my.client.events.ReloadAlbumsEvent;
 import my.client.modelpage.ModelActivity;
 import my.client.modelpage.ModelPlace;
 import my.client.rpcs.RPCService;
@@ -46,26 +47,93 @@ private AlbumsActivity albumsActivity;
 		
 		super();
 		
-		TagAlbumsGroup likesGroup = new TagAlbumsGroup("LIKES");
-		TagAlbumsUnit likeUnit = new TagAlbumsUnit("LIKE");
-		TagAlbumsUnit dislikeUnit = new TagAlbumsUnit("DISLIKE");
+		
+		
+		panel.addStyleName("TagAlbumsBlock");
+		
+		
+		FlowPanel likesBlock = new FlowPanel();
+		likesBlock.addStyleName("likesBlock");
+		panel.add(likesBlock);
+		
+		Label ratingLabel = new Label("Sort by rating");
+		ratingLabel.addStyleName("ratingLabel");
+		ratingLabel.addStyleName("text_12_white_bold");
+		likesBlock.add(ratingLabel);
+
+		
+		
+		TagAlbumsGroup likesGroup = new TagAlbumsGroup("LIKES", "Likes");
+		TagAlbumsUnit likeUnit = new TagAlbumsUnit("LIKE", "Like");
+		TagAlbumsUnit dislikeUnit = new TagAlbumsUnit("DISLIKE", "Dislike");
 		likesGroup.addTag(likeUnit);
 		likesGroup.addTag(dislikeUnit);
-		panel.add(likesGroup);
+		likesBlock.add(likesGroup);
+		
+		Label clearAllLabel = new Label("x Clear all");
+		clearAllLabel.addStyleName("clearAllLabel");
+		clearAllLabel.addStyleName("link_11_grey");
+		likesBlock.add(clearAllLabel);
+		clearAllLabel.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(null,1);
+				ClientFactory.getEventBus().fireEvent(eventReload);
+			}
+		});
 		
 		
-		TagAlbumsGroup hairsGroup = new TagAlbumsGroup("HAIRS");
-		TagAlbumsUnit blondUnit = new TagAlbumsUnit("BLOND");
-		TagAlbumsUnit redUnit = new TagAlbumsUnit("RED");
-		TagAlbumsUnit darkUnit = new TagAlbumsUnit("DARK");
+		///////TAGS Icon////////////////////
+		
+		FlowPanel tagsIconBlock = new FlowPanel();
+		tagsIconBlock.addStyleName("tagsBlock");
+		panel.add(tagsIconBlock);
+		
+		Label tagsLabel = new Label("Filter by tags");
+		tagsLabel.addStyleName("tagsLabel");
+		tagsLabel.addStyleName("text_12_white_bold");
+		tagsIconBlock.add(tagsLabel);
+		
+		
+		FlowPanel tagsBlockIcon = new FlowPanel();
+		tagsBlockIcon.addStyleName("tagsBlockIcon");
+		tagsIconBlock.add(tagsBlockIcon);
+		
+		Label clearAllLabel2 = new Label("x Clear all");
+		clearAllLabel2.addStyleName("clearAllLabel");
+		clearAllLabel2.addStyleName("link_11_grey");
+		tagsIconBlock.add(clearAllLabel2);
+		clearAllLabel2.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(null,1);
+				ClientFactory.getEventBus().fireEvent(eventReload);
+			}
+		});
+		/////////Tags///////////
+		FlowPanel tagsBlock = new FlowPanel();
+		tagsBlock.addStyleName("tagsBlock");
+		panel.add(tagsBlock);
+		
+		TagAlbumsGroup hairsGroup = new TagAlbumsGroup("HAIRS", "Hairs");
+		TagAlbumsUnit blondUnit = new TagAlbumsUnit("BLOND","Blond");
+		TagAlbumsUnit redUnit = new TagAlbumsUnit("RED", "Red");
+		TagAlbumsUnit darkUnit = new TagAlbumsUnit("DARK", "Red");
 		hairsGroup.addTag(blondUnit);
 		hairsGroup.addTag(redUnit);
 		hairsGroup.addTag(darkUnit);
-		panel.add(hairsGroup);
+		tagsBlock.add(hairsGroup);
 			
+		
+		TagAlbumsGroup heightGroup = new TagAlbumsGroup("HEIGHT", "Height");
+		TagAlbumsUnit cuteUnit = new TagAlbumsUnit("CUTE","Cute");
+		TagAlbumsUnit normUnit = new TagAlbumsUnit("NORM", "Norm");
+		TagAlbumsUnit tallUnit = new TagAlbumsUnit("TALL", "Tall");
+		heightGroup.addTag(cuteUnit);
+		heightGroup.addTag(normUnit);
+		heightGroup.addTag(tallUnit);
+		tagsBlock.add(heightGroup);
 
 
-
+		
 
 
 		initWidget(panel);

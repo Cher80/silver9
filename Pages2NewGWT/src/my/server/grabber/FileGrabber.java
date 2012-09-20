@@ -1,6 +1,7 @@
 package my.server.grabber;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
@@ -179,10 +181,17 @@ public boolean isHasOriginal(BufferedImage bufferedImage) {
 
 		Iterator iter = ImageIO.getImageWritersByFormatName("jpeg");
 		ImageWriter writerr = (ImageWriter)iter.next();
+		
 		ImageWriteParam iwp = writerr.getDefaultWriteParam();
-
 		iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-		iwp.setCompressionQuality(1);   // an integer between 0 and 1
+		//iwp.setCompressionQuality(1);   // an integer between 0 and 1
+		iwp.setCompressionQuality((float) 0.92);
+		
+		//ImageWriteParam iwp = new MyImageWriteParam();
+		//iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT) ;
+		//iwp.setCompressionQuality(1);
+		
+		
 		// 1 specifies minimum compression and maximum quality
 
 		//File file = new File(OUTPUTFILE);
@@ -191,8 +200,14 @@ public boolean isHasOriginal(BufferedImage bufferedImage) {
 		MemoryCacheImageOutputStream  memoryCacheImageOutputStream = new MemoryCacheImageOutputStream(thumbnail_baos);
 		writerr.setOutput(memoryCacheImageOutputStream);
 		//IIOImage image = new IIOImage(BUFFEREDIMAGE, null, null);
-		writerr.write(bufferedImage);
-
+		//writerr.write(bufferedImage);
+	//	writerr.writeToSequence(image, param)
+		//writerr.write(null, bufferedImage, iwp);
+		//IIOImage iIOImage = new IIOImage();
+		
+		writerr.write(null, new IIOImage(bufferedImage, null, null), iwp);
+		//IIOImageToBufferedImage
+		//writerr.write(streamMetadata, image, param)
 		writerr.dispose();
 
 		//ImageIO.write( thumbnail, "jpg", thumbnail_baos );
@@ -281,5 +296,15 @@ public boolean isHasOriginal(BufferedImage bufferedImage) {
 		LOG.info("checkIfExistMD5 isMD5exist " + isMD5exist);
 		return isMD5exist;
 
+	}
+	
+	
+	
+	protected BufferedImage IIOImageToBufferedImage(IIOImage iioImage)
+	{
+	RenderedImage renderedImage = iioImage.getRenderedImage();
+	BufferedImage bufferedImage = (BufferedImage)renderedImage;
+
+	return bufferedImage;
 	}
 }

@@ -1,6 +1,7 @@
 package my.client;
  
 //import my.client.MyComposite;
+import my.client.albumspage.AlbumsPlace;
 import my.client.blocks.TopMenu;
 import my.client.common.AppActivityMapper;
 import my.client.common.AppPlaceHistoryMapper;
@@ -10,6 +11,7 @@ import my.client.common.MyFlowPanel;
 import my.client.forum.ForumPlace;
 import my.client.helpers.HavePlace;
 import my.shared.CookieObj;
+import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
@@ -22,6 +24,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -34,7 +37,7 @@ import com.google.web.bindery.event.shared.EventBus;
 public class ExtraNewGWT implements EntryPoint {
 	
 	//private CookieObj cookieObj = (new CookieObj()).generateFromString(cookie);
-	private Place defaultPlace = new ForumPlace("34");
+	private Place defaultPlace = new AlbumsPlace(Integer.toString(0));
 
     private SimplePanel appWidget = new SimplePanel();
     private SimplePanel appWidgetOld = new SimplePanel();
@@ -43,6 +46,7 @@ public class ExtraNewGWT implements EntryPoint {
     //private MySimpleLayoutPanel appWidNewNew = new MySimpleLayoutPanel();
     private MyFlowPanel appWidNewNew = new MyFlowPanel();
     private FlowPanel container = new FlowPanel();
+    private FlowPanel clearFlow = new FlowPanel();
     
     private TopMenu topMenu;
 
@@ -52,16 +56,21 @@ public class ExtraNewGWT implements EntryPoint {
 	public void onModuleLoad() {
 		String cookie = Cookies.getCookie("silver9session");
 		CookieObj cookieObj = new CookieObj();
+		User user = new User();
 		if (cookie!=null) {
 			
 			Log.debug("ExtraNewGWT onModuleLoad cookie = " + cookie);
 			cookieObj.generateFromString(cookie);
+			//Temp user populate, set role
+			user.setUserRole(cookieObj.getUserRole());
 		}
 		else {
 			cookieObj = null;
+			//Temp user populate, set anonim
+			user.setUserRole(0);
 		}
 		ClientFactory.setCookieObj(cookieObj);
-		
+		ClientFactory.setUser(user);
 		
 		
 		topMenu = new TopMenu();
@@ -79,6 +88,8 @@ public class ExtraNewGWT implements EntryPoint {
 		
 		
 		container.setStyleName("mainContainer");
+		//Window.getClientWidth();
+		//container.getElement().getStyle().setProperty("width", "left");
 		RootPanel.get().add(container);
 		//layoutContainer.add(container);
 		

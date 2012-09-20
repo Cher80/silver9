@@ -46,7 +46,7 @@ public class AlbumThumb extends Composite  {
 	public AlbumThumb(AlbumObj albumObjj) {
 		super();
 		this.albumObj = albumObjj;
-		
+		panel.addStyleName("AlbumThumb");
 		Date date = new java.util.Date((long)(albumObj.getTimestamp())*1000);
 		
 		//Need to check null objects in future
@@ -57,17 +57,17 @@ public class AlbumThumb extends Composite  {
  "<br/><b>Model name</b><br/>" + albumObj.getAlbname() +
  "<br/><b>Model page</b><br/>" + albumObj.getAlbpage() +
  "<br/><b>Model status</b><br/>" + albumObj.getStatus() +
- "<br/><b>Model timestamp</b><br/>" + date.toString() 
-// "<br/><b>Model cover photo objID</b><br/>" +  albumObj.getCoverImgObjID() +
- // "<br/><b>Model photo amount</b><br/>" +  albumObj.getPhotocount() +
-//  "<br/><b>Photo:</b> <br/><img src=\"/extranewgwt/getphoto?photoid=" +  albumObj.getCoverPicID() + "\"/>"
+ "<br/><b>Model timestamp</b><br/>" + date.toString() +
+ "<br/><b>Model cover photo objID</b><br/>" +  albumObj.getCoverImgObjID() +
+  "<br/><b>Model photo amount</b><br/>" +  albumObj.getPhotocount() +
+  "<br/><b>Photo:</b> <br/><img src=\"/extranewgwt/getphoto?photoid=" +  albumObj.getCoverPicID() + "\"/>"
   
   , true);
 		
 		 panel.add(html);
 		 panel.add(showAlbumButt);
 		 
-		 if (ClientFactory.getCookieObj().getUserRole()==2) {
+		 if (ClientFactory.getUser().getUserRole()==2) {
 				panel.add(adminSetPublishedButt);
 				panel.add(adminDelAlbumButt);
 				
@@ -124,6 +124,15 @@ public class AlbumThumb extends Composite  {
 			public void onSuccess(Object result) {
 				Log.debug("UserArea onSuccess ");
 				Notifications notif = new Notifications("Status has changed", true, true);
+				
+				//if (albumObj.getStatus())
+				if (albumObj.getStatus()==2) {
+					albumObj.setStatus(1);
+					adminSetPublishedButt.setText("adminSetPublishedButt to " + 2);
+				} else {
+					albumObj.setStatus(2);
+					adminSetPublishedButt.setText("adminSetPublishedButt to " + 1);
+				}
 			}
 		};
 

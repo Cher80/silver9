@@ -183,7 +183,8 @@ public class Albums {
 
 		if (!cur.hasNext()) {
 			cur.close();
-			throw new RPCServiceExeption("No albms");
+			return albumsObj; 
+			//throw new RPCServiceExeption("No albms");
 		}
 
 		else {

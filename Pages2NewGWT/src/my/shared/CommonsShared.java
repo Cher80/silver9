@@ -17,4 +17,15 @@ public class CommonsShared {
 		}
 	
 	}
+	
+	public static String safeIDBack (String stringId) {
+		if (stringId==null) { 
+			//id = null;
+			return stringId = "";
+		}
+		else {
+			return stringId.trim();
+		}
+	
+	}
 }

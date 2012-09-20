@@ -1,92 +1,415 @@
 /** Add css rules here for your application. */
 body {
-	margin:0px;
+	margin: 0px;
+	font-family: arial, verdana;
+}
+
+.back_pattern {
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjFEMzVBMEMwMTYxMTFFMjg0MDZFMzI1QjRFNTgyNzQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjFEMzVBMEQwMTYxMTFFMjg0MDZFMzI1QjRFNTgyNzQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGMUQzNUEwQTAxNjExMUUyODQwNkUzMjVCNEU1ODI3NCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGMUQzNUEwQjAxNjExMUUyODQwNkUzMjVCNEU1ODI3NCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ph/LOI0AAAAzSURBVHjaYlRUVGRgYODn5//37x8zGxvb79+/gXwgySIqKgpkffnyBUiyfP36Fc4BCDAAtt0SYZfvVfcAAAAASUVORK5CYII=)
+}
+
+.UserArea {
+	float: right;
+}
+
+.logo_panel {
+	background-image: url('misc/main_map.png');
+	width: 143px;
+	height: 24px;
+	margin: 4px 13px 3px 11px;
+	cursor: pointer;
+	float: left;
+}
+
+.StatBlock { /*width: 269px;*/
+	height: 15px;
+	margin: 10px 0px 7px 0px;
+	float: left;
+}
+
+.ButtonPanel {
+	height: auto;
+	cursor: pointer;
+	float: left;
+}
+
+.ButtonPanel:hover {
+	opacity: 0.8;
+}
+
+.ButtonContent {
+	width: 92px;
+	height: auto;
+}
+
+.ClearFloat {
+	clear: both;
+}
+
+.ButtonText {
+	float: left;
+}
+
+.ButtonIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 279px 100px;
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+
+.BackButtonIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 279px 100px;
+	margin: 8px 11px;
+	width: 19px;
+	height: 15px;
+}
+
+.BackButtonContent {
+	width: 45px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.AdminButtonIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 257px 38px;
+	margin: 4px 4px;
+	width: 25px;
+	height: 24px;
+}
+
+.AdminButtonContent {
+	width: 71px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.AdminButtonText {
+	margin: 9px 0px;
+}
+
+.LogoutButtonIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 331px 168px;
+	margin: 5px 6px;
+	width: 24px;
+	height: 22px;
+}
+
+.LogoutButtonContent {
+	width: 82px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.LogoutButtonText {
+	margin: 10px 0px 0px 0px;
+	width: 39px;
+}
+
+.FBButtonIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 277px 169px;
+	margin: 5px 6px;
+	width: 18px;
+	height: 22px;
+}
+
+.FBButtonContent {
+	width: 87px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.FBButtonText {
+	margin: 4px 0px 0px -4px;
+	width: 55px;
+}
+
+.RegButtonIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 308px 168px;
+	margin: 4px 4px;
+	width: 15px;
+	height: 24px;
+}
+
+.RegButtonContent {
+	width: 73px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.RegButtonText {
+	margin: 9px 0px;
+}
+
+.LoginButtonIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 294px 168px;
+	margin: 4px 4px;
+	width: 18px;
+	height: 24px;
+}
+
+.LoginButtonContent {
+	width: 60px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.LoginButtonText {
+	margin: 9px 0px;
+}
+
+.nickHolder { /*width: 120px;*/
+	float: left;
+	margin: 11px 7px 0px 0px;
+	text-align: right;
+}
+
+.text11_White {
+	color: white;
+	font-size: 11px;
 }
 
 .notifications {
 	border: 1px solid green;
 	background: #dfefc8;
-	width:150px;
+	width: 150px;
 }
 
 .mainContainer {
 	position: relative;
-	overflow:hidden;
-	width:700px;
-	border: 1px solid green;
-	left:0px;
-	margin-left:100px;
-	/**position: relative;**/
+	overflow: hidden;
+	/**width: 700px;**/ /*border: 1px solid green;*/
+	left: 0px;
+	/**margin-left: 100px;**/
+/**position: relative;**/
+}
+
+.TagAlbumsBlock {
+	border: 1px solid #808080;
+}
+
+.TagAlbumsBlock:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.TagAlbumsGroup {
+	border: 1px solid #808080;
+	float: left;
+}
+
+.LIKES_TagAlbumsGroup {
+	border: 1px solid red;
+	clear: both;
+}
+
+.ButtTagContent_DISLIKE {
+	height: 14px;
+	width: auto;
+	margin: 1px 7px 0px 0px;
+}
+
+.ButtTagContent_LIKE {
+	height: 14px;
+	width: auto;
+}
+
+.ButtTagContent {
+	width: auto;
+}
+
+.like_Color {
+	background: #8aa25e;
+}
+
+.dislike_Color {
+	background: #a25e6a;
+}
+
+.grey_tag_Color {
+	background: #7F8073;
+}
+
+.ButtTagText_LIKE,.ButtTagText_DISLIKE {
+	margin: 1px 7px 0px 0px;
+}
+
+.ButtTagText {
+	margin: 1px 7px 0px 0px;
+}
+
+.tagsBlock {
+	float: left;
+}
+
+.ButtTagIcon {
+	display: none;
+}
+
+.tagsIconBlock {
+	float:left;
+}
+
+
+.ButtTagIcon_LIKE {
+	background-image: url('misc/main_map.png');
+	background-position: 299px 143px;
+	width: 13px;
+	height: 12px;
+	float: left;
+	margin: 0px 4px 0px 5px;
+	display: block;
+}
+
+.ButtTagIcon_DISLIKE {
+	background-image: url('misc/main_map.png');
+	background-position: 298px 129px;
+	width: 12px;
+	height: 12px;
+	float: left;
+	margin: 1px 4px 0px 5px;
+	display: block;
+}
+
+.ButtTag{
+	/*float:none;*/
+}
+
+.tagsBlockIcon {
+	background-image: url('misc/main_map.png');
+	background-position: 327px 115px;
+	width: 46px;
+	height: 29px;
+	float: left;
+	margin: 1px 4px 0px 5px;
+}
+
+.text_12_white_bold {
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.link_11_grey {
+	color: #9C8B8B;
+	font-size: 11px;
+	cursor: pointer;
+}
+
+.link_11_grey:hover {
+	color: #E6E1E1;
+}
+
+.likesBlock {
+	float: left;
+}
+
+.clearAllLabel {
+	clear: both;
 }
 
 .TopMenu {
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjYyMUU3MTUwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjYyMUU3MTYwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjIxRTcxMzAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjIxRTcxNDAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgASjuAAAAAWSURBVHjaYhAUFGSSkZFhEhERAQgwAASSAMhEWdPBAAAAAElFTkSuQmCC)
+		bottom repeat-x;
+	/*border: 1px solid #808080;*/
+	height: 35px;
+}
+
+.registerPopup,.loginPopup {
 	background: #dfefc8;
-    border: 1px solid #808080;
-    
+	border: 1px solid #808080;
+	padding: 0.5em;
+	width: 350px;
+	height: 200px;
 }
 
-.registerPopup,
-.loginPopup {
-    background: #dfefc8;
-    border: 1px solid #808080;
-    padding: 0.5em;
-    width: 350px;
-    height: 200px;
+.AlbumThumb {
+	float: left;
 }
 
-.layoutContainer {
-	/*position: relative;*/
-	width:800px;
+.layoutContainer { /*position: relative;*/
+	width: 800px;
 	border: 1px solid blue;
-	
 }
 
 .topMenu {
 	width: 100%;
 	/*height: 20px;*/
-	border: 1px solid red;
+/*border: 1px solid red;*/
 }
 
 .MyFlowPanel {
-	margin-left:0px;
+	margin-left: 0px;
 	width: 10000px;
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 	position: relative;
-	
+}
+
+.MyFlowPanel:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.ScrolableWrapperTop { /*width:100%;*/ /*border: 1px solid green;*/
+	float: left;
+	left: 0px;
+	position: relative;
+}
+
+.ScrolableWrapperSroll {
+	height: 100%;
+	width: 100%;
+	/*border: 1px solid green;*/
+	cssFloat: left;
+	left: 0px;
 }
 
 .clearBothPanel {
-	clear:both;
+	clear: both;
 }
 
 /** Example rules used by the template application (remove for your app) */
 h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
 }
 
 .sendButton {
-  display: block;
-  font-size: 16pt;
+	display: block;
+	font-size: 16pt;
 }
 
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
-  width: 400px;
+	width: 400px;
 }
 
 .dialogVPanel {
-  margin: 5px;
+	margin: 5px;
 }
 
 .serverResponseLabelError {
-  color: red;
+	color: red;
 }
 
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
-  margin: 15px 6px 6px;
+	margin: 15px 6px 6px;
 }

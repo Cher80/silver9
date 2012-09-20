@@ -10,7 +10,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 public class Notifications extends PopupPanel {
 
     public Notifications(String text, boolean autoHide, boolean modal) {
-        super(autoHide, modal);
+       // super(autoHide, modal);
+    	 super(false, false);
         this.addStyleName("notifications");
         setWidget(new Label(text));
         

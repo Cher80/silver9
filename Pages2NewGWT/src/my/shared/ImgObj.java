@@ -25,7 +25,7 @@ public class ImgObj implements Serializable {
 	private long imgTimestamp = new Long(0);
 	
 	public String getImgID() {
-		return imgID;
+		return CommonsShared.safeIDBack(imgID);
 	}
 	
 	public void setImgID(String imgID) {
@@ -57,12 +57,7 @@ public class ImgObj implements Serializable {
 	}
 
 	public String getImgGridfs_id_m() {
-		if (imgGridfs_id_m==null||imgGridfs_id_m.equals("")) {
-			return imgGridfs_id_m; 
-		}
-		else {
-			return imgGridfs_id_m;
-		}
+			return CommonsShared.safeIDBack(imgGridfs_id_m); 
 	}
 
 	public void setImgGridfs_id_m(String imgGridfs_id_m) {
@@ -70,7 +65,7 @@ public class ImgObj implements Serializable {
 	}
 
 	public String getImgGridfs_id_0() {
-		return imgGridfs_id_0;
+		return CommonsShared.safeIDBack(imgGridfs_id_0);
 	}
 
 	public void setImgGridfs_id_0(String imgGridfs_id_0) {
@@ -78,7 +73,7 @@ public class ImgObj implements Serializable {
 	}
 
 	public String getImgGridfs_id_1() {
-		return imgGridfs_id_1;
+		return CommonsShared.safeIDBack(imgGridfs_id_1);
 	}
 
 	public void setImgGridfs_id_1(String imgGridfs_id_1) {
@@ -86,7 +81,7 @@ public class ImgObj implements Serializable {
 	}
 
 	public String getImgGridfs_id_2() {
-		return imgGridfs_id_2;
+		return CommonsShared.safeIDBack(imgGridfs_id_2);
 	}
 
 	public void setImgGridfs_id_2(String imgGridfs_id_2) {

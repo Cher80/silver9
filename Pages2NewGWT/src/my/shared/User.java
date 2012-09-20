@@ -112,4 +112,13 @@ public class User implements Serializable {
 			return false;
 		}
 	}
+	
+	/*
+	public void setUserRoleFromCookie(CookieObj cookieObj) {
+		//this.email = "";
+		//private String md5session = "";
+		//private boolean isFBUser = false;
+		this.userRole = cookieObj.getUserRole();
+		//private String nick = "Anonymous";
+	}*/
 }

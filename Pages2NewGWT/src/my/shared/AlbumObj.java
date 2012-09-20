@@ -64,19 +64,19 @@ public class AlbumObj implements Serializable {
 		return albid;
 	}
 	public void setAlbid(String albid) {
-		this.albid = albid.trim();
+		this.albid = CommonsShared.safeString(albid);
 	}
 	public String getCoverImgObjID() {
 		return coverImgObjID;
 	}
 	public void setCoverImgObjID(String coverImgObjID) {
-		this.coverImgObjID = coverImgObjID.trim();
+		this.coverImgObjID = CommonsShared.safeString(coverImgObjID);
 	}
 	public String getCoverPicID() {
 		return coverPicID;
 	}
 	public void setCoverPicID(String coverPicID) {
-		this.coverPicID = coverPicID.trim();
+		this.coverPicID = CommonsShared.safeString(coverPicID);
 	}
 	
 

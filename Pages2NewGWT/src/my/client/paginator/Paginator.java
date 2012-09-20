@@ -19,6 +19,7 @@ import my.shared.CommentObj;
 import my.shared.CommentsObj;
 import my.shared.ImgObj;
 import my.shared.ModelPageObj;
+import my.shared.Settings;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.shared.GWT;
@@ -34,9 +35,9 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class Paginator extends Composite {
-
-
-	private final static int ITEMS_PER_PAGE = 6;
+	private boolean forceClearOnFinish = false;
+	private boolean isFirstTimeLoaded=true;
+	private final static int ITEMS_PER_PAGE = Settings.ALBUMS_PER_PAGE;
 	private final static int CURR_PAGES_SIZE = 8;
 	private int totalItems; 
 	private int totalPages;
@@ -52,6 +53,8 @@ public class Paginator extends Composite {
 	private int prevScroll = 0;
 	private int curScrollatLoad = 0;
 	private ViewHasPages view;
+	private boolean isScrollFrezed = false;
+	private int maxLoadedOnScrollPage = 0;
 
 	public Paginator(int totalItemss, ActivityHasPages activityy, ViewHasPages vieww) {
 		super();
@@ -86,9 +89,19 @@ public class Paginator extends Composite {
 		panel.getElement().getStyle().setProperty("position","absolute");
 		panel.getElement().getStyle().setProperty("left", "30px");
 		panel.getElement().getStyle().setProperty("top", "30px");
+		
+		this.setCurrentPage(0);		
+		this.setFirstTimeLoaded(false);
+
 	}
 
 
+	
+	public void removeFromParent() {
+		isFirstTimeLoaded = true;
+		super.removeFromParent();
+		this.view.clearWidget(0);
+	}
 	//getNex
 
 
@@ -210,28 +223,42 @@ public class Paginator extends Composite {
 			}
 			
 			currPage = page;
+			maxLoadedOnScrollPage = 0;
 			setCurrentPage(currPage);
 			Log.debug("Paginator click  pageNo= " + currPage);
-			activity.gotoPage(currPage,forceClearOnFinish);
-			activity.scrollToTop();
+			this.forceClearOnFinish = forceClearOnFinish;
+			this.setScrollFrezed(true);
+			activity.gotoPage(currPage);
+			//activity.scrollToTop();
 		}
 	}
 
 	
 	public void onSuccessLoad() {
+		
+		if (forceClearOnFinish) {
+			view.clearWidget(0);
+			forceClearOnFinish = false;
+		} 
+		
 		loadPositions.put(currPage, curScrollatLoad - 20);
 		Log.debug("loadPositions " + loadPositions.toString());
+		this.setScrollFrezed(false);
 	}
 
 	public void getNext() {
 		
-		if (currPage<totalPages) {
+		if (currPage<totalPages && totalPages!=maxLoadedOnScrollPage) {
 			Log.debug("paginator getNext");
-			view.freezeScroll();
+			//view.freezeScroll();
+			this.setScrollFrezed(true);
 			currPage = currPage + 1;
+			maxLoadedOnScrollPage = currPage;
 			Log.debug("Paginator scroll  pageNo= " + currPage);
 			setCurrentPage(currPage);
-			activity.gotoPage(currPage,false);
+			forceClearOnFinish = false;
+			this.setScrollFrezed(true);
+			activity.gotoPage(currPage);
 		}
 
 	}
@@ -258,6 +285,7 @@ public class Paginator extends Composite {
 			}*/
 			this.curScrollatLoad = curScroll;
 			this.getNext();
+			checkCrossLoadPoints(curScroll);
 
 		}
 		else {
@@ -287,6 +315,42 @@ public class Paginator extends Composite {
 
 
 		
+	}
+
+
+
+	public boolean isFirstTimeLoaded() {
+		return isFirstTimeLoaded;
+	}
+
+
+
+	public void setFirstTimeLoaded(boolean isFirstTimeLoaded) {
+		this.isFirstTimeLoaded = isFirstTimeLoaded;
+	}
+
+
+
+	public boolean isForceClearOnFinish() {
+		return forceClearOnFinish;
+	}
+
+
+
+	public void setForceClearOnFinish(boolean forceClearOnFinish) {
+		this.forceClearOnFinish = forceClearOnFinish;
+	}
+
+
+
+	public boolean isScrollFrezed() {
+		return isScrollFrezed;
+	}
+
+
+
+	public void setScrollFrezed(boolean isScrollFrezed) {
+		this.isScrollFrezed = isScrollFrezed;
 	}
 	
 

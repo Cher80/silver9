@@ -4,6 +4,7 @@ import java.util.Date;
 
 import my.client.albumspage.AlbumsActivity;
 import my.client.common.ClientFactory;
+import my.client.common.IconButt;
 import my.client.events.NewCommentEvent;
 import my.client.events.ReloadAlbumsEvent;
 import my.client.modelpage.ModelActivity;
@@ -37,28 +38,61 @@ import com.google.gwt.user.client.ui.TextBox;
 public class TagAlbumsUnit extends Composite {
 
 	private FlowPanel panel = new FlowPanel();
-	private Button doTagButt;
-	private String tag;
+	private IconButt doTagButt;
+	private String tagType;
+	private String tagReadableName;
 
 	private AlbumsActivity albumsActivity;
 	//private Button doTagMark;
 
 	//private int 
 
-	public TagAlbumsUnit(String tagg) {
+	public TagAlbumsUnit(String tagTypee, String tagReadableNamee) {
 
 		super();
-		this.tag = tagg;
-
-		doTagButt = new Button(tag);
-
+		
+		this.tagType = tagTypee;
+		this.tagReadableName = tagReadableNamee;
+		panel.addStyleName("TagAlbumsUnit");
+		panel.addStyleName(tagType);
+		
+		//doTagButt = new Button(tagReadableName);
+		doTagButt = new IconButt(); 
+		doTagButt.addStyleName("ButtTag");
+		doTagButt.icon.addStyleName("ButtTagIcon");
+		doTagButt.icon.addStyleName("ButtTagIcon_" + tagType);
+		doTagButt.content.addStyleName("ButtTagContent");
+		doTagButt.content.addStyleName("ButtTagContent_" + tagType);
+		doTagButt.text.addStyleName("ButtTagText");
+		doTagButt.text.addStyleName("ButtTagText_" + tagType);
+		if (this.tagType.equals("LIKE")||this.tagType.equals("DISLIKE")) {
+			doTagButt.text.addStyleName("text11_White");
+		} else {
+			doTagButt.text.addStyleName("text11_White");
+		}
+		
+		if (this.tagType.equals("LIKE")) {
+			doTagButt.content.addStyleName("like_Color");
+		}
+		else if (this.tagType.equals("DISLIKE")) {
+			doTagButt.content.addStyleName("dislike_Color");
+		}
+		else {
+			doTagButt.content.addStyleName("grey_tag_Color");
+		}
+		
+	
+		/*doTagButt.text.addStyleName("text11_White");*/
+		doTagButt.setText(tagReadableName);
+		
+		
 		panel.add(doTagButt);
 	
-		doTagButt.addClickHandler(new ClickHandler() {
+		doTagButt.panel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
-				Log.debug("doTagButt " + tag);
-				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(tag,1);
+				Log.debug("doTagButt " + tagType);
+				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(tagType,1);
 				ClientFactory.getEventBus().fireEvent(eventReload);
 				
 				//doSetTag(tagObj, albumObj, ClientFactory.getUser());

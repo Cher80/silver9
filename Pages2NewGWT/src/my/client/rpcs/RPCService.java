@@ -12,6 +12,7 @@ import my.shared.ImgObj;
 import my.shared.ModelPageObj;
 import my.shared.ResponseStatus;
 import my.shared.TagObj;
+import my.shared.TopBlockObj;
 import my.shared.User;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -31,6 +32,7 @@ public interface RPCService extends RemoteService {
 	AlbumsObj getAlbumsByTime(int offest, int limit, String tagType, int statusPublished) throws RPCServiceExeption;
 
 	ModelPageObj getModelPage(String modelID, String photoID) throws RPCServiceExeption;
+	TopBlockObj getTopBlock(CookieObj cookieObj) throws RPCServiceExeption;
 
 	public CommentObj doPostComment(CommentObj commentObj) throws RPCServiceExeption;
 
