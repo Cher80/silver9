@@ -1,6 +1,8 @@
 package my.server.exutor;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 import my.client.rpcs.RPCServiceExeption;
 import my.server.CommonsServer;
@@ -9,6 +11,8 @@ import my.shared.AlbumObj;
 import my.shared.AlbumsObj;
 import my.shared.CommonsShared;
 import my.shared.ResponseStatus;
+import my.shared.TagObj;
+import my.shared.TagsObj;
 import my.shared.User;
 
 import org.apache.log4j.Logger;
@@ -231,10 +235,10 @@ public class Albums {
 				}
 				 */
 
-
+LOG.debug("album.get(timestamp)" + album.get("timestamp"));
 				AlbumObj albumObj = convertFromDBOtoOBJ(album);
 				albumsObj.getAlbums().add(albumObj);
-
+				LOG.debug(" albumObj.getTimestamp()" + albumObj.getTimestamp());
 			}
 
 
@@ -261,7 +265,7 @@ public class Albums {
 			albumObj.setStatus((int)album.get("status"));
 		if (album.containsField("timestamp")) 
 			//albumObj.setTimestamp((long)album.get("timestamp"));
-			albumObj.setTimestamp(new Long(23));
+			albumObj.setTimestamp(album.getLong("timestamp")); 
 		if (album.containsField("photocount")) 
 			albumObj.setPhotocount((int)album.get("photocount"));
 		if (album.containsField("coverimgobjid")) 
@@ -270,6 +274,33 @@ public class Albums {
 			albumObj.setCoverPicID(CommonsServer.fromIDtoString(album.getObjectId("coverpicid")));
 		if (album.containsField("_id")) 
 			albumObj.setAlbid(CommonsServer.fromIDtoString(album.getObjectId("_id")));
+		//if (album.containsField("tags2.LIKE"))
+		
+		if (album.containsField("tags2")) {
+			BasicDBObject curTags = (BasicDBObject) album.get("tags2");
+
+			TagsObj tagsObj = new TagsObj();
+			Iterator it = curTags.entrySet().iterator();
+
+
+			while (it.hasNext()) {
+				//BasicDBObject curTag =  (BasicDBObject) curTags.entrySet().iterator().next();
+				Map.Entry pairs = (Map.Entry)it.next();
+				BasicDBObject curTagDBO = (BasicDBObject) pairs.getValue();
+
+				TagExec tagExec = new TagExec();
+				TagObj tagObj = tagExec.convertTagFromDBOtoObj(curTagDBO);
+				//tagObj = isInVotedGroup(tagObj);
+				tagsObj.getTagsObj().add(tagObj);
+				//map.put("1", "Department A");
+				//map.put("2", "Department B");
+
+
+				LOG.debug("getTagObjs2 curTag.get " + curTagDBO.get("tagtype"));
+			}
+			albumObj.setTagsObj(tagsObj);
+		}
+		
 return albumObj;
   }
 	

@@ -87,6 +87,7 @@ body {
 	background: rgba(0, 0, 0, 0.8);
 }
 
+
 .AdminButtonText {
 	margin: 9px 0px;
 }
@@ -191,8 +192,10 @@ body {
 /**position: relative;**/
 }
 
-.TagAlbumsBlock {
-	border: 1px solid #808080;
+.TagAlbumsBlock { /*border: 1px solid #808080;*/
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjYyMUU3MTUwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjYyMUU3MTYwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjIxRTcxMzAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjIxRTcxNDAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgASjuAAAAAWSURBVHjaYhAUFGSSkZFhEhERAQgwAASSAMhEWdPBAAAAAElFTkSuQmCC)
+		bottom repeat-x;
 }
 
 .TagAlbumsBlock:after {
@@ -203,14 +206,19 @@ body {
 	visibility: hidden;
 }
 
-.TagAlbumsGroup {
-	border: 1px solid #808080;
+.TagAlbumsGroup { /*border: 1px solid #808080;*/
 	float: left;
+	padding: 5px 15px;
 }
 
-.LIKES_TagAlbumsGroup {
-	border: 1px solid red;
+.tagIconBlock {
+	float: left;
+	padding: 5px 15px;
+}
+
+.LIKES_TagAlbumsGroup { /*border: 1px solid red;*/
 	clear: both;
+	padding: 0px 0px;
 }
 
 .ButtTagContent_DISLIKE {
@@ -226,6 +234,8 @@ body {
 
 .ButtTagContent {
 	width: auto;
+	padding: 0px 1px;
+	margin: 1px 0px;
 }
 
 .like_Color {
@@ -250,6 +260,7 @@ body {
 
 .tagsBlock {
 	float: left;
+	/*	padding: 5px 15px;*/
 }
 
 .ButtTagIcon {
@@ -257,9 +268,8 @@ body {
 }
 
 .tagsIconBlock {
-	float:left;
+	float: left;
 }
-
 
 .ButtTagIcon_LIKE {
 	background-image: url('misc/main_map.png');
@@ -281,8 +291,8 @@ body {
 	display: block;
 }
 
-.ButtTag{
-	/*float:none;*/
+.ButtTag { /*float:none;*/
+	
 }
 
 .tagsBlockIcon {
@@ -291,7 +301,7 @@ body {
 	width: 46px;
 	height: 29px;
 	float: left;
-	margin: 1px 4px 0px 5px;
+	margin: 1px 4px 0px 0px;
 }
 
 .text_12_white_bold {
@@ -310,8 +320,13 @@ body {
 	color: #E6E1E1;
 }
 
+.border_right_dotted {
+	border-right: #444 dotted 1px
+}
+
 .likesBlock {
 	float: left;
+	padding: 5px 16px;
 }
 
 .clearAllLabel {
@@ -326,16 +341,324 @@ body {
 	height: 35px;
 }
 
+.AlbumThumb {
+	float: left;
+	position: relative;
+	width: 261px;
+	height: 311px;
+	background: white;
+	margin: 16px 13px;
+}
+
+.albumImage {
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	width: 245px;
+	height: 245px;
+	/*border: 1px solid #808080;*/
+	cursor:pointer;
+}
+
+.albumNameYO {
+	position: absolute;
+	left: -4px;
+	top: 261px;
+	width: 171px;
+	height: 22px;
+}
+
+.grey_Plate {
+	background: #b3b3b3;
+}
+
+.albumYO {
+	position: absolute;
+	left: 114px;
+	top: 2px;
+	width: 52px;
+	height: 16px;
+	/*border: 1px solid gray;*/
+	text-align:right;
+}
+
+.albumName {
+	position: absolute;
+	left: 9px;
+	top: 2px;
+	width: 101px;
+	height: 16px;
+	/*border: 1px solid gray;*/
+	text-transform:capitalize;
+	overflow: hidden;
+}
+
+.text_11_grey {
+	color: #9C8B8B;
+	font-size: 11px;
+}
+
+.belleRatingLabel {
+position: absolute;
+left: 0px;
+top: -1px;
+width: 86px;
+height: 16px;
+text-align: right;
+}
+
+.belleLikesDescLabel {
+position: absolute;
+left: 0px;
+top: 14px;
+width: 41px;
+height: 16px;
+text-align: right;
+}
+.belleDislikesDescLabel {
+position: absolute;
+left: 0px;
+top: 31px;
+width: 41px;
+height: 16px;
+text-align: right;
+}
+
+.belleLikesUnder {
+position: absolute;
+left: 43px;
+top: 14px;
+width: 43px;
+height: 14px;
+}
+.belleDislikesUnder {
+position: absolute;
+left: 43px;
+top: 30px;
+width: 43px;
+height: 14px;
+}
+
+
+.belleLikesIcon {
+position: absolute;
+left: 46px;
+top: 15px;
+width: 12px;
+height: 11px;
+background-image: url('misc/main_map.png');
+background-position: 299px 142px;
+}
+
+.belleDislikesIcon {
+position: absolute;
+left: 46px;
+top: 32px;
+width: 12px;
+height: 11px;
+background-image: url('misc/main_map.png');
+background-position: 299px 129px;
+}
+
+.belleLikesLabel {
+position: absolute;
+left: 60px;
+top: 15px;
+width: 27px;
+height: 11px;
+text-align: left;
+}
+
+.belleDislikesLabel {
+position: absolute;
+left: 60px;
+top: 31px;
+width: 27px;
+height: 11px;
+text-align: left;
+}
+
+.albumPageLabel {
+	position: absolute;
+left: 6px;
+top: 289px;
+width: 162px;
+height: 14px;
+text-align: left;
+overflow: hidden;
+}
+
+
+.layerHover {
+position: absolute;
+left: 8px;
+top: 8px;
+width: 245px;
+height: 245px;
+background: rgba(0, 0, 0, 0.2);
+display:none;
+cursor:pointer;
+}
+.hoverUnder {
+	position: absolute;
+left: 104px;
+top: 0px;
+width: 141px;
+height: 30px;
+background: rgba(0, 0, 0, 0.5);
+}
+
+.hoverIco {
+position: absolute;
+left: 116px;
+top: 3px;
+width: 21px;
+height: 23px;
+background-image: url('misc/main_map.png');
+background-position: 286px 145px;
+}
+
+.hoverPhotoCount {
+position: absolute;
+left: 3px;
+top: 3px;
+width: 108px;
+height: 15px;
+text-align: right;
+}
+
+
+.hoverDateAdded {
+position: absolute;
+left: 2px;
+top: 17px;
+width: 108px;
+height: 15px;
+text-align: right;
+}
+
+
+.statusAdmin {
+position: absolute;
+left: 8px;
+top: 221px;
+}
+
+.statusAdminContent,.delAdminContent {
+	width: 123px;
+height: 32px;
+background: rgba(0, 0, 0, 0.8);
+}
+
+.LikesStatBlock {
+width: 93px;
+height: 50px;
+position: relative;
+}
+
+.likesStatBlockAlbum {
+left: 166px;
+top: 259px;
+}
+
+
+.delAdmin {
+position: absolute;
+left: 8px;
+top: 187px;
+}
+
+
+.AlbumThumb:hover .layerHover {
+	display:block;
+}
+
+
+.bestUnit {
+position: relative;
+width: 132px;
+height: 166px;
+margin: 9px 0px;
+background: rgba(255, 255, 255, 0.3);
+}
+
+.bestUnit:hover {
+	
+	background:rgba(255, 255, 255, 0.4);
+}
+
+.likesStatBlockBest {
+left: 40px;
+top: 117px;
+}
+
+.albumImageBest {
+position: absolute;
+left: 6px;
+top: 6px;
+width: 120px;
+height: 120px;
+cursor: pointer;
+}
+
+.text_11_grey_bold {
+	font-size:11px;
+	font-weight:bold;
+	color:#535353;
+}
+
+
+.text_11_white_bold {
+	font-size:11px;
+	font-weight:bold;
+	color:#fff;
+}
+
+.text12_white_bold {
+	font-size:12px;
+	font-weight:bold;
+	color:#fff;
+}
+
+ .text9_white {
+ font-size:9px;
+	color:#fff;
+ }
+
+.blackNameHeader {
+	font-size:14px;
+	font-weight:bold;
+	color:#000;
+}
+
+.thumbsPanel {
+	float: left;
+	margin-right: 200px;
+}
+
+.panelBlocks {
+	float: left;
+	margin-left: -200px;
+	width: 200px;
+}
+
+.panelThumbsAndBlocks {
+	float: left;
+}
+/**
+.thumbsPanel:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}**/
 .registerPopup,.loginPopup {
 	background: #dfefc8;
 	border: 1px solid #808080;
 	padding: 0.5em;
 	width: 350px;
 	height: 200px;
-}
-
-.AlbumThumb {
-	float: left;
 }
 
 .layoutContainer { /*position: relative;*/
@@ -362,6 +685,10 @@ body {
 	height: 0;
 	clear: both;
 	visibility: hidden;
+}
+
+.ratingLabel,.tagsLabel,.oneTagLabel {
+	padding: 0px 0px;
 }
 
 .ScrolableWrapperTop { /*width:100%;*/ /*border: 1px solid green;*/

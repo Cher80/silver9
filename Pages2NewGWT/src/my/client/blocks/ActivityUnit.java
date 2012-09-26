@@ -32,7 +32,8 @@ public class ActivityUnit extends Composite {
 
     	panel.add(gotoAlbum);
 
-    	gotoAlbum.setText("Activity " + activityObj.getActivityType() + " Tag " + activityObj.getTagType() + " Comment " + activityObj.getCommentText() + " album " + activityObj.getAlbname());
+    	//gotoAlbum.setText("Activ " + activityObj.getActivityType() + " Tag " + activityObj.getTagType() + " Comment " + activityObj.getCommentText() + " album " + activityObj.getAlbname());
+    	gotoAlbum.setText("Activ " + activityObj.getActivityType());
     	
     	gotoAlbum.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

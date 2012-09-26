@@ -55,6 +55,7 @@ private AlbumsActivity albumsActivity;
 		//this.group = groupp;
 		gropNameLabel.setText(groupReadableName);
 		gropNameLabel.addStyleName("text_12_white_bold");
+		gropNameLabel.addStyleName("oneTagLabel");
 		if (!groupType.equals("LIKES")) {
 		panel.add(gropNameLabel);	
 		}

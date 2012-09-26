@@ -54,6 +54,7 @@ private AlbumsActivity albumsActivity;
 		
 		FlowPanel likesBlock = new FlowPanel();
 		likesBlock.addStyleName("likesBlock");
+		likesBlock.addStyleName("border_right_dotted");
 		panel.add(likesBlock);
 		
 		Label ratingLabel = new Label("Sort by rating");
@@ -85,7 +86,8 @@ private AlbumsActivity albumsActivity;
 		///////TAGS Icon////////////////////
 		
 		FlowPanel tagsIconBlock = new FlowPanel();
-		tagsIconBlock.addStyleName("tagsBlock");
+		tagsIconBlock.addStyleName("tagIconBlock");
+		//tagsIconBlock.addStyleName("border_right_dotted");
 		panel.add(tagsIconBlock);
 		
 		Label tagsLabel = new Label("Filter by tags");
@@ -114,6 +116,7 @@ private AlbumsActivity albumsActivity;
 		panel.add(tagsBlock);
 		
 		TagAlbumsGroup hairsGroup = new TagAlbumsGroup("HAIRS", "Hairs");
+		hairsGroup.addStyleName("border_right_dotted");
 		TagAlbumsUnit blondUnit = new TagAlbumsUnit("BLOND","Blond");
 		TagAlbumsUnit redUnit = new TagAlbumsUnit("RED", "Red");
 		TagAlbumsUnit darkUnit = new TagAlbumsUnit("DARK", "Red");
@@ -124,6 +127,7 @@ private AlbumsActivity albumsActivity;
 			
 		
 		TagAlbumsGroup heightGroup = new TagAlbumsGroup("HEIGHT", "Height");
+		heightGroup.addStyleName("border_right_dotted");
 		TagAlbumsUnit cuteUnit = new TagAlbumsUnit("CUTE","Cute");
 		TagAlbumsUnit normUnit = new TagAlbumsUnit("NORM", "Norm");
 		TagAlbumsUnit tallUnit = new TagAlbumsUnit("TALL", "Tall");

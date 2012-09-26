@@ -15,7 +15,9 @@ public class AlbumObj implements Serializable {
 	private String coverImgObjID = null;
 	private String coverPicID = null;
 	private String albid = null;
-	
+	private int tagLIKE = 0;
+	private int tagDISLIKE = 0;
+	private TagsObj tagsObj = new TagsObj();
 	
 	public String getAlbname() {
 		return albname;
@@ -77,6 +79,33 @@ public class AlbumObj implements Serializable {
 	}
 	public void setCoverPicID(String coverPicID) {
 		this.coverPicID = CommonsShared.safeString(coverPicID);
+	}
+	public int getTagLIKE() {
+		return tagLIKE;
+	}
+	public void setTagLIKE(int tagLIKE) {
+		this.tagLIKE = tagLIKE;
+	}
+	public int getTagDISLIKE() {
+		return tagDISLIKE;
+	}
+	public void setTagDISLIKE(int tagDISLIKE) {
+		this.tagDISLIKE = tagDISLIKE;
+	}
+	public TagsObj getTagsObj() {
+		return tagsObj;
+	}
+	public void setTagsObj(TagsObj tagsObj) {
+		this.tagsObj = tagsObj;
+	}
+	
+	public int getCountForTag(String tag) {
+		for (int i=0; i<tagsObj.getTagsObj().size(); i++) {
+			if (tagsObj.getTagsObj().get(i).getTagType().equals(tag)) {
+				return tagsObj.getTagsObj().get(i).getTagTotalPluses();
+			}
+		}
+		return 0;
 	}
 	
 

@@ -15,25 +15,38 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class BestUnit extends Composite {
 
     private FlowPanel panel = new FlowPanel();
-
+    private FocusPanel albumImage = new FocusPanel();
     private Button gotoAlbum = new Button("gotoAlbum");
     private AlbumObj albumObj;
-    
+    private LikesStatBlock likesStatBlock;
      //AdminsStuffBlock
     
     public BestUnit(AlbumObj albumObjj) {
     	this.albumObj = albumObjj;
     	
     	
+    	panel.addStyleName("bestUnit");
+    	
+  ///////Album Image/////////
+		
+  		albumImage.addStyleName("albumImageBest");
+  		albumImage.getElement().getStyle().setProperty("background",  "url(\"/extranewgwt/getphoto?photoid=" + albumObj.getCoverPicID() +  "\") no-repeat center");
+  		panel.add(albumImage);
+  		
+  		///////Rating/////
+  		likesStatBlock = new LikesStatBlock(albumObj,true);
+		likesStatBlock.addStyleName("likesStatBlockBest");
+		panel.add(likesStatBlock);
+    	
+    	//panel.add(gotoAlbum);
 
-    	panel.add(gotoAlbum);
-
-    	gotoAlbum.setText("Best Album " + albumObj.getAlbname());
+    	gotoAlbum.setText("Best" + albumObj.getAlbname());
     	
     	gotoAlbum.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

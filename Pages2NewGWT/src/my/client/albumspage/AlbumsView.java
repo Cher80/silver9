@@ -44,6 +44,8 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 
 	private FlowPanel wrapperTop = new FlowPanel();
 	private FlowPanel panelContent = new FlowPanel();
+	private FlowPanel panelThumbsAndBlocks = new FlowPanel();
+	private FlowPanel panelBlocks = new FlowPanel();
 	private ScrollPanel wrapperScroll = new ScrollPanel();
 	private FlowPanel panel = new FlowPanel();
 	private Activity presenter;
@@ -169,7 +171,15 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 
 		wrapperTop.add(wrapperScroll);
 		wrapperScroll.add(panelContent);
-		panelContent.add(panel);
+		
+		panel.addStyleName("thumbsPanel");
+		
+		panelThumbsAndBlocks.add(panel);
+		panelThumbsAndBlocks.add(panelBlocks);
+		panelThumbsAndBlocks.addStyleName("panelThumbsAndBlocks");
+		panelBlocks.addStyleName("panelBlocks");
+		
+		panelContent.add(panelThumbsAndBlocks);
 		initWidget(wrapperTop);
 	}
 
@@ -249,9 +259,9 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 
 	public void renderBlocks(AlbumsPageObj albumsPageObj) {
 		ActivityBlock activityBlock = new ActivityBlock(albumsPageObj.getActivitiesObj());
-		//panelContent.add(activityBlock);
+		panelBlocks.add(activityBlock);
 
 		BestBlock bestBlock = new BestBlock(albumsPageObj.getBestAlbumsObj());
-		//panelContent.add(bestBlock);
+		panelBlocks.add(bestBlock);
 	}
 }

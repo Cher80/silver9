@@ -28,7 +28,7 @@ public class ActivityBlock extends Composite {
     public ActivityBlock(ActivitiesObj activitiesObjj) {
     	this.activitiesObj = activitiesObjj;
     	
-    	 HTML html = new HTML("<h1>Activities block</h1>");
+    	 HTML html = new HTML("<b>Activ</b>");
     	 panel.add(html);
 
     	for (int i=0;i<activitiesObj.getActivities().size(); i++) {
