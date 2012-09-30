@@ -50,6 +50,7 @@ public class MyFlowPanelAnimation extends Animation {
     protected void onComplete()
     {
         flowPanel.doClearance();
+        ClientFactory.getHistoryKeeper().doEmptyStackClearWidgets();
 		super.onComplete();
         //this.element.getStyle().setLeft(this.finalX, Style.Unit.PX);
         //this.element.getStyle().setTop(this.finalY, Style.Unit.PX);

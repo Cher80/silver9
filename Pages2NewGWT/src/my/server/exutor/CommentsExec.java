@@ -37,6 +37,7 @@ public class CommentsExec {
 	private HttpServletRequest request;
 	private CommentObj commentObj;
 	private DB db = MongoPool.getMainDB();
+	private AlbumObj albumObj;
 
 	public CommentsExec() {
 
@@ -75,10 +76,12 @@ public class CommentsExec {
 
 	
 
-	public CommentObj executeCommentPost(CommentObj commentObj) throws RPCServiceExeption {
+	public CommentObj executeCommentPost(CommentObj commentObj, AlbumObj albumObjj) throws RPCServiceExeption {
 		//this.request = request;
 		this.commentObj = commentObj;
-
+		this.albumObj = albumObjj;
+		
+		commentObj.setCoverPicObjID(albumObj.getCoverPicID());
 		//if (true) 
 		//throw new RPCServiceExeption("Eto strashnaya oshibka");
 
@@ -106,7 +109,8 @@ public class CommentsExec {
 		comment.put("commentauthornick", commentObj.getCommentAuthorNick());
 		comment.put("albumid",  CommonsServer.normalizeID(commentObj.getAlbumId().trim()));
 		comment.put("albummodelname", commentObj.getAlbumModelName());
-		comment.put("albumcoverImgObjID", CommonsServer.normalizeID(commentObj.getCoverImgObjID())); 
+		comment.put("albumcoverImgObjID", CommonsServer.normalizeID(albumObj.getCoverImgObjID()));
+		comment.put("albumcoverPicObjID", CommonsServer.normalizeID(albumObj.getCoverPicID()));
 		//user.put("session", md5session);
 		
 		//comment.put("text", "Comment text" + randomInt + "_" + s);
@@ -146,6 +150,7 @@ public class CommentsExec {
 		activityObj.setCommentID(this.commentObj.getCommentID());
 		activityObj.setCommentText(this.commentObj.getCommentText());
 		activityObj.setCoverImgObjID(this.commentObj.getCoverImgObjID());
+		activityObj.setCoverPicObjID(this.commentObj.getCoverPicObjID());
 		activityObj.setNick(this.commentObj.getCommentAuthorNick());
 		
 		activityObj.setTagReadableName(null);
@@ -176,7 +181,7 @@ public class CommentsExec {
 		CommentsObj commentsObj = new CommentsObj();
 		
 		while(cur.hasNext()) {
-			DBObject commentDBO = cur.next();
+			BasicDBObject commentDBO = (BasicDBObject) cur.next();
 			
 			CommentObj commentObj = new CommentObj();
 			
@@ -191,8 +196,8 @@ public class CommentsExec {
 		
 	}
 		
-		public CommentObj commentDBOtoObj(DBObject commentDBO) {
-			
+		public CommentObj commentDBOtoObj(BasicDBObject commentDBO) {
+
 			CommentObj commentObj = new CommentObj();
 			
 			 String commentText = null;
@@ -202,7 +207,18 @@ public class CommentsExec {
 			 String albumId = null;
 			 String albumModelName = null;
 			 String commentID = null;
-			
+			 String albumcoverImgObjID = null;
+			 String albumcoverPicObjID = null;
+		
+				//comment.put("albumcoverImgObjID", CommonsServer.normalizeID(commentObj.getCoverImgObjID()));
+				//comment.put("albumcoverPicObjID", CommonsServer.normalizeID(commentObj.getCoverPicObjID()));
+
+				if (commentDBO.containsField("albumcoverImgObjID")) 
+					albumcoverImgObjID = CommonsServer.fromIDtoString(commentDBO.getObjectId("albumcoverImgObjID")); // (String) commentDBO.get("albumcoverImgObjID");
+				
+				if (commentDBO.containsField("albumcoverPicObjID")) 
+					albumcoverPicObjID = CommonsServer.fromIDtoString(commentDBO.getObjectId("albumcoverPicObjID")); //(String) commentDBO.get("albumcoverPicObjID");
+			 
 			if (commentDBO.containsField("commenttext")) 
 				commentText = (String) commentDBO.get("commenttext");
 			
@@ -210,19 +226,19 @@ public class CommentsExec {
 				commentTimeStamp = (long) commentDBO.get("commenttimestamp");
 			
 			if (commentDBO.containsField("commentauthorid")) 
-				commentAuthorID = (String) commentDBO.get("commentauthorid").toString();
+				commentAuthorID = CommonsServer.fromIDtoString(commentDBO.getObjectId("commentauthorid")); //(String) commentDBO.get("commentauthorid").toString();
 			
 			if (commentDBO.containsField("commentauthornick")) 
 				commentAuthorNick = (String) commentDBO.get("commentauthornick");
 			
 			if (commentDBO.containsField("albumid")) 
-				albumId = (String) commentDBO.get("albumid").toString();
+				albumId = CommonsServer.fromIDtoString(commentDBO.getObjectId("albumid")); // (String) commentDBO.get("albumid").toString();
 			
 			if (commentDBO.containsField("albummodelname")) 
 				albumModelName = (String) commentDBO.get("albummodelname");
 			
 			if (commentDBO.containsField("_id")) 
-				commentID = (String) commentDBO.get("_id").toString();
+				commentID = CommonsServer.fromIDtoString(commentDBO.getObjectId("_id")); //(String) commentDBO.get("_id").toString();
 		
 			commentObj.setAlbumId(albumId);
 			commentObj.setAlbumModelName(albumModelName);
@@ -231,6 +247,8 @@ public class CommentsExec {
 			commentObj.setCommentID(commentID);
 			commentObj.setCommentText(commentText);
 			commentObj.setCommentTimeStamp(commentTimeStamp);
+			commentObj.setCoverImgObjID(albumcoverImgObjID);
+			commentObj.setCoverPicObjID(albumcoverPicObjID);
 			return commentObj;
 		}
 		

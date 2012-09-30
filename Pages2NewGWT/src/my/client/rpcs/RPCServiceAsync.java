@@ -13,7 +13,7 @@ import my.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface RPCServiceAsync {
+public interface RPCServiceAsync { 
 
 	void doRegister(String nick, String email, String pass1, String pass2,
 			AsyncCallback<User> callback);
@@ -27,7 +27,8 @@ public interface RPCServiceAsync {
 
 	void getModelPage(String modelID, String photoID, AsyncCallback callback);
  
-	void doPostComment(CommentObj commentObj, AsyncCallback callback);
+	void doPostComment(CommentObj commentObj, AlbumObj albumObj,
+			AsyncCallback<CommentObj> callback);
 
 	void doGetComments(String albid, AsyncCallback callback);
 

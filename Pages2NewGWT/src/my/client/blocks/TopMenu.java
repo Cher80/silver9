@@ -49,6 +49,8 @@ public class TopMenu extends Composite {
     	getTopBlockObj();
     	
     	panel.addStyleName("TopMenu");
+    	panel.addStyleName("back_pattern_line");
+    	
     	clearFloat.addStyleName("clearBothPanel");
     	backBlock = new BackButt();
     	//panel.add(backButt);

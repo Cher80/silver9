@@ -87,6 +87,7 @@ public class ActivityExec {
 		activityDBO.put("nick", activityObj.getNick());
 		activityDBO.put("albname", activityObj.getAlbname());
 		activityDBO.put("coverImgObjID",  CommonsServer.normalizeID(activityObj.getCoverImgObjID()));
+		activityDBO.put("coverPicObjID",  CommonsServer.normalizeID(activityObj.getCoverPicObjID()));
 		activityDBO.put("albid", CommonsServer.normalizeID(activityObj.getAlbid()));
 		activityDBO.put("tagType", activityObj.getTagType());
 		activityDBO.put("tagGroup", activityObj.getTagGroup());
@@ -113,8 +114,13 @@ public class ActivityExec {
 			activityObj.setNick(activityDBO.getString("nick"));
 		if (activityDBO.containsField("albname")) 
 			activityObj.setAlbname(activityDBO.getString("albname"));
+		
 		if (activityDBO.containsField("coverImgObjID")) 
 			activityObj.setCoverImgObjID(CommonsServer.fromIDtoString(activityDBO.getObjectId("coverImgObjID")));
+		if (activityDBO.containsField("coverPicObjID")) 
+			activityObj.setCoverPicObjID(CommonsServer.fromIDtoString(activityDBO.getObjectId("coverPicObjID")));
+
+		
 		if (activityDBO.containsField("albid")) 
 			activityObj.setAlbid(CommonsServer.fromIDtoString(activityDBO.getObjectId("albid")));
 		

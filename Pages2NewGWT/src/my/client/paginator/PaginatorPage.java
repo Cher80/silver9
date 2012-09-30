@@ -5,6 +5,7 @@ import java.util.Date;
 
 import my.client.common.ActivityHasPages;
 import my.client.common.ClientFactory;
+import my.client.common.IconButt;
 import my.client.modelpage.ModelActivity;
 import my.client.modelpage.ModelPlace;
 import my.client.rpcs.RPCService;
@@ -32,25 +33,38 @@ import com.google.gwt.user.client.ui.TextBox;
 public class PaginatorPage extends Composite {
 
 	private FlowPanel panel = new FlowPanel();
-	private Button pageButt;
+	public IconButt pageButt;
 	private int pageNo;
 	private ActivityHasPages activity;
-	private  Paginator paginator;
+	public  Paginator paginator;
 	
 	public PaginatorPage(int pageNoo, ActivityHasPages activityy, Paginator paginatorr, boolean isCurrPage) {
 		super();
+		
+		
+		
 		this.pageNo = pageNoo;
 		this.activity = activityy;
 		this.paginator = paginatorr;
+		
+		pageButt = new IconButt();
+		pageButt.icon.addStyleName("pageButtonIcon");
+		pageButt.content.addStyleName("pageButtonContent");
+		pageButt.text.addStyleName("pageButtonText");
+		pageButt.text.addStyleName("text12_white_bold");
+		//pageButt.setText("Facebook login");
+		
+		
 		if (isCurrPage) {
-			pageButt = new Button("Nc=" + pageNo);
+			pageButt.setText(pageNo + "←");
+			//pageButt.text.getElement().setInnerText("←");
 		}
 		else {
-			pageButt = new Button("N=" + pageNo);
+			pageButt.setText("" + pageNo);
 		}
 		 
 		 
-		pageButt.addClickHandler(new ClickHandler() {
+		pageButt.panel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					//String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverImgObjID();
 					//ClientFactory.getPlaceController().goTo(new ModelPlace(params,false, null));

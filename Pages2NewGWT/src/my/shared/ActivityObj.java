@@ -21,6 +21,7 @@ public class ActivityObj implements Serializable {
 	
 	private String albname = "";
 	private String coverImgObjID = "";
+	private String coverPicObjID = "";
 	private String albid = "";
 	
 	private String tagType = "";
@@ -115,6 +116,12 @@ public class ActivityObj implements Serializable {
 	}
 	public void setTagGroup(String tagGroup) {
 		this.tagGroup = tagGroup;
+	}
+	public String getCoverPicObjID() {
+		return coverPicObjID;
+	}
+	public void setCoverPicObjID(String coverPicObjID) {
+		this.coverPicObjID = coverPicObjID;
 	}
 	
 }

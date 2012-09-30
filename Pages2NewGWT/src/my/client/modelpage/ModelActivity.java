@@ -67,7 +67,8 @@ public class ModelActivity extends MyActivity{
 				//ModelActivity.this.setModelPageObjCur
 				
 				//ModelActivity.this.getView().set
-				
+				renderPhotoLayer(modelPageObj.getImages(),coverid);
+				renderName(modelPageObj.getAlbumObj(),modelPageObj.getImages());
 				renderPhotos(modelPageObj.getImages());
 				renderCommentPost(modelPageObj.getAlbumObj());
 				renderCommentsBlock(modelPageObj.getComments());
@@ -138,6 +139,17 @@ public class ModelActivity extends MyActivity{
 	}
 	
 	
+	public void renderPhotoLayer(ImgsObj imgsObj, String coverid ) {
+		ModelView modelView = (ModelView) this.getView();
+		modelView.renderPhotoLayer(imgsObj,coverid);
+	}
+	
+	public void renderName(AlbumObj albumObj, ImgsObj imgsObj) {
+		ModelView modelView = (ModelView) this.getView();
+		modelView.renderName(albumObj, imgsObj);
+	}
+	
+	
 	public void renderTags(TagsObj tagsObj) {
 		ModelView modelView = (ModelView) this.getView();
 		modelView.renderTags(tagsObj);
@@ -157,7 +169,7 @@ public class ModelActivity extends MyActivity{
 	
 	public void renderPhotos(ImgsObj imgsObj) {
 		ModelView modelView = (ModelView) this.getView();
-		modelView.renderPhotoLayer(imgsObj,coverid);
+		//
 		modelView.renderPhotos(imgsObj);
 	} 
 	 

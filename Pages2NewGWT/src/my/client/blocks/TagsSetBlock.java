@@ -48,7 +48,7 @@ public class TagsSetBlock extends Composite {
 		this.tagsObj = tagsObjj;
 		this.types = typess;
 		this.albumObj = albumObjj;
-		
+		panel.addStyleName("TagsSetBlock");
 		
 		//createTagGroup("LIKES");
 		//Date date = new java.util.Date((long)(imgObj.getImgTimestamp())*1000);
@@ -71,26 +71,37 @@ public class TagsSetBlock extends Composite {
 		//TagsSetGroup likesGroup = new TagsSetGroup("LIKES", getFromTagsObj("LIKES"));
 
 		/////Likes 
-		TagObj likeTag = getTagObj("LIKE","LIKES");
-		TagObj dislikeTag = getTagObj("DISLIKE","LIKES");
+		TagObj likeTag = getTagObj("LIKE", "Likes" ,"LIKES");
+		TagObj dislikeTag = getTagObj("DISLIKE", "Dislikes","LIKES");
 		TagsObj likesTagsobj = new TagsObj();
 		likesTagsobj.getTagsObj().add(likeTag);
 		likesTagsobj.getTagsObj().add(dislikeTag);
-		TagsSetGroup likesGroup = new TagsSetGroup("LIKES", likesTagsobj, albumObj);
-
+		TagsSetGroup likesGroup = new TagsSetGroup("Rate her", likesTagsobj, albumObj);
+		panel.add(likesGroup);
 		
 		/////Hairs 
-		TagObj blondTag = getTagObj("BLOND","HAIRS");
-		TagObj darkTag = getTagObj("DARK","HAIRS");
-		TagObj redTag = getTagObj("RED","HAIRS");
+		TagObj blondTag = getTagObj("BLOND", "Blond","HAIRS");
+		TagObj darkTag = getTagObj("DARK", "Dark","HAIRS");
+		TagObj redTag = getTagObj("RED", "Red", "HAIRS");
 		TagsObj hairTagsobj = new TagsObj();
 		hairTagsobj.getTagsObj().add(blondTag);
 		hairTagsobj.getTagsObj().add(darkTag);
 		hairTagsobj.getTagsObj().add(redTag);
-		TagsSetGroup hairsGroup = new TagsSetGroup("HAIRS", hairTagsobj, albumObj);
-
+		TagsSetGroup hairsGroup = new TagsSetGroup("Hairs?", hairTagsobj, albumObj);
 		panel.add(hairsGroup);
-		panel.add(likesGroup);
+		
+		
+		///////Height
+		TagObj cuteTag = getTagObj("CUTE", "Cute","HEIGHT");
+		TagObj normalTag = getTagObj("NORM", "Normal","HEIGHT");
+		TagObj tallTag = getTagObj("TALL", "Tall", "HEIGHT");
+		TagsObj heightTagsobj = new TagsObj();
+		heightTagsobj.getTagsObj().add(cuteTag);
+		heightTagsobj.getTagsObj().add(normalTag);
+		heightTagsobj.getTagsObj().add(tallTag);
+		TagsSetGroup heightGroup = new TagsSetGroup("Height?", heightTagsobj, albumObj);
+		panel.add(heightGroup);
+		
 		initWidget(panel);
 	}
 	
@@ -106,24 +117,26 @@ public class TagsSetBlock extends Composite {
 	}
 	
 	
-	private TagObj createNewTagObj(String type,String group) {
+	private TagObj createNewTagObj(String type, String readableName, String group) {
 		TagObj tagObj = new TagObj();
 		tagObj.setTagGroup(group);
 		tagObj.setTagType(type);
-		tagObj.setTagReadableName("Namegen" + type);
+		//tagObj.setTagReadableName("Namegen" + type);
+		tagObj.setTagReadableName(readableName);
 		if (isCreatedGroupInVotedGroup(group)) {
 			tagObj.setAllowVoteToUser(false);
 		}
 		return tagObj;
 	}
 	
-	private TagObj getTagObj (String type,String group) {
+	private TagObj getTagObj (String type, String readableName, String group) {
 		
 		TagObj likeTag = getFromTagFromResponse(type);
 		
 		if (likeTag == null) {
-			likeTag = createNewTagObj(type, group);
+			likeTag = createNewTagObj(type, readableName, group);
 		}
+		likeTag.setTagReadableName(readableName);
 		return likeTag;
 	}
 	
@@ -136,6 +149,7 @@ public class TagsSetBlock extends Composite {
 
 			if (curTagObj.getTagType().equals(type)) {
 				//Log.debug("getFromTagFromResponse name " + curTagObj.getTagReadableName());
+			
 				return curTagObj;
 			}
 		} 

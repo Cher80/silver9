@@ -14,12 +14,13 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class ActivityBlock extends Composite {
 
     private FlowPanel panel = new FlowPanel();
-    
+    private Label activHeader = new Label(); 
     
     //private UserArea userArea = new UserArea();
     private ActivitiesObj activitiesObj = new ActivitiesObj();
@@ -28,8 +29,14 @@ public class ActivityBlock extends Composite {
     public ActivityBlock(ActivitiesObj activitiesObjj) {
     	this.activitiesObj = activitiesObjj;
     	
-    	 HTML html = new HTML("<b>Activ</b>");
-    	 panel.add(html);
+    	activHeader.setText("Latest activity");
+    	activHeader.addStyleName("activHeader");
+    	activHeader.addStyleName("text12_white_bold");
+    	// HTML html = new HTML("<b>Bset</b>");
+    	 panel.add(activHeader);
+    	
+    	// HTML html = new HTML("<b>Activ</b>");
+    	// panel.add(html);
 
     	for (int i=0;i<activitiesObj.getActivities().size(); i++) {
     		ActivityUnit activityUnit = new ActivityUnit(activitiesObj.getActivities().get(i));

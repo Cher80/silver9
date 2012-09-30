@@ -26,7 +26,7 @@ public interface RPCService extends RemoteService {
 
 	public User doLogin(String email, String pass1) throws RPCServiceExeption;
 	public User getUserByCookie(CookieObj cookieObj) throws RPCServiceExeption;
-  
+   
 	
 	AlbumsPageObj getAlbumsPageObj() throws RPCServiceExeption;
 	AlbumsObj getAlbumsByTime(int offest, int limit, String tagType, int statusPublished) throws RPCServiceExeption;
@@ -34,7 +34,7 @@ public interface RPCService extends RemoteService {
 	ModelPageObj getModelPage(String modelID, String photoID) throws RPCServiceExeption;
 	TopBlockObj getTopBlock(CookieObj cookieObj) throws RPCServiceExeption;
 
-	public CommentObj doPostComment(CommentObj commentObj) throws RPCServiceExeption;
+	public CommentObj doPostComment(CommentObj commentObj, AlbumObj albumObj) throws RPCServiceExeption;
 
 	CommentsObj doGetComments(String albid) throws RPCServiceExeption;
 

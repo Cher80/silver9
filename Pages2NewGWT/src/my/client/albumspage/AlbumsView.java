@@ -8,6 +8,7 @@ import java.util.Map;
 
 import my.client.blocks.ActivityBlock;
 import my.client.blocks.AlbumThumb;
+import my.client.blocks.AlbumViewHeader;
 import my.client.blocks.BestBlock;
 import my.client.blocks.TagAlbumsBlock;
 import my.client.common.ActivityHasPages;
@@ -50,6 +51,7 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 	private FlowPanel panel = new FlowPanel();
 	private Activity presenter;
 	private Paginator paginator;
+	private AlbumViewHeader albumViewHeader= new AlbumViewHeader();
 	//private boolean isScrollFrezed = false;
 	private TagAlbumsBlock tagAlbumsBlock;
 
@@ -81,6 +83,9 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 	public void makeLayotCalculation() {
 		wrapperTop.getElement().getStyle().setProperty("width", Window.getClientWidth() + "px");
 		wrapperTop.getElement().getStyle().setProperty("height", Window.getClientHeight()-36 + "px");
+		int multiplier = (Window.getClientWidth()-135 - 54)/293; 
+		panel.getElement().getStyle().setProperty("width", 293*multiplier + "px");
+		
 	}
 
 
@@ -173,7 +178,7 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 		wrapperScroll.add(panelContent);
 		
 		panel.addStyleName("thumbsPanel");
-		
+		panelThumbsAndBlocks.add(albumViewHeader);
 		panelThumbsAndBlocks.add(panel);
 		panelThumbsAndBlocks.add(panelBlocks);
 		panelThumbsAndBlocks.addStyleName("panelThumbsAndBlocks");

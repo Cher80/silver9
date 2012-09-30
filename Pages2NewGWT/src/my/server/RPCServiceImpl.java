@@ -182,7 +182,7 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 	}
 
 	@Override
-	public CommentObj doPostComment(CommentObj commentObj) throws RPCServiceExeption {
+	public CommentObj doPostComment(CommentObj commentObj, AlbumObj albumObj) throws RPCServiceExeption {
 		// TODO Auto-generated method stub
 
 		int[] permissions = {0,1,2};
@@ -193,7 +193,7 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		//silverCookie.getCookie();
 		//getUser ();
 		CommentsExec commentsExec = new CommentsExec(); 
-		commentObj = commentsExec.executeCommentPost(commentObj) ;
+		commentObj = commentsExec.executeCommentPost(commentObj, albumObj) ;
 
 		return commentObj;
 	}

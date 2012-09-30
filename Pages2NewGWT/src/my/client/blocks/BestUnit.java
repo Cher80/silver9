@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class BestUnit extends Composite {
@@ -25,11 +26,14 @@ public class BestUnit extends Composite {
     private Button gotoAlbum = new Button("gotoAlbum");
     private AlbumObj albumObj;
     private LikesStatBlock likesStatBlock;
+    private int pos;
+    private Label posLabel;
+    private Label nameLabel;
      //AdminsStuffBlock
     
-    public BestUnit(AlbumObj albumObjj) {
+    public BestUnit(AlbumObj albumObjj, int poss) {
     	this.albumObj = albumObjj;
-    	
+    	this.pos =poss;
     	
     	panel.addStyleName("bestUnit");
     	
@@ -44,11 +48,24 @@ public class BestUnit extends Composite {
 		likesStatBlock.addStyleName("likesStatBlockBest");
 		panel.add(likesStatBlock);
     	
-    	//panel.add(gotoAlbum);
-
-    	gotoAlbum.setText("Best" + albumObj.getAlbname());
+		
+		///////Position Label//////
+		posLabel = new Label(this.pos +1 + "");
+		posLabel.addStyleName("posLabel");
+		posLabel.addStyleName("text12_white_bold");
+    	panel.add(posLabel);
     	
-    	gotoAlbum.addClickHandler(new ClickHandler() {
+  ///////Name Label//////
+    	nameLabel = new Label(albumObj.getAlbname());
+    	nameLabel.addStyleName("nameLabel");
+    	nameLabel.addStyleName("text11_White");
+      	panel.add(nameLabel);
+    	
+    	
+
+    	//gotoAlbum.setText("Best" + albumObj.getAlbname());
+    	
+    	albumImage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				//History.back();
 				String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverImgObjID();

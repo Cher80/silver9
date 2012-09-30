@@ -38,7 +38,7 @@ public class BestBlock extends Composite {
     	 panel.add(bestHeader);
 
     	for (int i=0;i<albumsObj.getAlbums().size(); i++) {
-    		BestUnit bestUnit = new BestUnit(albumsObj.getAlbums().get(i));
+    		BestUnit bestUnit = new BestUnit(albumsObj.getAlbums().get(i), i);
     		panel.add(bestUnit);
     	}
     	

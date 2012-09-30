@@ -31,6 +31,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -55,6 +56,7 @@ public class Paginator extends Composite {
 	private ViewHasPages view;
 	private boolean isScrollFrezed = false;
 	private int maxLoadedOnScrollPage = 0;
+	private Label pageDescLabel = new Label();
 
 	public Paginator(int totalItemss, ActivityHasPages activityy, ViewHasPages vieww) {
 		super();
@@ -64,11 +66,14 @@ public class Paginator extends Composite {
 		this.totalPages = totalItems/ITEMS_PER_PAGE;
 		this.view = vieww;
 
-		
+		panel.addStyleName("Paginator");
 
+		pageDescLabel.setText("Pages");
+		pageDescLabel.addStyleName("text_11_white_bold");
+		pageDescLabel.addStyleName("pageDescLabel");
 		HTML toRender = new HTML("pager");
 
-
+		
 		//doGetComments(albumObj);
 		//Date date = new java.util.Date((long)(imgObj.getImgTimestamp())*1000);
 
@@ -85,10 +90,10 @@ public class Paginator extends Composite {
 
 		initWidget(panel);
 		
-		panel.getElement().getStyle().setProperty("border", "1px solid green");
-		panel.getElement().getStyle().setProperty("position","absolute");
-		panel.getElement().getStyle().setProperty("left", "30px");
-		panel.getElement().getStyle().setProperty("top", "30px");
+		//panel.getElement().getStyle().setProperty("border", "1px solid green");
+		//panel.getElement().getStyle().setProperty("position","absolute");
+		//panel.getElement().getStyle().setProperty("left", "30px");
+		//panel.getElement().getStyle().setProperty("top", "30px");
 		
 		this.setCurrentPage(0);		
 		this.setFirstTimeLoaded(false);
@@ -191,8 +196,11 @@ public class Paginator extends Composite {
 
 	public void renderCurPages() {
 		panel.clear();
+		panel.add(pageDescLabel);
+		
 		if (firstPage>=0) {
 			PaginatorPage paginatorPage = new PaginatorPage(firstPage,this.activity,this, false);
+			paginatorPage.pageButt.content.addStyleName("paginatorFirstPage");
 			panel.add(paginatorPage);
 		}
 
@@ -211,6 +219,7 @@ public class Paginator extends Composite {
 
 		if (lastPage>=0) {
 			PaginatorPage paginatorPage = new PaginatorPage(lastPage,this.activity,this,false);
+			paginatorPage.pageButt.content.addStyleName("paginatorLastPage");
 			panel.add(paginatorPage);
 		}
 	}

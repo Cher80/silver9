@@ -401,6 +401,7 @@ public class TagExec {
 		activityObj.setCommentID("");
 		activityObj.setCommentText("");
 		activityObj.setCoverImgObjID(this.albumObj.getCoverImgObjID());
+		activityObj.setCoverPicObjID(this.albumObj.getCoverPicID());
 		activityObj.setNick(this.user.getNick());
 
 		activityObj.setTagReadableName(this.tagObj.getTagReadableName());

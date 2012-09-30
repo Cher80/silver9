@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import my.client.albumspage.AlbumsView;
 import my.client.forum.ForumAnimation;
 import my.client.forum.ForumView;
 import my.client.helpers.HavePresenter;
@@ -45,6 +46,13 @@ public class MyFlowPanel extends FlowPanel implements AcceptsOneWidget {
 	public void doClearance() {
 		System.out.println("doClearance");
 		ClientFactory.getHistoryKeeper().popWidget(currentWidget);
+		
+		/*
+		if (currentWidget instanceof AlbumsView) {
+			//ClientFactory.getHistoryKeeper().doEmptyStack();
+		}*/
+		
+		
 	    //System.out.println("widget.getElement().getOffsetLeft() = " + widget.getElement().getOffsetLeft());
 	    	 
 		/*

@@ -130,6 +130,6 @@ public class CommentPost extends Composite {
 
 
 
-		communicatorSvc.doPostComment(commentObj, callback);
+		communicatorSvc.doPostComment(commentObj, albumObj, callback);
 	}
 }

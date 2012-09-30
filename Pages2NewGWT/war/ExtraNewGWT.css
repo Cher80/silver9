@@ -9,6 +9,17 @@ body {
 		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjFEMzVBMEMwMTYxMTFFMjg0MDZFMzI1QjRFNTgyNzQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjFEMzVBMEQwMTYxMTFFMjg0MDZFMzI1QjRFNTgyNzQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGMUQzNUEwQTAxNjExMUUyODQwNkUzMjVCNEU1ODI3NCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGMUQzNUEwQjAxNjExMUUyODQwNkUzMjVCNEU1ODI3NCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ph/LOI0AAAAzSURBVHjaYlRUVGRgYODn5//37x8zGxvb79+/gXwgySIqKgpkffnyBUiyfP36Fc4BCDAAtt0SYZfvVfcAAAAASUVORK5CYII=)
 }
 
+.back_pattern_dark {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wJHAkaHBUKYbkAAAAuSURBVAjXJckxCgBACAPBDSfY+P+/qgQsbtpRVQGZCTzAtiTb8ae7gZgZYHeBAyswDyVyFcM2AAAAAElFTkSuQmCC);
+}
+
+.back_pattern_line {
+      background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjYyMUU3MTUwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjYyMUU3MTYwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjIxRTcxMzAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjIxRTcxNDAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgASjuAAAAAWSURBVHjaYhAUFGSSkZFhEhERAQgwAASSAMhEWdPBAAAAAElFTkSuQmCC)
+		bottom repeat-x;
+}
+
+
 .UserArea {
 	float: right;
 }
@@ -61,7 +72,7 @@ body {
 
 .BackButtonIcon {
 	background-image: url('misc/main_map.png');
-	background-position: 279px 100px;
+	background-position: -52px -92px;
 	margin: 8px 11px;
 	width: 19px;
 	height: 15px;
@@ -75,10 +86,10 @@ body {
 
 .AdminButtonIcon {
 	background-image: url('misc/main_map.png');
-	background-position: 257px 38px;
-	margin: 4px 4px;
-	width: 25px;
-	height: 24px;
+background-position: -74px -155px;
+margin: 4px 4px;
+width: 25px;
+height: 24px;
 }
 
 .AdminButtonContent {
@@ -94,10 +105,10 @@ body {
 
 .LogoutButtonIcon {
 	background-image: url('misc/main_map.png');
-	background-position: 331px 168px;
-	margin: 5px 6px;
-	width: 24px;
-	height: 22px;
+background-position: 0px -26px;
+margin: 5px 6px;
+width: 24px;
+height: 22px;
 }
 
 .LogoutButtonContent {
@@ -113,10 +124,10 @@ body {
 
 .FBButtonIcon {
 	background-image: url('misc/main_map.png');
-	background-position: 277px 169px;
-	margin: 5px 6px;
-	width: 18px;
-	height: 22px;
+background-position: -54px -25px;
+margin: 5px 6px;
+width: 18px;
+height: 22px;
 }
 
 .FBButtonContent {
@@ -131,11 +142,11 @@ body {
 }
 
 .RegButtonIcon {
-	background-image: url('misc/main_map.png');
-	background-position: 308px 168px;
-	margin: 4px 4px;
-	width: 15px;
-	height: 24px;
+background-image: url('misc/main_map.png');
+background-position: -23px -25px;
+margin: 4px 4px;
+width: 15px;
+height: 24px;
 }
 
 .RegButtonContent {
@@ -150,10 +161,10 @@ body {
 
 .LoginButtonIcon {
 	background-image: url('misc/main_map.png');
-	background-position: 294px 168px;
-	margin: 4px 4px;
-	width: 18px;
-	height: 24px;
+background-position: -37px -24px;
+margin: 4px 4px;
+width: 18px;
+height: 24px;
 }
 
 .LoginButtonContent {
@@ -193,9 +204,7 @@ body {
 }
 
 .TagAlbumsBlock { /*border: 1px solid #808080;*/
-	background:
-		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjYyMUU3MTUwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjYyMUU3MTYwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjIxRTcxMzAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjIxRTcxNDAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgASjuAAAAAWSURBVHjaYhAUFGSSkZFhEhERAQgwAASSAMhEWdPBAAAAAElFTkSuQmCC)
-		bottom repeat-x;
+border-bottom: 1px #5A5A5A dotted;
 }
 
 .TagAlbumsBlock:after {
@@ -219,6 +228,7 @@ body {
 .LIKES_TagAlbumsGroup { /*border: 1px solid red;*/
 	clear: both;
 	padding: 0px 0px;
+	margin: 1px 0px;
 }
 
 .ButtTagContent_DISLIKE {
@@ -255,7 +265,7 @@ body {
 }
 
 .ButtTagText {
-	margin: 1px 7px 0px 0px;
+	margin: 1px 7px 0px 2px;
 }
 
 .tagsBlock {
@@ -273,22 +283,22 @@ body {
 
 .ButtTagIcon_LIKE {
 	background-image: url('misc/main_map.png');
-	background-position: 299px 143px;
-	width: 13px;
-	height: 12px;
-	float: left;
-	margin: 0px 4px 0px 5px;
-	display: block;
+background-position: -32px -50px;
+width: 13px;
+height: 12px;
+float: left;
+margin: 0px 4px 0px 5px;
+display: block;
 }
 
 .ButtTagIcon_DISLIKE {
 	background-image: url('misc/main_map.png');
-	background-position: 298px 129px;
-	width: 12px;
-	height: 12px;
-	float: left;
-	margin: 1px 4px 0px 5px;
-	display: block;
+background-position: -32px -63px;
+width: 12px;
+height: 12px;
+float: left;
+margin: 1px 4px 0px 5px;
+display: block;
 }
 
 .ButtTag { /*float:none;*/
@@ -297,11 +307,11 @@ body {
 
 .tagsBlockIcon {
 	background-image: url('misc/main_map.png');
-	background-position: 327px 115px;
-	width: 46px;
-	height: 29px;
-	float: left;
-	margin: 1px 4px 0px 0px;
+background-position: -4px 115px;
+width: 46px;
+height: 29px;
+float: left;
+margin: 1px 4px 0px 0px;
 }
 
 .text_12_white_bold {
@@ -321,7 +331,7 @@ body {
 }
 
 .border_right_dotted {
-	border-right: #444 dotted 1px
+	border-right: #444 dotted 1px;
 }
 
 .likesBlock {
@@ -334,9 +344,7 @@ body {
 }
 
 .TopMenu {
-	background:
-		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAIAAADdv/LVAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjYyMUU3MTUwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjYyMUU3MTYwMTY5MTFFMkExOEVGNjA3MzQ4NEY3NDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjIxRTcxMzAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjIxRTcxNDAxNjkxMUUyQTE4RUY2MDczNDg0Rjc0NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgASjuAAAAAWSURBVHjaYhAUFGSSkZFhEhERAQgwAASSAMhEWdPBAAAAAElFTkSuQmCC)
-		bottom repeat-x;
+	
 	/*border: 1px solid #808080;*/
 	height: 35px;
 }
@@ -347,7 +355,7 @@ body {
 	width: 261px;
 	height: 311px;
 	background: white;
-	margin: 16px 13px;
+	margin: 4px 15px 30px 13px;
 }
 
 .albumImage {
@@ -359,6 +367,8 @@ body {
 	/*border: 1px solid #808080;*/
 	cursor:pointer;
 }
+
+
 
 .albumNameYO {
 	position: absolute;
@@ -393,10 +403,7 @@ body {
 	overflow: hidden;
 }
 
-.text_11_grey {
-	color: #9C8B8B;
-	font-size: 11px;
-}
+
 
 .belleRatingLabel {
 position: absolute;
@@ -447,7 +454,7 @@ top: 15px;
 width: 12px;
 height: 11px;
 background-image: url('misc/main_map.png');
-background-position: 299px 142px;
+background-position: -32px -51px;
 }
 
 .belleDislikesIcon {
@@ -457,7 +464,7 @@ top: 32px;
 width: 12px;
 height: 11px;
 background-image: url('misc/main_map.png');
-background-position: 299px 129px;
+background-position: -32px -64px;
 }
 
 .belleLikesLabel {
@@ -515,7 +522,7 @@ top: 3px;
 width: 21px;
 height: 23px;
 background-image: url('misc/main_map.png');
-background-position: 286px 145px;
+background-position: -45px -48px;
 }
 
 .hoverPhotoCount {
@@ -545,9 +552,21 @@ top: 221px;
 }
 
 .statusAdminContent,.delAdminContent {
-	width: 123px;
-height: 32px;
+	/*width: 123px;*/
+/*height: 32px;*/
 background: rgba(0, 0, 0, 0.8);
+width:auto;
+padding: 2px;
+}
+
+
+
+.delAdminContent .AdminButtonIcon, .statusAdminContent .AdminButtonIcon {
+	display:none;
+}
+
+.delAdminContent .AdminButtonText, .statusAdminContent .AdminButtonText {
+	margin:0px;
 }
 
 .LikesStatBlock {
@@ -565,7 +584,7 @@ top: 259px;
 .delAdmin {
 position: absolute;
 left: 8px;
-top: 187px;
+top: 203px;
 }
 
 
@@ -601,12 +620,380 @@ height: 120px;
 cursor: pointer;
 }
 
+
+.posLabel {
+position: absolute;
+left: 6px;
+top: 6px;
+width: 20px;
+height: 15px;
+background: rgba(0, 0, 0, 0.5);
+text-align: center;
+padding: 2px 1px 0px 1px;
+}
+
+.nameLabel {
+position: absolute;
+left: 6px;
+top: 131px;
+width: 73px;
+height: 27px;
+text-align: left;
+padding: 2px 1px 0px 1px;
+overflow: hidden;
+}
+
+
+.ActivityUnit {
+position: relative;
+width: 137px;
+height: 69px;
+margin: 6px 0px;
+}
+
+
+.ActivityUnit:hover {
+	
+	background:rgba(255, 255, 255, 0.1);
+}
+
+
+.albumImageActivity  {
+	position: absolute;
+width: 60px;
+height: 60px;
+left:4px;
+top:4px;
+cursor:pointer;
+}
+
+.albumImageActivityUnder {
+position: absolute;
+width: 68px;
+height: 68px;
+left: 0px;
+top: 0px;
+background: rgba(255, 255, 255, 0.2);
+}
+
+.nameActivity {
+position: absolute;
+width: 64px;
+height: 14px;
+left: 72px;
+top: 0px;
+overflow: hidden;
+}
+
+.actType {
+position: absolute;
+width: 64px;
+height: 14px;
+left: 72px;
+top: 12px;
+overflow: hidden;
+text-transform: lowercase;
+}
+
+
+.actText {
+position: absolute;
+width: 61px;
+height: 39px;
+left: 72px;
+top: 27px;
+overflow: hidden;
+text-transform: lowercase;
+}
+
+.AlbumViewHeader {
+	
+	margin: 6px 0px 0px 52px;
+	min-height:15px;
+}
+
+.pageButtonIcon {
+	display:none;
+	
+}
+.pageButtonContent {
+	width: auto;
+background: rgba(0, 0, 0, 0.7);
+padding: 5px 14px;
+margin: 1px 0px;
+}
+
+.Paginator {
+	/*border:1px solid green;*/
+		position:absolute;
+		left: 0px;
+top: 93px;
+}
+
+.pageDescLabel{
+	margin:3px 3px;
+}
+
+.paginatorFirstPage {
+	margin:0px 0px 9px 0px;
+}
+
+.paginatorLastPage {
+	margin:9px 0px 0px 0px;
+}
+
+
+.PhotoLayer {
+	/*border: 1px red solid;*/
+display: table-cell;
+/*width: 1303px;*/
+vertical-align: middle;
+text-align: center;
+position:relative;
+	
+}
+
+.imagePanel {
+ 
+    margin: 0 auto;
+    max-height: 97%;
+    max-width: 95%;
+    display: inline;
+}
+
+.imagePanel img {
+	max-height:97%;
+	max-width:97%;
+	width:auto;
+	heignt:auto;
+	/*margin:0px auto;*/
+	/*vertical-align: middle;*/
+}
+
+.leftPanel {
+position: absolute;
+left: 0px;
+top: 150px;
+background-image: url('misc/main_map.png');
+background-position: -142px -4px;
+width: 67px;
+height: 185px;
+cursor: pointer;
+opacity: 0.8;
+}
+
+.rightPanel {
+	position: absolute;
+left: 300px;
+top: 150px;
+background-image: url('misc/main_map.png');
+background-position: -209px -4px;
+width: 67px;
+height: 185px;
+cursor: pointer;
+opacity: 0.8;
+}
+
+.rightPanel:hover,.leftPanel:hover, .photoTagPanel:hover, .photoClosePanel:hover, .photoOriginalPanel:hover{
+	opacity: 1.0;
+}
+
+
+.bigRightPanel {
+	position:absolute;
+cursor:pointer;
+}
+
+.bigLeftPanel {
+	position:absolute;
+cursor:pointer;
+}
+
+.photoClosePanel {
+	position: absolute;
+left: 100px;
+top: 150px;
+background-image: url('misc/main_map.png');
+background-position: -75px -89px;
+width: 67px;
+height: 60px;
+cursor: pointer;
+opacity: 0.8;
+}
+
+.photoOriginalPanel {
+	position: absolute;
+left: 300px;
+top: 150px;
+background-image: url('misc/main_map.png');
+background-position: -75px -25px;
+width: 67px;
+height: 63px;
+cursor: pointer;
+opacity: 0.8;
+}
+
+.photoTagPanel {
+position: absolute;
+left: 500px;
+top: 150px;
+background-image: url('misc/main_map.png');
+background-position: -5px -107px;
+width: 67px;
+height: 60px;
+cursor: pointer;
+opacity: 0.8;
+}
+
+
+.modelNameTags {
+	
+	border-top: #444 dotted 1px;
+	border-bottom: #444 dotted 1px;
+	/*float:left;*/
+
+}
+
+.modelNameTags:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.ModelNameBlock {
+	float:left;
+	position:relative;
+	/*border: 1px solid red;*/
+	width:368px;
+	height:80px;
+}
+
+.modelNameYO {
+	left: 11px;
+top: 7px;
+width: 354px;
+position: absolute;
+}
+
+.modelPhotoIco {
+position: absolute;
+left: 7px;
+top: 39px;
+background-image: url('misc/main_map.png');
+background-position: -44px -49px;
+width: 22px;
+height: 23px;
+}
+
+.modelNameUnder {
+	position:absolute;
+	left:0px;
+	top:0px;
+	background:#fff;
+	width:100%;
+	height:32px;
+}
+
+.modelPhotosCount {
+	position: absolute;
+left: 34px;
+top: 39px;
+width: 290px;
+height: 12px;
+}
+
+
+.modelAddedDate {
+position: absolute;
+left: 34px;
+top: 52px;
+width: 290px;
+height: 12px;
+}
+
+.modelPage {
+position: absolute;
+left: 9px;
+top: 64px;
+width: 290px;
+height: 12px;
+}
+
+.TagsSetBlock {
+	float:left;
+	margin: 0px 2px 0px 13px;
+}
+
+.TagsSetGroup {
+float: left;
+margin: 0px 0px 0px 10px;
+padding: 0px 18px 0px 0px;
+height: 80px;
+}
+
+.ButtSetTagIconWinner {
+	background-image: url('misc/main_map.png');
+background-position: -4px -166px;
+width: 13px;
+height: 14px;
+float: left;
+margin: 1px 2px 0px 0px;
+}
+
+.ButtSetTagIconLooser {
+	width: 13px;
+height: 14px;
+float: left;
+margin: 1px 2px 0px 0px;
+}
+
+.hideTagIcon {
+	display:none;
+}
+
+.marksCountLabel {
+	float: left;
+margin: 2px 0px 1px 2px;
+}
+
+.TagUnit {
+clear: both;
+}
+
+.tagGroupName_LIKES {
+	margin: 9px 0px 2px 0px
+}
+
+
+.tagGroupNameSimple {
+	margin: 9px 0px 2px 14px
+}
+
+.text_10_grey {
+	/*797979*/
+	color: #9C8B8B;
+	font-size: 10px;
+}
+
+.text_11_grey {
+	/*797979*/
+	color: #9C8B8B;
+	font-size: 11px;
+}
+
 .text_11_grey_bold {
 	font-size:11px;
 	font-weight:bold;
 	color:#535353;
 }
 
+.text_16_black_bold {
+	font-size: 16px;
+color: black;
+font-weight: bold;
+}
 
 .text_11_white_bold {
 	font-size:11px;
@@ -618,6 +1005,12 @@ cursor: pointer;
 	font-size:12px;
 	font-weight:bold;
 	color:#fff;
+}
+
+.text12_grey_bold {
+	font-size:12px;
+	font-weight:bold;
+	color:#9C8B8B;
 }
 
  .text9_white {
@@ -633,13 +1026,15 @@ cursor: pointer;
 
 .thumbsPanel {
 	float: left;
-	margin-right: 200px;
+	/*margin-right: 200px;*/
+	margin-top: 0px;
+	margin-left:  39px;
 }
 
 .panelBlocks {
-	float: left;
-	margin-left: -200px;
-	width: 200px;
+	float: right;
+	/*margin-left: -200px;*/
+	width: 135px;
 }
 
 .panelThumbsAndBlocks {
@@ -666,7 +1061,7 @@ cursor: pointer;
 	border: 1px solid blue;
 }
 
-.topMenu {
+.topMenuWrap {
 	width: 100%;
 	/*height: 20px;*/
 /*border: 1px solid red;*/
@@ -703,6 +1098,7 @@ cursor: pointer;
 	/*border: 1px solid green;*/
 	cssFloat: left;
 	left: 0px;
+	background: #0A0A0A;
 }
 
 .clearBothPanel {

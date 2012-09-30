@@ -13,6 +13,7 @@ public class CommentObj implements Serializable {
 	private String albumId;
 	private String albumModelName;
 	private String coverImgObjID = "";
+	private String coverPicObjID = "";
 	private String commentID = null;
 	
 	
@@ -66,5 +67,11 @@ public class CommentObj implements Serializable {
 	}
 	public void setCoverImgObjID(String coverImgObjID) {
 		this.coverImgObjID = coverImgObjID;
+	}
+	public String getCoverPicObjID() {
+		return coverPicObjID;
+	}
+	public void setCoverPicObjID(String coverPicObjID) {
+		this.coverPicObjID = coverPicObjID;
 	}
 }

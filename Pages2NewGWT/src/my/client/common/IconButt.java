@@ -97,4 +97,12 @@ public class IconButt extends Composite {
     	text.add(new HTML(textToSet));
     	text.getElement().setInnerText(textToSet);
     } 
+    
+    public void setEnabled(boolean isEnabled)  {
+    	if (isEnabled) {
+    		panel.getElement().getStyle().setProperty("opacity","1");
+    	} else {
+    		panel.getElement().getStyle().setProperty("opacity","0.8");
+    	}
+    }
 }

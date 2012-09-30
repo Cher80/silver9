@@ -5,6 +5,7 @@ import java.util.Date;
 import my.client.albumspage.AlbumsActivity;
 import my.client.common.ClientFactory;
 import my.client.events.NewCommentEvent;
+import my.client.events.PageTitleEvent;
 import my.client.events.ReloadAlbumsEvent;
 import my.client.modelpage.ModelActivity;
 import my.client.modelpage.ModelPlace;
@@ -50,6 +51,7 @@ private AlbumsActivity albumsActivity;
 		
 		
 		panel.addStyleName("TagAlbumsBlock");
+		panel.addStyleName("back_pattern_dark");
 		
 		
 		FlowPanel likesBlock = new FlowPanel();
@@ -77,6 +79,9 @@ private AlbumsActivity albumsActivity;
 		likesBlock.add(clearAllLabel);
 		clearAllLabel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				PageTitleEvent pageTitleEvent = new PageTitleEvent("");
+				ClientFactory.getEventBus().fireEvent(pageTitleEvent);
+				
 				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(null,1);
 				ClientFactory.getEventBus().fireEvent(eventReload);
 			}
@@ -106,6 +111,8 @@ private AlbumsActivity albumsActivity;
 		tagsIconBlock.add(clearAllLabel2);
 		clearAllLabel2.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				PageTitleEvent pageTitleEvent = new PageTitleEvent("");
+				ClientFactory.getEventBus().fireEvent(pageTitleEvent);
 				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(null,1);
 				ClientFactory.getEventBus().fireEvent(eventReload);
 			}
@@ -119,7 +126,7 @@ private AlbumsActivity albumsActivity;
 		hairsGroup.addStyleName("border_right_dotted");
 		TagAlbumsUnit blondUnit = new TagAlbumsUnit("BLOND","Blond");
 		TagAlbumsUnit redUnit = new TagAlbumsUnit("RED", "Red");
-		TagAlbumsUnit darkUnit = new TagAlbumsUnit("DARK", "Red");
+		TagAlbumsUnit darkUnit = new TagAlbumsUnit("DARK", "Dark");
 		hairsGroup.addTag(blondUnit);
 		hairsGroup.addTag(redUnit);
 		hairsGroup.addTag(darkUnit);

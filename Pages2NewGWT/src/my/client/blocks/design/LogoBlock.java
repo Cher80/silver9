@@ -2,6 +2,7 @@ package my.client.blocks.design;
 
 import my.client.albumspage.AlbumsPlace;
 import my.client.common.ClientFactory;
+import my.client.events.PageTitleEvent;
 import my.client.events.ReloadAlbumsEvent;
 import my.client.forum.ForumViewInterface.Presenter;
 import my.client.helpers.HavePlace;
@@ -36,6 +37,8 @@ public class LogoBlock extends Composite {
     	panel.addStyleName("logo_panel");
     	panel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				PageTitleEvent pageTitleEvent = new PageTitleEvent("");
+				ClientFactory.getEventBus().fireEvent(pageTitleEvent);
 				//History.back();
 				//String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverImgObjID();
 				if (ClientFactory.getPlaceController().getWhere() instanceof AlbumsPlace ) {
@@ -45,6 +48,7 @@ public class LogoBlock extends Composite {
 				else {
 					ClientFactory.getHistoryKeeper().doEmptyStack();
 					ClientFactory.getPlaceController().goTo(new AlbumsPlace(""));
+					
 				}
 			
 				

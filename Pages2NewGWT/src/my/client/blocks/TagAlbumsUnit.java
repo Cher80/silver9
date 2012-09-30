@@ -6,6 +6,7 @@ import my.client.albumspage.AlbumsActivity;
 import my.client.common.ClientFactory;
 import my.client.common.IconButt;
 import my.client.events.NewCommentEvent;
+import my.client.events.PageTitleEvent;
 import my.client.events.ReloadAlbumsEvent;
 import my.client.modelpage.ModelActivity;
 import my.client.modelpage.ModelPlace;
@@ -92,6 +93,8 @@ public class TagAlbumsUnit extends Composite {
 			public void onClick(ClickEvent event) {
 
 				Log.debug("doTagButt " + tagType);
+				PageTitleEvent pageTitleEvent = new PageTitleEvent("Filtered by " + tagReadableName);
+				ClientFactory.getEventBus().fireEvent(pageTitleEvent);
 				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(tagType,1);
 				ClientFactory.getEventBus().fireEvent(eventReload);
 				

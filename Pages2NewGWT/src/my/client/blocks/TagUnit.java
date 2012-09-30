@@ -3,6 +3,7 @@ package my.client.blocks;
 import java.util.Date;
 
 import my.client.common.ClientFactory;
+import my.client.common.IconButt;
 import my.client.events.NewCommentEvent;
 import my.client.modelpage.ModelActivity;
 import my.client.modelpage.ModelPlace;
@@ -37,13 +38,16 @@ public class TagUnit extends Composite {
 
 
 	private FlowPanel panel = new FlowPanel();
+	private FlowPanel tagWinnerMark = new FlowPanel();
 	private TagObj tagObj;
 	private AlbumObj albumObj;
-	private Button doTagMark;
+	//private Button doTagMark;
 	private Label marksCountLabel;
 	private Label isAlredyVotedLabel;
 	private Label statusLabel = new Label("");
 	private TagsSetGroup tagsSetGroup;
+	
+	private IconButt doTagButt; 
 	//private int 
 	
 	public TagUnit(TagObj tagobjj, AlbumObj albumObjj, TagsSetGroup tagsSetGroupp) {
@@ -51,23 +55,77 @@ public class TagUnit extends Composite {
 		this.tagObj = tagobjj;
 		this.albumObj = albumObjj;
 		this.tagsSetGroup = tagsSetGroupp;
+		panel.addStyleName("TagUnit");
+		//doTagMark = new Button(tagObj.getTagReadableName());
 		
-		doTagMark = new Button(tagObj.getTagReadableName());
-		marksCountLabel = new Label("Counts " + tagObj.getTagTotalPluses());
-		isAlredyVotedLabel = new Label("isAllowVoteToUser " + tagObj.isAllowVoteToUser());
 		
-		if (!tagObj.isAllowVoteToUser()) {
-			doTagMark.setEnabled(false);
+		marksCountLabel = new Label("" + tagObj.getTagTotalPluses());
+		marksCountLabel.addStyleName("marksCountLabel");
+		marksCountLabel.addStyleName("text_10_grey");
+		//isAlredyVotedLabel = new Label("isAllowVoteToUser " + tagObj.isAllowVoteToUser());
+		
+		
+		doTagButt = new IconButt(); 
+		doTagButt.addStyleName("ButtTag");
+		
+		doTagButt.content.addStyleName("ButtTagContent");
+		doTagButt.content.addStyleName("ButtTagContent_" + tagObj.getTagType());
+		doTagButt.text.addStyleName("ButtTagText");
+		doTagButt.text.addStyleName("ButtTagText_" + tagObj.getTagType());
+		
+		if (tagObj.getTagType().equals("LIKE")||tagObj.getTagType().equals("DISLIKE")) {
+			doTagButt.text.addStyleName("text11_White");
+			doTagButt.icon.addStyleName("ButtTagIcon");
+			doTagButt.icon.addStyleName("ButtTagIcon_" + tagObj.getTagType());
+		} else {
+			doTagButt.text.addStyleName("text11_White");
+			if (tagObj.isTagIsWinner()) {
+				tagWinnerMark.addStyleName("ButtSetTagIconWinner");
+			}else {
+				tagWinnerMark.addStyleName("ButtSetTagIconLooser");
+			}
+			doTagButt.icon.addStyleName("hideTagIcon");
 		}
 		
-		panel.add(doTagMark);
+		
+		
+		if (tagObj.getTagType().equals("LIKE")) {
+			doTagButt.content.addStyleName("like_Color");
+		}
+		else if (tagObj.getTagType().equals("DISLIKE")) {
+			doTagButt.content.addStyleName("dislike_Color");
+		}
+		else {
+			doTagButt.content.addStyleName("grey_tag_Color");
+		}
+		
+	
+		/*doTagButt.text.addStyleName("text11_White");*/
+		doTagButt.setText(tagObj.getTagReadableName());
+		
+		
+		
+		
+		if (!tagObj.isAllowVoteToUser()) {
+			doTagButt.setEnabled(false);
+		}
+		
+		
+		panel.add(tagWinnerMark);
+		panel.add(doTagButt);
+		
+		
 		panel.add(marksCountLabel);
-		panel.add(isAlredyVotedLabel);
-		doTagMark.addClickHandler(new ClickHandler() {
+		//panel.add(isAlredyVotedLabel);
+		doTagButt.panel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
-				
-				doSetTag(tagObj, albumObj, ClientFactory.getUser());
+				if (tagObj.isAllowVoteToUser()) {
+					doSetTag(tagObj, albumObj, ClientFactory.getUser());
+				}
+				else {
+					Notifications notif = new Notifications("You have already voted", true, true);
+				}
 				
 			}
 		});
@@ -85,10 +143,8 @@ public class TagUnit extends Composite {
 
 	
 	public void setVoted() {
-		doTagMark.setEnabled(false);
-		//tagObj.setTagTotalPluses(tagObj.getTagTotalPluses() + 1 );
-		//int tagTotalPluses = tagObj.getTagTotalPluses();
-		//marksCountLabel.setText("" + tagTotalPluses);
+		doTagButt.setEnabled(false);
+		tagObj.setAllowVoteToUser(false);
 	}
 	
 	public void setPlusVote() {
@@ -116,6 +172,7 @@ public class TagUnit extends Composite {
 
 				if (caught instanceof RPCServiceExeption) {
 					Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
+					Notifications notif = new Notifications(((RPCServiceExeption)caught).getErrorCode(), true, true);
 				}
 			}
 

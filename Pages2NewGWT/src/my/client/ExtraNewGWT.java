@@ -74,8 +74,8 @@ public class ExtraNewGWT implements EntryPoint {
 		
 		
 		topMenu = new TopMenu();
-		menuWidgetPanel.setStyleName("topMenu");
-		
+		menuWidgetPanel.addStyleName("topMenuWrap");
+		menuWidgetPanel.addStyleName("back_pattern");
 		RootPanel.get().add(menuWidgetPanel);
 	
 		

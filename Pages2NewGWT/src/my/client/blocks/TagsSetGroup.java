@@ -38,19 +38,34 @@ import com.google.gwt.user.client.ui.TextBox;
 public class TagsSetGroup extends Composite {
 
 
-
+	private Label tagGroupName = new Label();
 	private FlowPanel panel = new FlowPanel();
 	private TagsObj tagsObjGroup;
-	private String type;
+	private String groupReadableName;
 	private AlbumObj albumObj;
 	private List<TagUnit>tagsInGroup = new ArrayList<TagUnit>();
 
-	public TagsSetGroup(String typee, TagsObj tagsObjj, AlbumObj albumObjj) {
+	public TagsSetGroup(String _groupReadableName, TagsObj tagsObjj, AlbumObj albumObjj) {
 		super();
 		this.tagsObjGroup = tagsObjj;
-		this.type = typee;
+		this.groupReadableName = _groupReadableName;
 		this.albumObj = albumObjj;
-		Log.debug("TagsSetGroup this.type " + this.type );
+		
+		
+		if (tagsObjGroup.getTagsObj().get(0).getTagGroup().equals("LIKES")) {
+			tagGroupName.addStyleName("tagGroupName_LIKES");
+		}
+		else {
+			tagGroupName.addStyleName("tagGroupNameSimple");
+		}
+		tagGroupName.addStyleName("text12_white_bold");
+		
+		tagGroupName.setText(groupReadableName);
+		panel.add(tagGroupName);
+		panel.addStyleName("TagsSetGroup");
+		panel.addStyleName("border_right_dotted");
+		
+		//Log.debug("TagsSetGroup this.type " + this.type );
 
 		for (int i=0; i<tagsObjGroup.getTagsObj().size(); i++) {
 			TagObj curTagObj = tagsObjGroup.getTagsObj().get(i);
