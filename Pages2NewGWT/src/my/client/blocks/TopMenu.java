@@ -35,12 +35,13 @@ public class TopMenu extends Composite {
     private FlowPanel panel = new FlowPanel();
 
     //private Button backButt = new Button("BackButt");
-    
+    private SocialBlock socialBlock;
     private UserArea userArea;
     private StatBlock statBlock;
   
     private LogoBlock logoBlock= new LogoBlock();
     private BackButt backBlock;
+    
     private FlowPanel clearFloat = new FlowPanel();
     //AdminsStuffBlock
     
@@ -93,10 +94,12 @@ public class TopMenu extends Composite {
 				StatObj statObj = ((TopBlockObj)result).getStatObj();
 				userArea = new UserArea(user);
 				statBlock = new StatBlock(statObj);
+				socialBlock = new SocialBlock();
 				
 				
 				
 				panel.add(statBlock);
+				panel.add(socialBlock);
 				//panel.add(backButt);
 				
 				panel.add(userArea);

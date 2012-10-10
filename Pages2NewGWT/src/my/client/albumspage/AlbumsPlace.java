@@ -12,7 +12,7 @@ public class AlbumsPlace extends Place {
 	private String placeName;
 
     public AlbumsPlace(String token) {
-    	System.out.println("AlbumsPlace constructor");
+    	//System.out.println("AlbumsPlace constructor");
         this.placeName = token;
     }
 
@@ -29,7 +29,7 @@ public class AlbumsPlace extends Place {
 
         @Override
         public AlbumsPlace getPlace(String token) {
-        	//System.out.println("MyComposite2Place getPlace token = " + token);
+        	////System.out.println("MyComposite2Place getPlace token = " + token);
       	return new AlbumsPlace(token);
 
         }

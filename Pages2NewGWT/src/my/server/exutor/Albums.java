@@ -107,7 +107,7 @@ public class Albums {
 		//query.append("timestamp", 1);
 
 
-		DBCursor cur = albums.find(query).sort(sort).limit(10);
+		DBCursor cur = albums.find(query).sort(sort).limit(5);
 
 
 
@@ -163,10 +163,15 @@ public class Albums {
 			//query.append("tags", tagElemMatch);
 			LOG.debug("tagType!=null ");
 		}
+		/*
 		if (statusPublished>=0) {
 			query.append("status", statusPublished);
-		}
+		}*/
 
+		if (statusPublished!=0) {
+			query.append("status", statusPublished);
+		}
+		
 		BasicDBObject sort = new BasicDBObject();
 		sort.append("timestamp", -1);
 
@@ -208,7 +213,7 @@ public class Albums {
 				}
 
 
-				//System.out.println(cursor.next());
+				////System.out.println(cursor.next());
 				LOG.info("Albums albname: " + (String) album.get("albname"));	
 				//user.get("pass1");
 				//String nickdb = (String) user.get("nick");

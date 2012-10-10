@@ -29,13 +29,13 @@ public final class MongoPool {
 	static {
 		//mongo = null;
 		Properties properties = new Properties();
-		System.out.println("properties.load(MongoPool");
+		//System.out.println("properties.load(MongoPool");
 		try {
 	//		Properties properties = new Properties();
 			properties.load(MongoPool.class.getResourceAsStream("mongo.properties"));
 
 			//properties.load(MongoPool.class.getClassLoader().getResourceAsStream("/home/cher80/_silver9_repo/silver9/Pages2NewGWT/war/WEB-INF/mongo.properties"));
-			System.out.println("properties.load(MongoPool done");
+			//System.out.println("properties.load(MongoPool done");
 			//LOG.info("Mongo pool successfully created.");	
 		} catch (Exception ex) {
 			//LOG.error("Failed to create Mongo DB pool.", ex);

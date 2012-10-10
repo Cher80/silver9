@@ -48,7 +48,7 @@ public class MyActivity extends AbstractActivity implements HavePlace, HaveView 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		// TODO Auto-generated method stub
-		System.out.println("MyActivity extends AbstractActivity start");
+		//System.out.println("MyActivity extends AbstractActivity start");
 	}
 
 	

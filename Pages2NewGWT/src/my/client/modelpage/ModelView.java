@@ -16,6 +16,7 @@ import my.client.helpers.HavePresenter;
 import my.client.windows.RegisterPopup;
 import my.shared.AlbumObj;
 import my.shared.CommentsObj;
+import my.shared.ImgObj;
 import my.shared.ImgsObj;
 import my.shared.TagsObj;
 
@@ -47,6 +48,8 @@ public class ModelView extends Composite implements HavePresenter  {
 	private ScrollPanel wrapperScroll = new ScrollPanel();
 	
 	private FlowPanel panel = new FlowPanel();
+	private FlowPanel commentsContainer = new FlowPanel();
+	
 	private ModelActivity presenter;
 	private PhotoLayer photoLayer;
 	private CommentPost commentPost;
@@ -153,6 +156,14 @@ public class ModelView extends Composite implements HavePresenter  {
 		panel.add(photoLayer);
 		//renderNameAndTags();
 	}
+
+	public void setPhotoLayerTo(ImgObj _imgObj) {
+		photoLayer.doRenderPhoto(_imgObj);
+		//photoLayer = new PhotoLayer(imgsObj,coverid,(ModelActivity)this.getPresenter());
+		//makePhotoLayotCalculation();
+		//panel.add(photoLayer);
+		//renderNameAndTags();
+	}
 	
 	public void renderName(AlbumObj albumObj, ImgsObj imgsObj) {
 		modelNameTags.addStyleName("modelNameTags");
@@ -166,13 +177,16 @@ public class ModelView extends Composite implements HavePresenter  {
 	
 	
 	public void renderCommentPost(AlbumObj albumObj) {
+		
+		commentsContainer.addStyleName("commentsContainer");
+		panel.add(commentsContainer);
 		commentPost = new CommentPost(albumObj);
-		panel.add(commentPost);
+		commentsContainer.add(commentPost);
 	}
 	
 	public void renderCommentsBlock(CommentsObj commentsObj) {
 		CommentsBlock commentsBlock = new CommentsBlock(commentsObj);
-		panel.add(commentsBlock);
+		commentsContainer.add(commentsBlock);
 	}
 	
 	public void renderPhotos(ImgsObj imgsObj) {

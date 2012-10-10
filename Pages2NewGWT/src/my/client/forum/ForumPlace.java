@@ -12,7 +12,7 @@ public class ForumPlace extends Place {
 	private String placeName;
 
     public ForumPlace(String token) {
-    	System.out.println("ForumPlace constructor");
+    	//System.out.println("ForumPlace constructor");
         this.placeName = token;
     }
 
@@ -29,7 +29,7 @@ public class ForumPlace extends Place {
 
         @Override
         public ForumPlace getPlace(String token) {
-        	//System.out.println("MyComposite2Place getPlace token = " + token);
+        	////System.out.println("MyComposite2Place getPlace token = " + token);
       	return new ForumPlace(token);
 
         }

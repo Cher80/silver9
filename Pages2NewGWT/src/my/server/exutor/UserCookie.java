@@ -20,12 +20,12 @@ import my.shared.User;
 public class UserCookie {
 	public static final Logger LOG=Logger.getLogger(UserCookie.class);
 
-	public void UserCookie() {
+	public UserCookie() {
 
 	}
 
-	public User getUserByCookie(CookieObj cookieObj) {
-
+	public User getUserByCookie(CookieObj cookieObj) throws RPCServiceExeption {
+		
 		if (cookieObj==null) {
 			throw new RPCServiceExeption("Error: cookie = null!");
 		}
@@ -55,7 +55,7 @@ public class UserCookie {
 
 		if (!cur.hasNext()) {
 			cur.close();
-			throw new RPCServiceExeption("Error: no such registered email");
+			throw new RPCServiceExeption("Error: no such registered email. Please clear cookie");
 		}
 
 		else {
@@ -80,7 +80,7 @@ public class UserCookie {
 
 					}
 					else {
-						throw new RPCServiceExeption("Error: wrong session");
+						throw new RPCServiceExeption("Error: wrong session. Please clear cookie");
 					}
 
 				}

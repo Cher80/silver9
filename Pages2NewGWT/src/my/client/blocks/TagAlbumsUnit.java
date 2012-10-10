@@ -4,6 +4,7 @@ import java.util.Date;
 
 import my.client.albumspage.AlbumsActivity;
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.common.IconButt;
 import my.client.events.NewCommentEvent;
 import my.client.events.PageTitleEvent;
@@ -97,7 +98,7 @@ public class TagAlbumsUnit extends Composite {
 				ClientFactory.getEventBus().fireEvent(pageTitleEvent);
 				ReloadAlbumsEvent eventReload = new ReloadAlbumsEvent(tagType,1);
 				ClientFactory.getEventBus().fireEvent(eventReload);
-				
+				GoogleAnalytics.trackEvent("Pinbelle", "TagFilter_Clicked", tagType);
 				//doSetTag(tagObj, albumObj, ClientFactory.getUser());
 				
 			}

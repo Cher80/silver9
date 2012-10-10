@@ -29,7 +29,7 @@ public class ForumView extends Composite implements ForumViewInterface, HavePres
     private FlowPanel commentsPanel = new FlowPanel();
     
     public ForumView() {
-    	System.out.println("ForumView constructor");
+    	//System.out.println("ForumView constructor");
 		//panel.getElement().getStyle().setProperty("cssFloat", "left");
 		//panel.getElement().getStyle().setProperty("border", "1px solid red");
 		//panel.add(myButt1);
@@ -142,8 +142,8 @@ public class ForumView extends Composite implements ForumViewInterface, HavePres
 	@Override
 	public void onScroll(ScrollEvent event) {
 		// TODO Auto-generated method stub
-		//System.out.println("scroll" + panel.getMaximumHorizontalScrollPosition() + panel.getHorizontalScrollPosition());
-		System.out.println(panel.getVerticalScrollPosition() + " xxxx " + panel.getMaximumVerticalScrollPosition());
+		////System.out.println("scroll" + panel.getMaximumHorizontalScrollPosition() + panel.getHorizontalScrollPosition());
+		//System.out.println(panel.getVerticalScrollPosition() + " xxxx " + panel.getMaximumVerticalScrollPosition());
 		int maxScroll = panel.getMaximumVerticalScrollPosition();
 		int curScrol = panel.getVerticalScrollPosition();
 		if ((maxScroll - curScrol) <150 ) {

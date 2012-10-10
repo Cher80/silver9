@@ -1,6 +1,7 @@
 package my.client.blocks;
 
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.forum.ForumViewInterface.Presenter;
 import my.client.helpers.HavePlace;
 import my.client.modelpage.ModelPlace;
@@ -55,11 +56,11 @@ public class ActivityUnit extends Composite {
   		/////////// texts //////////////
   		name.addStyleName("nameActivity");
   		name.addStyleName("text_11_white_bold");
-  		name.setText(activityObj.getNick());
+  		name.setText(activityObj.getAlbname());
   		
   		actType.addStyleName("actType");
   		actType.addStyleName("text_11_grey");
-  		actType.setText(activityObj.getActivityType());
+  		actType.setText("was " + activityObj.getActivityType() + "ed:");
   		
   		actText.addStyleName("actText");
   		actText.addStyleName("text11_White");
@@ -85,6 +86,7 @@ public class ActivityUnit extends Composite {
     	
     	albumImage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				GoogleAnalytics.trackEvent("Pinbelle", "ActivityBlock_Album_Clicked", "default");
 				//History.back();
 				String params = "albid=" + activityObj.getAlbid() + "&coverid=" + activityObj.getCoverImgObjID();
 				ClientFactory.getPlaceController().goTo(new ModelPlace(params,false, null));

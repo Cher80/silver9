@@ -24,9 +24,9 @@ public class ThemeView extends Composite implements ThemeViewInterface {
    }
     
     public void populate () {
-    	//System.out.println("ThemeView constructor");
+    	////System.out.println("ThemeView constructor");
     	int forumId = presenter.getForumId();
-    	System.out.print("" + forumId);
+    	//System.out.print("" + forumId);
     	Label label = new Label("ThemeViewLabel" + forumId);
     	Button myButt1 = new Button("ThemeViewButt" + forumId);
     	Button myButt2 = new Button("RPC" + forumId);

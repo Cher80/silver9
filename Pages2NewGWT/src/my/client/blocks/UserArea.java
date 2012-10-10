@@ -4,6 +4,7 @@ import javax.servlet.http.Cookie;
 
 import my.client.blocks.design.AdminButt;
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.common.IconButt;
 import my.client.helpers.HavePlace;
 import my.client.rpcs.RPCService;
@@ -151,9 +152,10 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 			
 			fbLogg.panel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					GoogleAnalytics.trackEvent("Pinbelle", "User_FBLogin_Clicked", "default");
 					String fbURL = "http://www.facebook.com/dialog/oauth/?" +
-							"client_id=217710151589139" +
-							"&redirect_uri=http://test.ru:8888/extranewgwt/fbcreateUser" +
+							"client_id=101233880035662" +
+							"&redirect_uri=http://www.pinbelle.com/extranewgwt/fbcreateUser" +
 							"&state=allo" +
 							"&scope=user_about_me,email"
 							;
@@ -172,6 +174,7 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 
 			loginButt.panel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					GoogleAnalytics.trackEvent("Pinbelle", "User_Login_Clicked", "default");
 					//regButt.setText("doLogin");
 					LoginPopup loginView = new LoginPopup();
 					loginView.center(); 
@@ -182,6 +185,7 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 			regButt.panel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					//regButt.setText("doRegister");
+					GoogleAnalytics.trackEvent("Pinbelle", "User_Register_Clicked", "default");
 					RegisterPopup registerView = new RegisterPopup();
 					registerView.center(); 
 					registerView.show();
@@ -219,6 +223,7 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 
 			logout.panel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					GoogleAnalytics.trackEvent("Pinbelle", "User_Logout_Clicked", "default");
 					//regButt.setText("doLogin");
 					//LoginPopup loginView = new LoginPopup();
 					//loginView.center(); 
@@ -284,6 +289,7 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 						Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
 						setState(UNLOGGED);
 						setAnonim();
+						Notifications notif = new Notifications(((RPCServiceExeption)caught).getErrorCode(), true, true);
 						//status.setText(((RPCServiceExeption)caught).getErrorCode());
 					}
 
@@ -292,7 +298,7 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 				@Override
 				public void onSuccess(Object result) {
 					Log.debug("UserArea onSuccess ");
-
+					GoogleAnalytics.trackEvent("Pinbelle", "User_SuccessLogged", "default");
 					setUser((User)result);
 					
 					Log.debug("UserArea result.getClass() = " + result.getClass());

@@ -3,6 +3,7 @@ package my.client.blocks;
 import java.util.Date;
 
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.common.IconButt;
 import my.client.events.NewCommentEvent;
 import my.client.modelpage.ModelActivity;
@@ -48,6 +49,7 @@ public class TagUnit extends Composite {
 	private TagsSetGroup tagsSetGroup;
 	
 	private IconButt doTagButt; 
+	private FlowPanel clearPanel = new FlowPanel(); 
 	//private int 
 	
 	public TagUnit(TagObj tagobjj, AlbumObj albumObjj, TagsSetGroup tagsSetGroupp) {
@@ -122,6 +124,8 @@ public class TagUnit extends Composite {
 
 				if (tagObj.isAllowVoteToUser()) {
 					doSetTag(tagObj, albumObj, ClientFactory.getUser());
+					GoogleAnalytics.trackEvent("Pinbelle", "TagSet_Clicked", TagUnit.this.tagObj.getTagType());
+					Notifications notif = new Notifications("Thanks for your vote", true, true);
 				}
 				else {
 					Notifications notif = new Notifications("You have already voted", true, true);
@@ -187,6 +191,8 @@ public class TagUnit extends Composite {
 				statusLabel.setText("Posted tag! Thanks!");
 				tagsSetGroup.setGroupVoted();
 				setPlusVote();
+				
+				
 
 			}
 		};

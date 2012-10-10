@@ -44,7 +44,7 @@ public class HistoryKeeper {
 		//
 		//		String newToken = ((ForumView) widget).getPresenter().getName();
 		String newToken =	ClientFactory.getHistoryMapper().getToken(newPlace);
-		System.out.println("checkIsVisited iterator newToken = " + newToken);
+		//System.out.println("checkIsVisited iterator newToken = " + newToken);
 		Log.debug("checkIsVisited iterator newToken = " + newToken);
 		Iterator<Activity> it = activityStack.iterator();
 		while(it.hasNext()){
@@ -53,9 +53,9 @@ public class HistoryKeeper {
 			Place oldPlace = ((HavePlace) curActivity).getPlace();
 			String oldToken =	ClientFactory.getHistoryMapper().getToken(oldPlace);
 
-			System.out.println("checkIsVisited iterator oldToken = " + oldToken);
+			//System.out.println("checkIsVisited iterator oldToken = " + oldToken);
 			if (newToken.equals(oldToken)) {
-				System.out.println("Sovpadenie!");
+				//System.out.println("Sovpadenie!");
 				needToClearStack = true;
 				CurActivityAfterAnimation = curActivity;
 				return curActivity;
@@ -122,7 +122,7 @@ public class HistoryKeeper {
 	    	Activity curActivity = it.next();
 	    	Widget curWidget = ((HaveView)curActivity).getView().asWidget();
 	    	if (widget.equals(curWidget)) {
-	    		System.out.println("popWidget sovpalo!" + activityStack.indexOf(curActivity));
+	    		//System.out.println("popWidget sovpalo!" + activityStack.indexOf(curActivity));
 	    		//it.remove();
 	    		return; 
 	    	}
@@ -131,7 +131,7 @@ public class HistoryKeeper {
 	    	//this.activityStack.peek()
 	    	//Place oldPlace = ((HavePlace) curActivity).getPlace();
 			//String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);
-	    	//System.out.println("getHistoryWidget!");
+	    	////System.out.println("getHistoryWidget!");
 
 
 	      }*/
@@ -151,7 +151,7 @@ public class HistoryKeeper {
 	    	Activity curActivity = it.next();
 	    	Widget curWidget = ((HaveView)curActivity).getView().asWidget();
 	    	if (widget.equals(curWidget)) {
-	    		System.out.println("popWidget sovpalo!");
+	    		//System.out.println("popWidget sovpalo!");
 	    		it.remove();
 	    		return;
 	    	}
@@ -160,7 +160,7 @@ public class HistoryKeeper {
 	    	//this.activityStack.peek()
 	    	//Place oldPlace = ((HavePlace) curActivity).getPlace();
 			//String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);
-	    	//System.out.println("getHistoryWidget!");
+	    	////System.out.println("getHistoryWidget!");
 
 
 	      }
@@ -207,7 +207,7 @@ public class HistoryKeeper {
 		while(it.hasNext()){
 			Activity curActivity = (Activity) it.next();
 			Widget curWidget = ((HaveView)curActivity).getView().asWidget();
-			System.out.println("getWidgetsToMove!" + curWidget.getAbsoluteLeft());
+			//System.out.println("getWidgetsToMove!" + curWidget.getAbsoluteLeft());
 			widgetsStack.push(curWidget);
 		}
 
@@ -272,7 +272,7 @@ public class HistoryKeeper {
 			i++;
 			Widget curWidget = ((HaveView)curActivity).getView().asWidget();
 			if (currShowedWidget.equals(curWidget)) {
-				//System.out.println("currShowedWidgetPosition =" + i);
+				////System.out.println("currShowedWidgetPosition =" + i);
 				currShowedWidgetPosition = i;
 			}
 		}
@@ -287,14 +287,14 @@ public class HistoryKeeper {
 			Widget curWidget = ((HaveView)curActivity).getView().asWidget();
 			if (movedWidget.equals(curWidget)) {
 				movedWidgetPosition = ii;
-				System.out.println("movedWidget =" + ii);
+				//System.out.println("movedWidget =" + ii);
 
 			}
 		}
 
 
 		if (movedWidgetPosition > currShowedWidgetPosition) {
-			System.out.println("movedWidget need to remove =" + movedWidgetPosition + "currShowedWidgetPosition =" + currShowedWidgetPosition);
+			//System.out.println("movedWidget need to remove =" + movedWidgetPosition + "currShowedWidgetPosition =" + currShowedWidgetPosition);
 			return true;
 		} else {
 			return false;
@@ -314,12 +314,12 @@ public class HistoryKeeper {
 			i++;
 			Widget curWidget = ((HaveView)curActivity).getView().asWidget();
 			if (widget.equals(curWidget) && i!=historyLengh) {
-				System.out.println("getHistoryWidget sovpalo!");
+				//System.out.println("getHistoryWidget sovpalo!");
 				return true;
 			}
 			//Place oldPlace = ((HavePlace) curActivity).getPlace();
 			//String oldToken =	clientFactory.getHistoryMapper().getToken(oldPlace);
-			System.out.println("getHistoryWidget!");
+			//System.out.println("getHistoryWidget!");
 
 
 		}
@@ -336,7 +336,7 @@ public class HistoryKeeper {
 
 
 		   	  String newToken = ((ForumView) widget).getPresenter().getName();
-		      System.out.println("newToken = " + newToken);
+		      //System.out.println("newToken = " + newToken);
 
 		      widgetsStack.push(widget);
 
@@ -347,12 +347,12 @@ public class HistoryKeeper {
 			    	 // if (!isFirst) {
 			    	  Widget curWidget = (Widget) it.next();
 				   	  String oldToken = ((HavePresenter) curWidget).getPresenter().getName();
-				   	  System.out.println("oldToken = " + oldToken);
+				   	  //System.out.println("oldToken = " + oldToken);
 				   	  if (newToken.equals(oldToken)) {
-				   		  System.out.println("Sovpadenie tokenov");
 				   		  //System.out.println("Sovpadenie tokenov");
-				    	  System.out.println("widget.getElement().getOffsetLeft() = " + widget.getElement().getOffsetLeft());
-				    	  System.out.println("curWidget.getElement().getOffsetLeft() = " + curWidget.getElement().getOffsetLeft());
+				   		  ////System.out.println("Sovpadenie tokenov");
+				    	  //System.out.println("widget.getElement().getOffsetLeft() = " + widget.getElement().getOffsetLeft());
+				    	  //System.out.println("curWidget.getElement().getOffsetLeft() = " + curWidget.getElement().getOffsetLeft());
 
 				    	  //int positionOne = Window.getClientWidth()/2 - 150;
 				    	  //offsetDir = positionOne - curWidget.getElement().getOffsetLeft();

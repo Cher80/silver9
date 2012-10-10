@@ -19,6 +19,18 @@ body {
 		bottom repeat-x;
 }
 
+.preloader_anim {
+	background-image: url(data:image/gif;base64,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);
+	background-position: center center;
+background-repeat: no-repeat;
+}
+
+
+.preloader {
+	width: 24px;
+height: 24px;
+position: absolute;
+}
 
 .UserArea {
 	float: right;
@@ -35,7 +47,7 @@ body {
 
 .StatBlock { /*width: 269px;*/
 	height: 15px;
-	margin: 10px 0px 7px 0px;
+	margin: 10px 14px 7px 0px;
 	float: left;
 }
 
@@ -50,7 +62,7 @@ body {
 }
 
 .ButtonContent {
-	width: 92px;
+	/*width: 92px;*/
 	height: auto;
 }
 
@@ -159,6 +171,51 @@ height: 24px;
 	margin: 9px 0px;
 }
 
+
+
+.fbGroupIcon {
+	background-image: url('misc/main_map.png');
+background-position: -54px -25px;
+margin: 5px 6px;
+width: 18px;
+height: 22px;
+}
+
+.fbGroupContent {
+width: 87px;
+	height: 32px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.fbGroupButtonText {
+	margin: 4px 0px 0px -4px;
+	width: 55px;
+}
+
+
+
+.feedBackIcon {
+background-image: url('misc/main_map.png');
+background-position: -21px -166px;
+margin: 5px 3px 0px 5px;
+width: 18px;
+height: 22px;
+}
+
+.feedBackContent {
+height: 32px;
+padding: 0px 7px 0px 0px;
+background: rgba(0, 0, 0, 0.8);
+}
+
+.feedBackText {
+	margin: 9px 0px;
+}
+
+.SocialBlock {
+	/*margin: 0px 0px 0px 10px;*/
+}
+
 .LoginButtonIcon {
 	background-image: url('misc/main_map.png');
 background-position: -37px -24px;
@@ -189,9 +246,11 @@ height: 24px;
 }
 
 .notifications {
-	border: 1px solid green;
-	background: #dfefc8;
-	width: 150px;
+	border: 1px dashed #0E0D08;
+background: #E2D645;
+width: 210px;
+padding: 9px 9px;
+text-align: center;
 }
 
 .mainContainer {
@@ -438,12 +497,35 @@ top: 14px;
 width: 43px;
 height: 14px;
 }
+
+.belleLikesUnder2 {
+position: absolute;
+left: 43px;
+top: 14px;
+width: 41px;
+height: 12px;
+border: 1px dotted #8AA25E;
+}
+
+
+
 .belleDislikesUnder {
 position: absolute;
 left: 43px;
 top: 30px;
 width: 43px;
 height: 14px;
+}
+
+
+
+.belleDislikesUnder2 {
+position: absolute;
+left: 43px;
+top: 30px;
+width: 41px;
+height: 12px;
+border: 1px dotted #A25E6A;
 }
 
 
@@ -457,6 +539,18 @@ background-image: url('misc/main_map.png');
 background-position: -32px -51px;
 }
 
+
+.belleLikesIcon2 {
+position: absolute;
+left: 43px;
+top: 14px;
+width: 14px;
+height: 14px;
+background-image: url('misc/main_map.png');
+background-position: -31px -50px;
+background-color: #8AA25E;
+}
+
 .belleDislikesIcon {
 position: absolute;
 left: 46px;
@@ -467,10 +561,23 @@ background-image: url('misc/main_map.png');
 background-position: -32px -64px;
 }
 
+
+.belleDislikesIcon2 {
+position: absolute;
+left: 43px;
+top: 30px;
+width: 14px;
+height: 14px;
+background-image: url('misc/main_map.png');
+background-position: -31px -63px;
+background-color: #A25E6A;
+}
+
+
 .belleLikesLabel {
 position: absolute;
 left: 60px;
-top: 15px;
+top: 16px;
 width: 27px;
 height: 11px;
 text-align: left;
@@ -479,7 +586,7 @@ text-align: left;
 .belleDislikesLabel {
 position: absolute;
 left: 60px;
-top: 31px;
+top: 32px;
 width: 27px;
 height: 11px;
 text-align: left;
@@ -598,12 +705,12 @@ position: relative;
 width: 132px;
 height: 166px;
 margin: 9px 0px;
-background: rgba(255, 255, 255, 0.3);
+background: rgba(255, 255, 255, 0.15);
 }
 
 .bestUnit:hover {
 	
-	background:rgba(255, 255, 255, 0.4);
+	background:rgba(255, 255, 255, 0.25);
 }
 
 .likesStatBlockBest {
@@ -673,7 +780,7 @@ width: 68px;
 height: 68px;
 left: 0px;
 top: 0px;
-background: rgba(255, 255, 255, 0.2);
+background: rgba(255, 255, 255, 0.15);
 }
 
 .nameActivity {
@@ -765,7 +872,7 @@ position:relative;
 	max-height:97%;
 	max-width:97%;
 	width:auto;
-	heignt:auto;
+	height:auto;
 	/*margin:0px auto;*/
 	/*vertical-align: middle;*/
 }
@@ -962,6 +1069,14 @@ margin: 2px 0px 1px 2px;
 clear: both;
 }
 
+.TagAlbumsUnit {
+	clear: both;
+}
+
+.PaginatorPage {
+	clear: both;
+}
+
 .tagGroupName_LIKES {
 	margin: 9px 0px 2px 0px
 }
@@ -971,9 +1086,120 @@ clear: both;
 	margin: 9px 0px 2px 14px
 }
 
+.commentsContainer {
+	float: left;
+width: 450px;
+padding: 11px 12px 12px 10px;
+}
+
+.commentNameDateWrapper {
+	clear:both;
+}
+
+.CommentBlock {
+	clear: both;
+margin: 19px 1px 1px 1px;
+}
+
+.commentText {
+background: #2B2929;
+clear: both;
+padding: 5px 7px 6px 7px;
+}
+
+.commentDate {
+	float:right;
+}
+
+.commentName {
+	float:left;
+}
+
+.postTextArea {
+	width: 96%;
+}
+
+.ImgsBlock {
+padding: 11px 12px 12px 487px;
+width: auto;
+}
+
+.ModelImagePic {
+	width:120px;
+	height:120px;
+}
+
+.ModelImagePicUnder {
+	width: 120px;
+height: 120px;
+padding: 5px;
+background: rgba(255, 255, 255, 0.2);
+}
+
+.ModelImagePicUnder:hover {
+	background: rgba(255, 255, 255, 0.3);
+	cursor:pointer;
+}
+
+
+
+.ImgThumb {
+	position: relative;
+float: left;
+margin: 4px 16px 16px 0px
+}
+
+.statusAdminImg {
+	position: absolute;
+left: 5px;
+top: 108px;
+}
+
+.coverAdminImg {
+	position: absolute;
+left: 5px;
+top: 88px;
+}
+
+.delAdminImg {
+	position: absolute;
+left: 5px;
+top: 68px;
+}
+
+
+.showMoreLabel {
+	
+float: left;
+margin: 60px 1px 1px -5px;
+
+}
+
+.regFormLabel {
+	margin: 10px 1px -1px 1px;
+}
+
+.regFormButt {
+	display: block;
+margin: 11px 1px 1px 1px;
+}
+
+.layerImgPosition {
+	position: absolute;
+top: 3px;
+left: 3px;
+}
+
+
 .text_10_grey {
 	/*797979*/
 	color: #9C8B8B;
+	font-size: 10px;
+}
+
+.text_10_white {
+	/*797979*/
+	color: #fff;
 	font-size: 10px;
 }
 
@@ -989,8 +1215,31 @@ clear: both;
 	color:#535353;
 }
 
+.text_10_grey_bold {
+	font-size:10px;
+	font-weight:bold;
+	color:#535353;
+}
+
+.text_9_grey_bold {
+	font-size:9px;
+	font-weight:bold;
+	color:#535353;
+}
+
+.text_9_white {
+	font-size:9px;
+	color:#fff;
+}
+
 .text_16_black_bold {
 	font-size: 16px;
+color: black;
+font-weight: bold;
+}
+
+.text_14_black_bold {
+	font-size: 14px;
 color: black;
 font-weight: bold;
 }
@@ -1007,15 +1256,50 @@ font-weight: bold;
 	color:#fff;
 }
 
+
+.text12_white {
+	font-size:12px;
+	color:#fff;
+}
+
 .text12_grey_bold {
 	font-size:12px;
 	font-weight:bold;
 	color:#9C8B8B;
 }
 
+
+.text12_black_bold {
+	font-size:12px;
+	font-weight:bold;
+	color:#000;
+}
+
+.text12_red_bold {
+	font-size:12px;
+	font-weight:bold;
+	color:red;
+}
+
+.text12_green_bold {
+	font-size:12px;
+	font-weight:bold;
+	color:green;
+}
+
+
+.text12_grey {
+	font-size:12px;
+	color:#9C8B8B;
+}
+
  .text9_white {
  font-size:9px;
 	color:#fff;
+ }
+ 
+ .popusCommon {
+ 
  }
 
 .blackNameHeader {
@@ -1049,11 +1333,10 @@ font-weight: bold;
 	visibility: hidden;
 }**/
 .registerPopup,.loginPopup {
-	background: #dfefc8;
-	border: 1px solid #808080;
-	padding: 0.5em;
-	width: 350px;
-	height: 200px;
+	background: white;
+border: 1px dashed black;
+padding: 14px;
+width: 350px;
 }
 
 .layoutContainer { /*position: relative;*/

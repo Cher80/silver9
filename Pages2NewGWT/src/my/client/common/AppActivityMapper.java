@@ -40,19 +40,22 @@ public class AppActivityMapper implements ActivityMapper {
 			
 			//MyActivity myActivity = new MyActivity();
 			Log.debug("modelPlace.isSameAlbum() " + modelPlace.isSameAlbum());
+			
 			//myActivity.getParams(((ModelPlace) place).getPlaceName(), "albid");
 			if (modelPlace.isSameAlbum()) {
 				Log.debug("isSameAlbum = true ");
+				System.out.println("AppActivityMapper isSameAlbum = true");
 				//return new ModelActivity((ModelPlace) place);
 				modelPlace.getCurModelActivity().setPlace(modelPlace);
-				System.out.println("isSameAlbum = true");
+				//System.out.println("isSameAlbum = true");
 			}
 			else {
+				System.out.println("AppActivityMapper isSameAlbum = false");
 				return new ModelActivity(modelPlace);
 			}
 		}
 
-		System.out.println("place return null");
+		//System.out.println("place return null");
 		return null;
 
 	}

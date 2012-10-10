@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.http.Cookie;
 
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.common.IconButt;
 import my.client.helpers.HavePlace;
 import my.client.modelpage.ModelPlace;
@@ -21,6 +22,8 @@ import my.client.windows.UserHasLoggedEvent;
 import my.client.windows.UserHasLoggedEventHandler;
 import my.shared.AlbumObj;
 import my.shared.AlbumsObj;
+import my.shared.TagObj;
+import my.shared.TagsObj;
 import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -124,6 +127,7 @@ public class AlbumThumb extends Composite  {
 		albumImage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				gotoAlbPage();
+				GoogleAnalytics.trackEvent("Pinbelle", "Album_Bigthumb_Clicked", "default");
 			}
 		}); 
 
@@ -139,7 +143,7 @@ public class AlbumThumb extends Composite  {
 
 		hoverDateAdded.addStyleName("hoverDateAdded");
 		hoverDateAdded.addStyleName("text9_white");
-		System.out.println(" albumObj.getTimestamp() " + String.valueOf(albumObj.getTimestamp()));
+		//System.out.println(" albumObj.getTimestamp() " + String.valueOf(albumObj.getTimestamp()));
 		Date dateAdded = new Date ();
 		dateAdded.setTime(albumObj.getTimestamp()*1000);
 		DateTimeFormat fmt = DateTimeFormat.getFormat("dd/MM/yy");
@@ -148,12 +152,12 @@ public class AlbumThumb extends Composite  {
 
 		//Format formatter = new SimpleDateFormat("dd/MM/yy");
 		//String s = formatter.format(dateAddedString);
-		System.out.println(dateAddedString);
+		//System.out.println(dateAddedString);
 
 		hoverDateAdded.setText("added " + dateAddedString  + "");
 
 
-		System.out.println("Navigator.getPlatform " + Navigator.getPlatform());
+		//System.out.println("Navigator.getPlatform " + Navigator.getPlatform());
 
 		if (ClientFactory.isIfIOS()) {
 
@@ -169,6 +173,7 @@ public class AlbumThumb extends Composite  {
 		//.getStyle().setProperty("onclick", "void(0)");
 		layerHover.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				GoogleAnalytics.trackEvent("Pinbelle", "Album_Bigthumb_Clicked", "default");
 				gotoAlbPage();
 			}
 		}); 
@@ -281,6 +286,7 @@ public class AlbumThumb extends Composite  {
 
 
 
+	
 
 
 		initWidget(panel);

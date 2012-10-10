@@ -153,7 +153,7 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		ModelPageObj modelPageObj = new ModelPageObj();		
 
 		Albums albums =  new Albums();
-		AlbumsObj albumsObj = albums.getAlbumsByTime(0, 0, null, -1, albid);	
+		AlbumsObj albumsObj = albums.getAlbumsByTime(0, 0, null, 0, albid);	
 		
 		AlbumObj albumObj = null;
 		if (albumsObj.getAlbums().size()>0) {

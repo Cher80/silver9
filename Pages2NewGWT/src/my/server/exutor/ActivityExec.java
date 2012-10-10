@@ -38,7 +38,7 @@ public class ActivityExec {
 		BasicDBObject sort = new BasicDBObject();
 		sort.append("timestamp", -1);
 
-		DBCursor cur = activities.find().sort(sort).skip(0).limit(10);
+		DBCursor cur = activities.find().sort(sort).skip(0).limit(7);
 
 
 		if (!cur.hasNext()) {

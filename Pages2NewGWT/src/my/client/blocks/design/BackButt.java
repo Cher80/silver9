@@ -47,7 +47,7 @@ public class BackButt extends IconButt implements PageChangedEventHandler {
 	@Override
 	public void onPageChanged(PageChangedEvent event) {
 		// TODO Auto-generated method stub
-		System.out.println("stack size " + event.getStackSize());
+		//System.out.println("stack size " + event.getStackSize());
 		this.stackSize = event.getStackSize();
 		
 		

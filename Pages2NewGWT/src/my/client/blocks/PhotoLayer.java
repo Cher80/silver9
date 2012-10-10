@@ -4,6 +4,7 @@ import java.util.Date;
 
 import my.client.albumspage.AlbumsPlace;
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.events.ReloadAlbumsEvent;
 import my.client.helpers.HavePlace;
 import my.client.modelpage.ModelActivity;
@@ -26,11 +27,12 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 
 public class PhotoLayer extends Composite {
 
 
-
+	//private FlowPanel preloader = new FlowPanel();
 	private FlowPanel panel = new FlowPanel();
 	private FlowPanel imagePanel = new FlowPanel();
 	private ImgsObj imgsObj;
@@ -59,6 +61,8 @@ public class PhotoLayer extends Composite {
 	private FocusPanel photoClosePanel = new FocusPanel();
 	private FocusPanel photoOriginalPanel = new FocusPanel();
 	private FocusPanel photoTagPanel = new FocusPanel();
+	
+	private Label imgPosition = new Label("allo");
 
 
 	public void setLayout (int _widthLayout, int _heightLayout) {
@@ -93,6 +97,9 @@ public class PhotoLayer extends Composite {
 		photoOriginalPanel.getElement().getStyle().setProperty("left",widthLayout - 67 - 15 + "px");
 		photoOriginalPanel.getElement().getStyle().setProperty("top", heightLayout/2 - 185/2 - 67 +  "px");
 		
+		//preloader.getElement().getStyle().setProperty("left",widthLayout/2 - 12 + "px");
+		//preloader.getElement().getStyle().setProperty("top", heightLayout/2 - 12 +  "px"); 
+		
 		
 		//leftPanel
 		//panel.getElement().getStyle().setProperty("background",  "url(\"/extranewgwt/getphoto?photoid=" + curImgObj.getImgGridfs_id_m() +  "\") no-repeat center");
@@ -111,14 +118,20 @@ public class PhotoLayer extends Composite {
 		this.imgsObj = imgsObjj;
 		this.curActivity = curActivityP;
 		panel.addStyleName("PhotoLayer");
+		panel.addStyleName("preloader_anim");
+		
 		//panel.addStyleName("back_pattern_line");
 		imagePanel.addStyleName("imagePanel");
+		//preloader.addStyleName("preloader");
+		//preloader.addStyleName("preloader_anim");
 		
 		
 		bigLeftPanel.addStyleName("bigLeftPanel");
 		bigRightPanel.addStyleName("bigRightPanel");
 		panel.add(bigLeftPanel);
 		panel.add(bigRightPanel);
+		
+		
 		
 		leftPanel.addStyleName("leftPanel");
 		rightPanel.addStyleName("rightPanel");
@@ -135,10 +148,15 @@ public class PhotoLayer extends Composite {
 		panel.add(photoTagPanel);
 		
 		
+		imgPosition.addStyleName("layerImgPosition");
+		imgPosition.addStyleName("text_11_grey");
+		
+		panel.add(imgPosition);
 		
 		
 		//panel.add(prevButt);
 		//panel.add(nextButt);
+		//panel.add(preloader);
 		panel.add(imagePanel);
 		//	Date date = new java.util.Date((long)(imgObj.getImgTimestamp())*1000);
 
@@ -156,7 +174,8 @@ public class PhotoLayer extends Composite {
 			photoOriginalPanel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					//Window.open("http://stackoverflow.com", "_blank", null);
-					//if (curImgObj.getImgIshasorig()) {					
+					//if (curImgObj.getImgIshasorig()) {		
+					GoogleAnalytics.trackEvent("Pinbelle", "PhotoLayer_ShowOriginal_Clicked", "default");
 					Window.open("http://" +Window.Location.getHost() + "/extranewgwt/getphoto?photoid=" +  curImgObj.getImgGridfs_id_0(), "_blank", "");
 //					Log.debug("showOrigpxButt.addClickHandler = " + Window.Location.getHost());
 				}
@@ -181,7 +200,7 @@ public class PhotoLayer extends Composite {
 					ClientFactory.getPlaceController().goTo(new AlbumsPlace(""));
 					
 				}
-				
+				GoogleAnalytics.trackEvent("Pinbelle", "PhotoLayer_Close_Clicked", "default");
 				/*
 				curImgObj = imgsObj.getPrevImg(curImgObj.getImgID());
 				getPrevNext();
@@ -195,11 +214,12 @@ public class PhotoLayer extends Composite {
 		
 		bigLeftPanel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-
+				
 				curImgObj = imgsObj.getPrevImg(curImgObj.getImgID());
 				getPrevNext();
 				((ModelActivity)curActivity).doPrevImg(curImgObj);
 				doRenderPhoto();
+				
 			}
 		});
 
@@ -239,11 +259,20 @@ public class PhotoLayer extends Composite {
 		initWidget(panel);
 	}
 
+	
+	public void doRenderPhoto(ImgObj _imgObj) {
+		curImgObj = _imgObj;
+		doRenderPhoto();
+	}
+	
 	public void doRenderPhoto() {
 		if (html != null) {
 			panel.remove(html);
 		}
 
+		int curPosDisplay = imgsObj.getImgPos(curImgObj.getImgID());
+		
+		imgPosition.setText(curPosDisplay + 1  + "/" + imgsObj.getImages().size());
 		//if ()
 		//imagePanel.getElement().getStyle().setProperty("background",  "url(\"/extranewgwt/getphoto?photoid=" + curImgObj.getImgGridfs_id_m() +  "\") no-repeat center");
 		// panel.add(imagePanel);
@@ -259,12 +288,17 @@ public class PhotoLayer extends Composite {
 		//, true);
 		//panel.add(html);
 		if (!nowLoading) {
+			
+			
+			
 			nowLoading = true;
 			if (imageCur!=null) {
+				imageCur.setVisible(false);
 				imageCurOld = imageCur;
 			}
 			imageCur = new Image();
 			imageCur.setVisible(false);
+			
 			imageCur.addLoadHandler(new LoadHandler() {
 
 				@Override
@@ -272,12 +306,20 @@ public class PhotoLayer extends Composite {
 					if (imageCurOld!=null) {
 						imageCurOld.removeFromParent();
 					}
+					//imageCur.getElement().setPropertyString("width", "auto");
+					//imageCur.getElement().setPropertyString("height", "auto");
+					//imageCur.getElement().setPropertyString("width", "33px");
+					//imageCur.getElement().setPropertyString("height", "33px");
+					imageCur.getElement().setAttribute("width", "auto");
+					imageCur.getElement().setAttribute("height", "auto");
 					imageCur.setVisible(true);
 					nowLoading = false;
 					imageNext = new Image();
 					imageNext.setUrl("/extranewgwt/getphoto?photoid=" + curImgObjNext.getImgGridfs_id_m());
 					imagePrev = new Image();
 					imagePrev.setUrl("/extranewgwt/getphoto?photoid=" + curImgObjPrev.getImgGridfs_id_m());
+					
+					GoogleAnalytics.trackEvent("Pinbelle", "PhotoLayer_Image_Shown", "default");
 				}
 
 			});
@@ -307,5 +349,7 @@ public class PhotoLayer extends Composite {
 		 */
 		// imagePanel.add(html);
 	}
+	
+
 
 }

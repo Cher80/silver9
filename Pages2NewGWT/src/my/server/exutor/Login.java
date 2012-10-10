@@ -82,7 +82,7 @@ public class Login {
 			try {
 				
 				while(cur.hasNext()) {
-					//System.out.println(cursor.next());
+					////System.out.println(cursor.next());
 					DBObject user = cur.next();
 					LOG.info("user " + user);
 					
@@ -127,7 +127,7 @@ public class Login {
 		/*
 		try {
             while(cur.hasNext()) {
-                System.out.println(cursor.next());
+                //System.out.println(cursor.next());
             }
         } finally {
             cursor.close();

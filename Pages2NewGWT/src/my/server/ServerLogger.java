@@ -19,7 +19,7 @@ public class ServerLogger {
 		  	//logger = 
 		    FileHandler fh;
 		    ConsoleHandler ch;
-		    System.out.println("LoggerInited");
+		    //System.out.println("LoggerInited");
 		    try {
 
 		      fh = new FileHandler("/home/cher80/forum.txt", true);

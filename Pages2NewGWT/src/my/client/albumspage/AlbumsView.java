@@ -125,6 +125,13 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 
 		TagAlbumsBlock tagAlbumsBlock = new TagAlbumsBlock();
 		panelContent.add(tagAlbumsBlock);
+		
+		
+		//HTML htm = new HTML("<div class=\"poxupih_center\"><script type=\"text/javascript\" language=\"JavaScript\" src=\"http://idea.informer.com/tabn3v4.js?domain=pinbelle\"></script><div class=\"drsdtf\">Powered by <a href=\"http://idea.informer.com\" arget=\"_blank\" title=\"Idea.informer.com\">Idea.informer.com</a></div></div>");
+		//HTML htm = new HTML("<a onmouseover=\"UE.Popin.preload();\" href=\"#\" onclick=\"UE.Popin.show(); return false;\">Оставить отзыв</a>");
+		//HTML htm = new HTML("<noscript><a href=\"http://pinbelle.idea.informer.com\">Pinbelle feedback</a> <a href=\"http://idea.informer.com\"> Powered by <img src=\"http://widget.idea.informer.com/tmpl/images/widget_logo.jpg\" /></a></noscript>");
+		//panelContent.add(htm);
+		
 
 		myButt1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -228,7 +235,7 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 	@Override
 	public void onScroll(ScrollEvent event) {
 		// TODO Auto-generated method stub
-		//System.out.println("scroll" + panel.getMaximumHorizontalScrollPosition() + panel.getHorizontalScrollPosition());
+		////System.out.println("scroll" + panel.getMaximumHorizontalScrollPosition() + panel.getHorizontalScrollPosition());
 
 		if (!paginator.isScrollFrezed()) {
 			int maxScroll = wrapperScroll.getMaximumVerticalScrollPosition();
@@ -263,10 +270,12 @@ public class AlbumsView extends Composite implements HavePresenter,ClickHandler,
 
 
 	public void renderBlocks(AlbumsPageObj albumsPageObj) {
-		ActivityBlock activityBlock = new ActivityBlock(albumsPageObj.getActivitiesObj());
-		panelBlocks.add(activityBlock);
+		
 
 		BestBlock bestBlock = new BestBlock(albumsPageObj.getBestAlbumsObj());
 		panelBlocks.add(bestBlock);
+		
+		ActivityBlock activityBlock = new ActivityBlock(albumsPageObj.getActivitiesObj());
+		panelBlocks.add(activityBlock);
 	}
 }

@@ -13,10 +13,11 @@ public class Notifications extends PopupPanel {
        // super(autoHide, modal);
     	 super(false, false);
         this.addStyleName("notifications");
+        this.addStyleName("text_14_black_bold");
         setWidget(new Label(text));
         
-        int left=Window.getClientWidth()-200;
-        setPopupPosition(left, 30); 
+        int left=Window.getClientWidth()-260;
+        setPopupPosition(left, 50); 
         show(3000);
     }
 

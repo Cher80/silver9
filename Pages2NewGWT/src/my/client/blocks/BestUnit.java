@@ -1,6 +1,7 @@
 package my.client.blocks;
 
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.forum.ForumViewInterface.Presenter;
 import my.client.helpers.HavePlace;
 import my.client.modelpage.ModelPlace;
@@ -68,6 +69,7 @@ public class BestUnit extends Composite {
     	albumImage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				//History.back();
+				GoogleAnalytics.trackEvent("Pinbelle", "BestBlock_Album_Clicked", "default");
 				String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverImgObjID();
 				ClientFactory.getPlaceController().goTo(new ModelPlace(params,false, null));
 

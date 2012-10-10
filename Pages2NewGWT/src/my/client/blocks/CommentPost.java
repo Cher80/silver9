@@ -36,19 +36,30 @@ public class CommentPost extends Composite {
 
 
 	private FlowPanel panel = new FlowPanel();
-	private Button postComment = new Button("postComment");
+	private Button postComment = new Button("Post comment");
 	//private Button showOrigpxButt = new Button("showOrigpx");
 	private CommentObj commentObj;
 	private AlbumObj albumObj;
 	private TextArea textArea = new TextArea();
-	private Label statusLabel = new Label("Comment post status");
-	private HTML headerHTML = new HTML("<h3>Post comment</h3>");
+	private Label statusLabel = new Label("");
+	private Label postCommentHeader = new Label("Comments:");
+	//private HTML headerHTML = new HTML("<h3>Post comment</h3>");
 
 	public CommentPost(AlbumObj albumObjj) {
 		super();
 		this.albumObj = albumObjj;
-		textArea.setCharacterWidth(80);
-		textArea.setVisibleLines(3);
+		panel.addStyleName("CommentPost");
+		
+		textArea.addStyleName("postTextArea");
+		postCommentHeader.addStyleName("postTextArea");
+		postCommentHeader.addStyleName("text12_white_bold");
+		
+		postCommentHeader.addStyleName("statusLabel");
+		postCommentHeader.addStyleName("text_10_grey");
+		
+		statusLabel.addStyleName("text_10_grey");
+		//textArea.setCharacterWidth(80);
+		//textArea.setVisibleLines(3);
 
 
 		//Date date = new java.util.Date((long)(imgObj.getImgTimestamp())*1000);
@@ -56,7 +67,8 @@ public class CommentPost extends Composite {
 
 
 
-		panel.add(headerHTML);
+		//panel.add(headerHTML);
+		panel.add(postCommentHeader);
 		panel.add(textArea);
 		panel.add(postComment);
 		panel.add(statusLabel);
@@ -111,6 +123,7 @@ public class CommentPost extends Composite {
 
 				if (caught instanceof RPCServiceExeption) {
 					Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
+					Notifications notif = new Notifications(((RPCServiceExeption)caught).getErrorCode(), true, true);
 				}
 			}
 

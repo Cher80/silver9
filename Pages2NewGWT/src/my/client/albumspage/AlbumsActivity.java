@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import my.client.common.ActivityHasPages;
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.common.MyActivity;
 import my.client.common.ViewHasPages;
 import my.client.events.NewCommentEvent;
@@ -14,6 +15,7 @@ import my.client.paginator.Paginator;
 import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceAsync;
 import my.client.rpcs.RPCServiceExeption;
+import my.client.windows.Notifications;
 import my.shared.AlbumObj;
 import my.shared.AlbumsObj;
 import my.shared.AlbumsPageObj;
@@ -35,7 +37,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 	private Paginator paginator = null;
 	//private boolean isFirstTimeLoaded=true;
 	private String tagType = null;
-	private int statusPublished = -1;
+	private int statusPublished = 1;
 	private AlbumsPageObj albumsPageObj;
 
 	public AlbumsActivity(AlbumsPlace place) {
@@ -65,6 +67,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 						
 						((ViewHasPages)AlbumsActivity.this.getView()).clearWidget(0);
 						paginator.removeFromParent();
+						Notifications notif = new Notifications(((RPCServiceExeption)caught).getErrorCode(), true, true);
 						
 					}
 				}
@@ -173,6 +176,7 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 
 				if (caught instanceof RPCServiceExeption) {
 					Log.debug("exeption!!" + ((RPCServiceExeption)caught).getErrorCode());
+					Notifications notif = new Notifications(((RPCServiceExeption)caught).getErrorCode(), true, true);
 				}
 			}
 
@@ -190,8 +194,8 @@ public class AlbumsActivity extends MyActivity implements ActivityHasPages, Relo
 				renderBlocks(albumsPageObj);
 
 				populateAlbumsView(albumsPageObj.getAlbumsObj());
-
-
+				
+			
 			}
 		};
 

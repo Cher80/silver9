@@ -67,8 +67,8 @@ private AlbumsActivity albumsActivity;
 		
 		
 		TagAlbumsGroup likesGroup = new TagAlbumsGroup("LIKES", "Likes");
-		TagAlbumsUnit likeUnit = new TagAlbumsUnit("LIKE", "Like");
-		TagAlbumsUnit dislikeUnit = new TagAlbumsUnit("DISLIKE", "Dislike");
+		TagAlbumsUnit likeUnit = new TagAlbumsUnit("LIKE", "Likes");
+		TagAlbumsUnit dislikeUnit = new TagAlbumsUnit("DISLIKE", "Dislikes");
 		likesGroup.addTag(likeUnit);
 		likesGroup.addTag(dislikeUnit);
 		likesBlock.add(likesGroup);
@@ -135,7 +135,7 @@ private AlbumsActivity albumsActivity;
 		
 		TagAlbumsGroup heightGroup = new TagAlbumsGroup("HEIGHT", "Height");
 		heightGroup.addStyleName("border_right_dotted");
-		TagAlbumsUnit cuteUnit = new TagAlbumsUnit("CUTE","Cute");
+		TagAlbumsUnit cuteUnit = new TagAlbumsUnit("CUTE","Petit");
 		TagAlbumsUnit normUnit = new TagAlbumsUnit("NORM", "Norm");
 		TagAlbumsUnit tallUnit = new TagAlbumsUnit("TALL", "Tall");
 		heightGroup.addTag(cuteUnit);
@@ -143,6 +143,20 @@ private AlbumsActivity albumsActivity;
 		heightGroup.addTag(tallUnit);
 		tagsBlock.add(heightGroup);
 
+/*
+		TagObj braLargeTag = (new TagProviderHelper(tagsObj)).getTagObj("BRA_LARGE", "Large","BRA");
+		TagObj braMediumTag = (new TagProviderHelper(tagsObj)).getTagObj("BRA_MEDIUM", "Medium","BRA");
+		TagObj braSmallTag = (new TagProviderHelper(tagsObj)).getTagObj("BRA_SMALL", "Small", "BRA");
+*/
+		TagAlbumsGroup braGroup = new TagAlbumsGroup("BRA", "Bra size");
+		braGroup.addStyleName("border_right_dotted");
+		TagAlbumsUnit braLargeUnit = new TagAlbumsUnit("BRA_LARGE","Large");
+		TagAlbumsUnit braMediumUnit = new TagAlbumsUnit("BRA_MEDIUM", "Medium");
+		TagAlbumsUnit braSmallUnit = new TagAlbumsUnit("BRA_SMALL", "Small");
+		braGroup.addTag(braLargeUnit);
+		braGroup.addTag(braMediumUnit);
+		braGroup.addTag(braSmallUnit);
+		tagsBlock.add(braGroup);
 
 		
 

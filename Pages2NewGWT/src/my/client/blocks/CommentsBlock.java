@@ -27,6 +27,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -35,19 +36,26 @@ public class CommentsBlock extends Composite implements NewCommentEventHandler {
 
 
 	private FlowPanel panel = new FlowPanel();
-
+	private Label panelHeader = new Label();
+	
 	//private Button showOrigpxButt = new Button("showOrigpx");
 	private CommentsObj commentsObj;
 	//private AlbumObj albumObj;
-	private HTML headerHTML = new HTML("<h3>Current comments</h3>");
+	//private HTML headerHTML = new HTML("<h3>Current comments</h3>");
 
 
 	public CommentsBlock(CommentsObj commentsObj) {
 		super();
 		this.commentsObj = commentsObj;
+		panel.addStyleName("CommentsBlock");
+		panelHeader.addStyleName("CommentsBlockHeader");
+		panelHeader.addStyleName("text12_white_bold");
+		
+		
+		panel.add(panelHeader);
 		ClientFactory.getEventBus().addHandler(NewCommentEvent.TYPE, this);
 
-		panel.add(headerHTML);
+		//panel.add(headerHTML);
 		
 		for (int i=0; i<commentsObj.getComments().size(); i++) {
 			CommentBlock commentBlock = new CommentBlock(commentsObj.getComments().get(i));

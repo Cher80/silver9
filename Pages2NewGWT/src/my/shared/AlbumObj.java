@@ -108,5 +108,14 @@ public class AlbumObj implements Serializable {
 		return 0;
 	}
 	
+	/*
+	public TagObj getTagByType(String tag) {
+		for (int i=0; i<tagsObj.getTagsObj().size(); i++) {
+			if (tagsObj.getTagsObj().get(i).getTagType().equals(tag)) {
+				return tagsObj.getTagsObj().get(i);
+			}
+		}
+		return 0;
+	}*/
 
 }

@@ -52,7 +52,7 @@ public class FileGrabber {
 
 		long startTime = System.currentTimeMillis();
 
-		//System.out.println("Connecting to Mura site...\n");
+		////System.out.println("Connecting to Mura site...\n");
 
 		URL url = new URL(urlstr);
 		url.openConnection();
@@ -78,7 +78,7 @@ public class FileGrabber {
 		int bytesRead = 0;
 
 
-		//System.out.println("Reading ZIP file 150KB blocks at a time.\n");
+		////System.out.println("Reading ZIP file 150KB blocks at a time.\n");
 
 		ByteArrayOutputStream buffer2 = new ByteArrayOutputStream();
 
@@ -146,7 +146,7 @@ public class FileGrabber {
 
 		long endTime = System.currentTimeMillis();
 
-		System.out.println("Done. " + (new Integer(totalBytesRead).toString()) + " bytes read (" + (new Long(endTime - startTime).toString()) + " millseconds).\n");
+		//System.out.println("Done. " + (new Integer(totalBytesRead).toString()) + " bytes read (" + (new Long(endTime - startTime).toString()) + " millseconds).\n");
 		//writer.close();
 		reader.close();
 		
@@ -286,7 +286,7 @@ public boolean isHasOriginal(BufferedImage bufferedImage) {
 		/*
 		try {
             while(cur.hasNext()) {
-                //System.out.println(cur.next());
+                ////System.out.println(cur.next());
                 LOG.info("checkIfExist cur.next()  " + cur.next());
             }
         } finally {

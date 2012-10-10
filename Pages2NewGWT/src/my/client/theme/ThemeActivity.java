@@ -25,20 +25,20 @@ public class ThemeActivity implements ThemeViewInterface.Presenter{
 //	private GetForumServiceAsync getForumSvc = GWT.create(GetForumService.class);
 	
 	public ThemeActivity(Panel panel, ClientFactory clientFactory, int forumId) {
-		//System.out.println("ThemeActivity constructor");
+		////System.out.println("ThemeActivity constructor");
 		// TODO Auto-generated constructor stub
 		this.clientFactory = clientFactory;
 		this.forumId = forumId;
 		ThemeView myThemeView = new ThemeView();
-		//System.out.println("ThemeActivity constructor1");
+		////System.out.println("ThemeActivity constructor1");
 		//myForumView.setName("myForumView");
 		myThemeView.setPresenter(this);
 		myThemeView.populate();
 		//myThemeView.setForumid
-		//System.out.println("ThemeActivity constructor2");
+		////System.out.println("ThemeActivity constructor2");
 		//myForumView.setButtonName(this.forumNumber);
 		panel.add(myThemeView);
-		//System.out.println("ThemeActivity constructor3");
+		////System.out.println("ThemeActivity constructor3");
 	}
 
 
@@ -64,7 +64,7 @@ public class ThemeActivity implements ThemeViewInterface.Presenter{
 
 	public void setForumId(int forumId) {
 		this.forumId = forumId;
-		System.out.println("theme setForumId = " + this.forumId);
+		//System.out.println("theme setForumId = " + this.forumId);
 	}
 
 

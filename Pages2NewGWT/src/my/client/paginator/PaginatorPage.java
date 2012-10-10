@@ -5,6 +5,7 @@ import java.util.Date;
 
 import my.client.common.ActivityHasPages;
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.common.IconButt;
 import my.client.modelpage.ModelActivity;
 import my.client.modelpage.ModelPlace;
@@ -47,6 +48,8 @@ public class PaginatorPage extends Composite {
 		this.activity = activityy;
 		this.paginator = paginatorr;
 		
+		panel.addStyleName("PaginatorPage");
+		
 		pageButt = new IconButt();
 		pageButt.icon.addStyleName("pageButtonIcon");
 		pageButt.content.addStyleName("pageButtonContent");
@@ -56,16 +59,17 @@ public class PaginatorPage extends Composite {
 		
 		
 		if (isCurrPage) {
-			pageButt.setText(pageNo + "←");
+			pageButt.setText((pageNo + 1) + "←");
 			//pageButt.text.getElement().setInnerText("←");
 		}
 		else {
-			pageButt.setText("" + pageNo);
+			pageButt.setText("" + (pageNo + 1));
 		}
 		 
 		 
 		pageButt.panel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					GoogleAnalytics.trackEvent("Pinbelle", "Paginator_Page_Clicked", "default");
 					//String params = "albid=" + albumObj.getAlbid() + "&coverid=" + albumObj.getCoverImgObjID();
 					//ClientFactory.getPlaceController().goTo(new ModelPlace(params,false, null));
 					Log.debug("Paginator page pageNo= " + pageNo);

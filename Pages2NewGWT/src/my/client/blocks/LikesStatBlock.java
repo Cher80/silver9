@@ -21,6 +21,7 @@ import my.shared.ImgObj;
 import my.shared.ModelPageObj;
 import my.shared.StatObj;
 import my.shared.TagObj;
+import my.shared.TagsObj;
 import my.shared.User;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -32,6 +33,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
@@ -53,8 +55,8 @@ public class LikesStatBlock extends Composite {
 	private Label belleDislikesDescLabel = new Label();
 	private FlowPanel belleLikesIcon = new FlowPanel();
 	private FlowPanel belleDislikesIcon = new FlowPanel();
-	private FlowPanel belleLikesUnder = new FlowPanel();
-	private FlowPanel belleDislikesUnder = new FlowPanel();
+	private FocusPanel belleLikesUnder = new FocusPanel();
+	private FocusPanel belleDislikesUnder = new FocusPanel();
 	private Label belleLikesLabel = new Label();
 	private Label belleDislikesLabel = new Label();
 	private boolean isSimple;
@@ -80,27 +82,52 @@ public class LikesStatBlock extends Composite {
 		belleLikesDescLabel.setText("likes");
 		belleDislikesDescLabel.setText("dislikes");
 		
-		belleLikesUnder.addStyleName("belleLikesUnder");
-		belleLikesUnder.addStyleName("like_Color");
-		belleDislikesUnder.addStyleName("belleDislikesUnder");
-		belleDislikesUnder.addStyleName("dislike_Color");
+		belleLikesUnder.addStyleName("belleLikesUnder2");
+		//belleLikesUnder.addStyleName("like_Color");
+		belleDislikesUnder.addStyleName("belleDislikesUnder2");
+		//belleDislikesUnder.addStyleName("dislike_Color");
 		
-		belleLikesIcon.addStyleName("belleLikesIcon");
-		belleDislikesIcon.addStyleName("belleDislikesIcon");
+		
+		belleLikesUnder.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				Notifications notif = new Notifications("Please enter the album to vote", true, true);
+				
+			}
+		});
+		
+		belleDislikesUnder.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				Notifications notif = new Notifications("Please enter the album to vote", true, true);
+				
+			}
+		});
+		
+		
+		
+		belleLikesIcon.addStyleName("belleLikesIcon2");
+		belleDislikesIcon.addStyleName("belleDislikesIcon2");
 		
 		belleLikesLabel.addStyleName("belleLikesLabel");
-		belleLikesLabel.addStyleName("text_11_white_bold");
 		belleLikesLabel.setText(albumObj.getCountForTag("LIKE") + "");
 		
 		
 		belleDislikesLabel.addStyleName("belleDislikesLabel");
-		belleDislikesLabel.addStyleName("text_11_white_bold");
 		belleDislikesLabel.setText(albumObj.getCountForTag("DISLIKE") + "");
+		
 		
 		if (!isSimple) {
 		panel.add(belleRatingLabel);
 		panel.add(belleLikesDescLabel);
 		panel.add(belleDislikesDescLabel);
+		belleDislikesLabel.addStyleName("text_10_grey_bold");
+		belleLikesLabel.addStyleName("text_10_grey_bold");
+		}
+		else {
+			belleDislikesLabel.addStyleName("text_9_white");
+			belleLikesLabel.addStyleName("text_9_white");
+			
 		}
 		panel.add(belleLikesUnder);
 		panel.add(belleDislikesUnder);
@@ -111,6 +138,10 @@ public class LikesStatBlock extends Composite {
 		panel.add(belleLikesLabel);
 		panel.add(belleDislikesLabel);
 		
+		
+		
+
+			
 		initWidget(panel);
 	}
 

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import my.client.albumspage.AlbumsPlace;
 import my.client.common.ClientFactory;
+import my.client.common.GoogleAnalytics;
 import my.client.common.MyActivity;
+import my.client.events.ModelGoPicEvent;
+import my.client.events.ModelGoPicEventHandler;
 import my.client.forum.ForumPlace;
 import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceAsync;
@@ -26,7 +29,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 
-public class ModelActivity extends MyActivity{
+public class ModelActivity extends MyActivity implements ModelGoPicEventHandler {
 
 	private String albid;
 	private String coverid;
@@ -36,6 +39,7 @@ public class ModelActivity extends MyActivity{
 		super();
 		super.setPlace(place);
 
+		ClientFactory.getEventBus().addHandler(ModelGoPicEvent.TYPE, this);
 	}
 
 
@@ -69,9 +73,10 @@ public class ModelActivity extends MyActivity{
 				//ModelActivity.this.getView().set
 				renderPhotoLayer(modelPageObj.getImages(),coverid);
 				renderName(modelPageObj.getAlbumObj(),modelPageObj.getImages());
-				renderPhotos(modelPageObj.getImages());
 				renderCommentPost(modelPageObj.getAlbumObj());
 				renderCommentsBlock(modelPageObj.getComments());
+				renderPhotos(modelPageObj.getImages());
+				
 				//////////////////////
 				
 				/*
@@ -115,7 +120,9 @@ public class ModelActivity extends MyActivity{
 				*/
 				
 				renderTags(modelPageObj.getTagsObj());
-				Log.debug("modelPageObj.getAlbumObj().getAlbname() " + modelPageObj.getAlbumObj().getAlbname());	
+				Log.debug("modelPageObj.getAlbumObj().getAlbname() " + modelPageObj.getAlbumObj().getAlbname());
+				
+				GoogleAnalytics.trackPageview("ModelPage");
 			}
 		};
 
@@ -127,16 +134,26 @@ public class ModelActivity extends MyActivity{
 	}
 
 	public void doPrevImg(ImgObj curImgObj) { 
+		gotoImg(curImgObj);
+	}
+	
+	public void doNextImg(ImgObj curImgObj) { 
+		gotoImg(curImgObj);
+	}
+	
+	public void gotoImg(ImgObj curImgObj) { 
 		String coverObjID = curImgObj.getImgID();
 		String params = "albid=" + albid + "&coverid=" + coverObjID;
 		ClientFactory.getPlaceController().goTo(new ModelPlace(params,true, this));
 	}
 	
-	public void doNextImg(ImgObj curImgObj) { 
-		String coverObjID = curImgObj.getImgID();
-		String params = "albid=" + albid + "&coverid=" + coverObjID;
-		ClientFactory.getPlaceController().goTo(new ModelPlace(params,true, this));
+	public void gotoImgEvnt(ImgObj curImgObj) { 
+		gotoImg(curImgObj);
+		ModelView modelView = (ModelView) this.getView();
+		modelView.setPhotoLayerTo(curImgObj);
+		
 	}
+	
 	
 	
 	public void renderPhotoLayer(ImgsObj imgsObj, String coverid ) {
@@ -199,6 +216,14 @@ public class ModelActivity extends MyActivity{
 
 	public void setModelPageObjCur(ModelPageObj modelPageObjCur) {
 		this.modelPageObjCur = modelPageObjCur;
+	}
+
+
+	@Override
+	public void onGoPic(ModelGoPicEvent event) {
+		// TODO Auto-generated method stub
+		this.gotoImgEvnt(event.getImgObj());
+		
 	}
 
 }

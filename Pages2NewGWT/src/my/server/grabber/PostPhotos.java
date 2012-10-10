@@ -81,7 +81,7 @@ public class PostPhotos extends HttpServlet {
 		else {
 			int i=0;
 			while(cur.hasNext()) {
-				//System.out.println(cursor.next());
+				////System.out.println(cursor.next());
 				DBObject album = cur.next();
 				LOG.info("doGetAlbums album " + album);
 				String albname = (String) album.get("albname");

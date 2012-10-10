@@ -30,8 +30,8 @@ public class ForumActivity extends AbstractActivity implements ForumViewInterfac
         this.setName(place.getPlaceName()); 
         int forumId = Integer.parseInt( place.getPlaceName() );
         this.setForumId(forumId);
-        System.out.println("place.getPlaceName() = " + place.getPlaceName());
-		System.out.println("ForumActivity.forumId = " + forumId);
+        //System.out.println("place.getPlaceName() = " + place.getPlaceName());
+		//System.out.println("ForumActivity.forumId = " + forumId);
         this.clientFactory = clientFactory;
     } 
     
@@ -41,7 +41,7 @@ public class ForumActivity extends AbstractActivity implements ForumViewInterfac
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		// TODO Auto-generated method stub
-        System.out.println("ForumActivity start");
+        //System.out.println("ForumActivity start");
 
 		ForumView myForumView = new ForumView();
 		//myForumView.setName("myForumView");

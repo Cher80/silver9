@@ -122,7 +122,7 @@ public class Paginator extends Composite {
 		//ArrayList<Integer> currPages = new ArrayList<Integer>();
 		//int currPage;
 		//totalPages = totalItems/ITEMS_PER_PAGE -1; //49
-		System.out.println("totalPages="+totalPages );
+		//System.out.println("totalPages="+totalPages );
 
 		/*
 		if (totalPages )
@@ -185,9 +185,9 @@ public class Paginator extends Composite {
 			currPages.set(i, currPagee - CURR_PAGES_SIZE/2 + i);
 		}*/
 
-		System.out.println("firstPage="+firstPage + " lastPage="+lastPage );
-		System.out.println("beforeCurrentPages= "+ beforeCurrentPages.toString() );
-		System.out.println("afterCurrentPages= "+ afterCurrentPages.toString() );
+		//System.out.println("firstPage="+firstPage + " lastPage="+lastPage );
+		//System.out.println("beforeCurrentPages= "+ beforeCurrentPages.toString() );
+		//System.out.println("afterCurrentPages= "+ afterCurrentPages.toString() );
 
 		renderCurPages();
 

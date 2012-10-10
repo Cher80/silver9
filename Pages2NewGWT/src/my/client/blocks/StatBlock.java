@@ -56,7 +56,8 @@ public class StatBlock extends Composite {
 		this.statObj = statObjj;
 		
 		
-		showSomeStat = new Label("social networks belle collection // " + statObj.getTotalAlbums() + " models " + statObj.getTotalImgs() + " photos");
+		//showSomeStat = new Label("social networks belle collection // " + statObj.getTotalAlbums() + " models " + statObj.getTotalImgs() + " photos");
+		showSomeStat = new Label("Social belle collection // " + statObj.getTotalImgs() + " photos");
 		//+ statObj.getLastAlbums() + " LastImgs " + statObj.getLastImgs());
 		showSomeStat.addStyleName("text11_White");
 		panel.add(showSomeStat);

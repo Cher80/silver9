@@ -50,7 +50,7 @@ public class DBConnector {
 		if(instance == null) {
 	         try {
 				instance = new DBConnector();
-				//System.out.println("MongoDB connected");
+				////System.out.println("MongoDB connected");
 				ServerLogger.getInstance().getLogger().log(Level.INFO,"MongoDB connected");
 				//Log.debug("MongoDB connected");
 			} catch (UnknownHostException e) {

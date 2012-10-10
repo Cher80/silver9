@@ -1,5 +1,6 @@
 package my.client.common;
 
+import my.client.events.ModelGoPicEvent;
 import my.client.forum.ForumActivity;
 import my.client.forum.ForumPlace;
 import my.client.helpers.HaveView;
@@ -25,6 +26,7 @@ import java.util.Stack;
 import my.client.helpers.HaveClientFactory;
 import my.client.helpers.HavePresenter;
 import my.client.modelpage.ModelPlace;
+import my.shared.ImgObj;
 
 /**
  * Manages {@link Activity} objects that should be kicked off in response to
@@ -115,7 +117,7 @@ public class MyActivityManager implements PlaceChangeEvent.Handler, PlaceChangeR
    * treatment.
    */
   public void onPlaceChange(PlaceChangeEvent event) {
-	 System.out.println("MyActivityManager onPlaceChange");
+	 //System.out.println("MyActivityManager onPlaceChange");
 	 Place placeToGo = event.getNewPlace(); 
 	 
 	 
@@ -124,6 +126,17 @@ public class MyActivityManager implements PlaceChangeEvent.Handler, PlaceChangeR
 	 
 	 if (placeToGo instanceof ModelPlace) {
 		 if ( ((ModelPlace)placeToGo).isSameAlbum() ) {
+			
+			/*
+			 String paramsLine = ((ModelPlace) placeToGo).getPlaceName();
+			 String coverid = ((ModelPlace) placeToGo).getCurModelActivity().getParams(paramsLine, "coverid");
+			 System.out.println("ModelPlace "  + coverid + ((ModelPlace) placeToGo).isSameAlbum());
+			 
+			 ImgObj imgObj = new ImgObj();
+			 imgObj.setImgID(coverid);
+			 ModelGoPicEvent modelGoPicEvent =new ModelGoPicEvent(imgObj,false);
+			 ClientFactory.getEventBus().fireEvent(modelGoPicEvent);
+*/
 			 return;
 		 }
 		 

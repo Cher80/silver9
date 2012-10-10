@@ -12,7 +12,7 @@ public class EnevtBusSingleton extends EventBus {
 	//@Override
 	public EnevtBusSingleton()
 	 	{
-		System.out.println("EnevtBusSingleton created"); 
+		//System.out.println("EnevtBusSingleton created"); 
 		// TODO Auto-generated method stub
 		//return null;
 	}
@@ -20,7 +20,7 @@ public class EnevtBusSingleton extends EventBus {
 	public static synchronized EnevtBusSingleton getInstance() {
         if (instance == null)
             instance = new EnevtBusSingleton();
-        System.out.println("Using created EnevtBusSingleton"); 
+        //System.out.println("Using created EnevtBusSingleton"); 
         return instance;
     } 
 	

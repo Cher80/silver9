@@ -135,7 +135,7 @@ public class Register {
 		/*
 		try {
             while(cur.hasNext()) {
-                System.out.println(cursor.next());
+                //System.out.println(cursor.next());
             }
         } finally {
             cursor.close();

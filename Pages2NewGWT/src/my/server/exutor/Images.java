@@ -36,6 +36,9 @@ public class Images {
 
 		BasicDBObject query = new BasicDBObject();
 		query.append("album", new ObjectId(albid));
+		
+		//BasicDBObject query = new BasicDBObject();
+		query.append("status", 1);
 
 		BasicDBObject sort = new BasicDBObject();
 		sort.append("timestamp", -1);

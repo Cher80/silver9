@@ -26,21 +26,35 @@ public class LoginPopup extends PopupPanel {
 
 	private FlowPanel panel = new FlowPanel();
 
-	private Button sendButt = new Button("sendButt");
+	private Button sendButt = new Button("Login!");
 
-	private Label eMailLabel = new Label("eMailLabel:");
+	private Label eMailLabel = new Label("Your email:");
 	private TextBox eMailBox = new TextBox();
 
-	private Label pass1Label = new Label("pass1Label:");
+	private Label pass1Label = new Label("Password:");
 	private PasswordTextBox pass1Box = new PasswordTextBox();
-	private Label status = new Label("registration status");
+	private Label status = new Label("");
 
+	private boolean isValidEmail;
+	private boolean isValidPass1;
+	
 	public LoginPopup() {
 		super(true);
 		this.addStyleName("loginPopup");
 		Log.debug("LoginView created ");
 		this.add(panel);
 
+		
+		eMailLabel.addStyleName("text12_black_bold");
+		pass1Label.addStyleName("text12_black_bold");
+		status.addStyleName("text12_black_bold");
+		
+		eMailLabel.addStyleName("regFormLabel");
+		pass1Label.addStyleName("regFormLabel");
+		status.addStyleName("regFormLabel");
+		//eMailLabel.addStyleName("regFormLabel");
+		sendButt.addStyleName("regFormButt");
+		
 		panel.add(eMailLabel);
 		panel.add(eMailBox);
 		panel.add(pass1Label);
@@ -51,14 +65,7 @@ public class LoginPopup extends PopupPanel {
 		eMailBox.addBlurHandler(new BlurHandler() {
 			@Override
 			public void onBlur(BlurEvent event) {
-				Boolean isValid = FieldVerifier.isValidEmailAddress(eMailBox.getText());
-				if (isValid) {
-					Log.debug("Good email");
-				} else {
-					eMailLabel.setText("Incorrect! Enter valid email!!");
-					Log.debug("Bad email");
-				}
-				// TODO Auto-generated method stub
+				 emailBoxValidator();
 			}
 		});
 
@@ -66,15 +73,7 @@ public class LoginPopup extends PopupPanel {
 		pass1Box.addBlurHandler(new BlurHandler() {
 			@Override
 			public void onBlur(BlurEvent event) {
-				Boolean isValid = FieldVerifier.isLenghtOK(pass1Box.getText(),1,50);
-				if (isValid) {
-					Log.debug("Good Password1");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					pass1Label.setText("Password1 name must be 1 character at least!!");
-					Log.debug("Bad Password1");
-				}
-				// TODO Auto-generated method stub
+				pass1BoxValidator();
 			}
 		});
  
@@ -83,26 +82,6 @@ public class LoginPopup extends PopupPanel {
 
 		sendButt.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-
-
-
-				Boolean isValidEmail = FieldVerifier.isValidEmailAddress(eMailBox.getText());
-				if (isValidEmail) {
-					Log.debug("Good email");
-				} else {
-					eMailLabel.setText("Incorrect! Enter valid email!!");
-					Log.debug("Bad email");
-				}
-
-
-				Boolean isValidPass1 = FieldVerifier.isLenghtOK(pass1Box.getText(),1,50);
-				if (isValidPass1) {
-					Log.debug("Good Password1");
-					//nickNameLabel.setText("Nick ene");
-				} else {
-					pass1Label.setText("Password1 name must be 1 character at least!!");
-					Log.debug("Bad Password1");
-				}
 
 
 
@@ -119,6 +98,41 @@ public class LoginPopup extends PopupPanel {
 		//this.initWidget(panel);
 	}
 
+	
+	
+	public void emailBoxValidator() {
+		//this.isValidEmail
+		isValidEmail = FieldVerifier.isValidEmailAddress(eMailBox.getText());
+		if (isValidEmail) {
+			Log.debug("Good email");
+			eMailLabel.setText("Email OK");
+			eMailLabel.setStyleName("text12_green_bold");
+			eMailLabel.addStyleName("regFormLabel");
+		} else {
+			eMailLabel.setText("Enter valid email");
+			eMailLabel.setStyleName("text12_red_bold");
+			eMailLabel.addStyleName("regFormLabel");
+			Log.debug("Bad email");
+		}
+	}
+	
+	
+	public void pass1BoxValidator() {
+		isValidPass1 = FieldVerifier.isLenghtOK(pass1Box.getText(),1,50);
+		if (isValidPass1) {
+			Log.debug("Good Password1");
+			pass1Label.setText("Password OK");
+			pass1Label.setStyleName("text12_green_bold");
+			pass1Label.addStyleName("regFormLabel");
+			//nickNameLabel.setText("Nick ene");
+		} else {
+			pass1Label.setText("Password must be 1 character at least");
+			Log.debug("Bad Password1");
+			pass1Label.setStyleName("text12_red_bold");
+			pass1Label.addStyleName("regFormLabel");
+		}
+	}
+	
 	void sendToServer(String email, String pass1) {
 
 		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
@@ -131,6 +145,7 @@ public class LoginPopup extends PopupPanel {
 				if (caught instanceof RPCServiceExeption) {
 					Log.debug("exeption!!");
 					status.setText(((RPCServiceExeption)caught).getErrorCode());
+					Notifications notif = new Notifications(((RPCServiceExeption)caught).getErrorCode(), true, true);
 				}
 
 			}

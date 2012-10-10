@@ -71,8 +71,8 @@ public class TagsSetBlock extends Composite {
 		//TagsSetGroup likesGroup = new TagsSetGroup("LIKES", getFromTagsObj("LIKES"));
 
 		/////Likes 
-		TagObj likeTag = getTagObj("LIKE", "Likes" ,"LIKES");
-		TagObj dislikeTag = getTagObj("DISLIKE", "Dislikes","LIKES");
+		TagObj likeTag = (new TagProviderHelper(tagsObj)).getTagObj("LIKE", "Like" ,"LIKES");
+		TagObj dislikeTag = (new TagProviderHelper(tagsObj)).getTagObj("DISLIKE", "Dislike","LIKES");
 		TagsObj likesTagsobj = new TagsObj();
 		likesTagsobj.getTagsObj().add(likeTag);
 		likesTagsobj.getTagsObj().add(dislikeTag);
@@ -80,9 +80,9 @@ public class TagsSetBlock extends Composite {
 		panel.add(likesGroup);
 		
 		/////Hairs 
-		TagObj blondTag = getTagObj("BLOND", "Blond","HAIRS");
-		TagObj darkTag = getTagObj("DARK", "Dark","HAIRS");
-		TagObj redTag = getTagObj("RED", "Red", "HAIRS");
+		TagObj blondTag = (new TagProviderHelper(tagsObj)).getTagObj("BLOND", "Blond","HAIRS");
+		TagObj darkTag = (new TagProviderHelper(tagsObj)).getTagObj("DARK", "Dark","HAIRS");
+		TagObj redTag = (new TagProviderHelper(tagsObj)).getTagObj("RED", "Red", "HAIRS");
 		TagsObj hairTagsobj = new TagsObj();
 		hairTagsobj.getTagsObj().add(blondTag);
 		hairTagsobj.getTagsObj().add(darkTag);
@@ -92,69 +92,32 @@ public class TagsSetBlock extends Composite {
 		
 		
 		///////Height
-		TagObj cuteTag = getTagObj("CUTE", "Cute","HEIGHT");
-		TagObj normalTag = getTagObj("NORM", "Normal","HEIGHT");
-		TagObj tallTag = getTagObj("TALL", "Tall", "HEIGHT");
+		TagObj cuteTag = (new TagProviderHelper(tagsObj)).getTagObj("CUTE", "Petit","HEIGHT");
+		TagObj normalTag = (new TagProviderHelper(tagsObj)).getTagObj("NORM", "Normal","HEIGHT");
+		TagObj tallTag = (new TagProviderHelper(tagsObj)).getTagObj("TALL", "Tall", "HEIGHT");
 		TagsObj heightTagsobj = new TagsObj();
 		heightTagsobj.getTagsObj().add(cuteTag);
 		heightTagsobj.getTagsObj().add(normalTag);
 		heightTagsobj.getTagsObj().add(tallTag);
 		TagsSetGroup heightGroup = new TagsSetGroup("Height?", heightTagsobj, albumObj);
 		panel.add(heightGroup);
+
+		
+		///////Bra size
+		TagObj braLargeTag = (new TagProviderHelper(tagsObj)).getTagObj("BRA_LARGE", "Large","BRA");
+		TagObj braMediumTag = (new TagProviderHelper(tagsObj)).getTagObj("BRA_MEDIUM", "Medium","BRA");
+		TagObj braSmallTag = (new TagProviderHelper(tagsObj)).getTagObj("BRA_SMALL", "Small", "BRA");
+		TagsObj braTagsobj = new TagsObj();
+		braTagsobj.getTagsObj().add(braLargeTag);
+		braTagsobj.getTagsObj().add(braMediumTag);
+		braTagsobj.getTagsObj().add(braSmallTag);
+		TagsSetGroup braGroup = new TagsSetGroup("Bra size?", braTagsobj, albumObj);
+		panel.add(braGroup);
+		
 		
 		initWidget(panel);
 	}
 	
-	
-	private boolean isCreatedGroupInVotedGroup(String group) {
-		for(int i=0;i<tagsObj.getTagsObj().size(); i++) {
-			TagObj curTagObj = tagsObj.getTagsObj().get(i);
-			if (curTagObj.getTagGroup().equals(group) && curTagObj.isAllowVoteToUser() == false) {
-				return true; 
-			}
-		}
-		return false;
-	}
-	
-	
-	private TagObj createNewTagObj(String type, String readableName, String group) {
-		TagObj tagObj = new TagObj();
-		tagObj.setTagGroup(group);
-		tagObj.setTagType(type);
-		//tagObj.setTagReadableName("Namegen" + type);
-		tagObj.setTagReadableName(readableName);
-		if (isCreatedGroupInVotedGroup(group)) {
-			tagObj.setAllowVoteToUser(false);
-		}
-		return tagObj;
-	}
-	
-	private TagObj getTagObj (String type, String readableName, String group) {
-		
-		TagObj likeTag = getFromTagFromResponse(type);
-		
-		if (likeTag == null) {
-			likeTag = createNewTagObj(type, readableName, group);
-		}
-		likeTag.setTagReadableName(readableName);
-		return likeTag;
-	}
-	
-	private TagObj getFromTagFromResponse(String type) {
-		
-		//Log.debug("getFromTagFromResponse type" + type);
-		for (int i=0; i<tagsObj.getTagsObj().size(); i++) {
-			TagObj curTagObj = tagsObj.getTagsObj().get(i);
-			//Log.debug("getFromTagFromResponse curTagObj.getTagType() " +  curTagObj.getTagType());
-
-			if (curTagObj.getTagType().equals(type)) {
-				//Log.debug("getFromTagFromResponse name " + curTagObj.getTagReadableName());
-			
-				return curTagObj;
-			}
-		} 
-		return null;
-	}
 	
 /*
 	private TagsObj getFromTagsObj(String type) {

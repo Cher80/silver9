@@ -60,9 +60,9 @@ public class GetPhoto extends HttpServlet {
 				strContent.append((char) ch);
 			fin.close();
 		} catch (Exception e) {
-			System.out.println(e);
+			//System.out.println(e);
 		}
-		//System.out.println(strContent.toString());
+		////System.out.println(strContent.toString());
 		LOG.info(strContent.toString());
 		 */
 		

@@ -16,7 +16,7 @@ public class ModelPlace extends Place {
 	private ModelActivity curModelActivity;
 
     public ModelPlace(String token, boolean isSameAlbum, ModelActivity curModelActivity ) {
-    	System.out.println("ModelPlace constructor");
+    	//System.out.println("ModelPlace constructor");
         this.placeName = token;
         this.isSameAlbum = isSameAlbum;
         this.setCurModelActivity(curModelActivity);

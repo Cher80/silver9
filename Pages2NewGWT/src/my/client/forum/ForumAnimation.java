@@ -36,7 +36,7 @@ public class ForumAnimation extends Animation {
 		// TODO Auto-generated method stub
 		double positionX = startX + (progress * (this.finalX - startX));
         double positionY = startY + (progress * (this.finalY - startY));
-   	 	System.out.println("onUpdate X = " + positionX);
+   	 	//System.out.println("onUpdate X = " + positionX);
 
         //this.widget.getElement().
        // this.widget.getElement().getStyle().setLeft(positionX, Style.Unit.PX);
