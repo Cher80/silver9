@@ -28,6 +28,44 @@ public class Images {
 
 	private String albid;
 
+	
+	public ImgObj getOneImageById(String imgObjID) throws RPCServiceExeption { 
+		imgObjID = imgObjID.trim();
+		ImgObj imgObj = new ImgObj();
+
+		DBCollection images = db.getCollection("images");
+
+		BasicDBObject query = new BasicDBObject();
+		query.append("_id", new ObjectId(imgObjID));
+	
+
+		DBCursor cur;
+		cur = images.find(query);
+
+		
+		if (!cur.hasNext()) {
+			cur.close();
+			throw new RPCServiceExeption("No images for this album");
+		}
+
+		//else {
+
+		
+
+		while(cur.hasNext()) {
+			BasicDBObject image = (BasicDBObject)cur.next();
+			imgObj = converFromDBOtoObj(image);
+			LOG.info("getOneImageById image.get(photourl).toString() = " + image.get("photourl").toString());
+			//imgsObj.getImages().add(imgObj);
+		}
+
+
+		return imgObj;
+
+
+	}
+	
+	
 	public ImgsObj getImages(String albidparam) throws RPCServiceExeption {
 		this.albid = albidparam.trim();
 		ImgsObj imgsObj = new ImgsObj();

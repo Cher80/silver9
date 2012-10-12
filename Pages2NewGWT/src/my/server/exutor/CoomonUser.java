@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import my.shared.CookieObj;
 import my.shared.User;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class CoomonUser {
@@ -13,11 +14,13 @@ public class CoomonUser {
 		
 	}
 	
-	public User getUserFromDBO(DBObject user) {
-		
+	public User getUserFromDBO(DBObject user1) {
+BasicDBObject user = (BasicDBObject)user1;
 		String pass1db = null;
 		String nickdb = null;
 		String email = null;
+		String fbaccess_token = null;
+		
 		boolean isfbdb = false;
 		int urole = 1;
 		ObjectId id = null;
@@ -32,7 +35,7 @@ public class CoomonUser {
 		isfbdb = (boolean) user.get("isfb");
 		
 		if (user.containsField("urole")) 
-		urole = (int) user.get("urole");
+		urole = (int) user.getInt("urole");
 		
 		if (user.containsField("_id")) 
 		id = (ObjectId)user.get( "_id" );
@@ -40,10 +43,14 @@ public class CoomonUser {
 		if (user.containsField("email")) 
 			email = (String)user.get( "email" );
 		
+		if (user.containsField("fbaccess_token")) 
+			fbaccess_token = (String)user.get( "fbaccess_token" );
+		
 		User userObj = new User();
 		userObj.setEmail(email);
 		userObj.setNick(nickdb);
 		userObj.setFBUser(isfbdb);
+		userObj.setFBaccess_token(fbaccess_token);
 		userObj.setUserRole(urole);
 		userObj.setUid((String)id.toString());
 		return userObj;
@@ -52,7 +59,9 @@ public class CoomonUser {
 	}
 	
 	
-	public CookieObj getCookieObjFromDBO(DBObject user) {
+	public CookieObj getCookieObjFromDBO(DBObject user1) {
+		
+		BasicDBObject user = (BasicDBObject) user1;
 		
 		String pass1db = null;
 		String nickdb = null;
@@ -71,7 +80,8 @@ public class CoomonUser {
 		isfbdb = (boolean) user.get("isfb");
 		
 		if (user.containsField("urole")) 
-		urole = (int) user.get("urole");
+		//urole = (int) user.get("urole");
+			urole = (int) user.getInt("urole");
 		
 		if (user.containsField("_id")) 
 		id = (ObjectId)user.get( "_id" );

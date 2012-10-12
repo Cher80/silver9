@@ -6,6 +6,8 @@ import my.client.blocks.design.AdminButt;
 import my.client.common.ClientFactory;
 import my.client.common.GoogleAnalytics;
 import my.client.common.IconButt;
+import my.client.events.GrantFBEvent;
+import my.client.events.GrantFBEventHandler;
 import my.client.helpers.HavePlace;
 import my.client.rpcs.RPCService;
 import my.client.rpcs.RPCServiceAsync;
@@ -33,7 +35,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 
-public class UserArea extends Composite implements UserHasLoggedEventHandler {
+public class UserArea extends Composite implements UserHasLoggedEventHandler, GrantFBEventHandler {
 
 	public static final int UNLOGGED = 1;
 	public static final int LOGGED = 2;
@@ -58,6 +60,8 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 		}
 		//getUserFromCookie();
 		ClientFactory.getEventBus().addHandler(UserHasLoggedEvent.TYPE, this);
+		ClientFactory.getEventBus().addHandler(GrantFBEvent.TYPE, this);
+		
 		panel.addStyleName("UserArea");
 		//nick = new Label("Anonymous");
 
@@ -152,16 +156,7 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 			
 			fbLogg.panel.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					GoogleAnalytics.trackEvent("Pinbelle", "User_FBLogin_Clicked", "default");
-					String fbURL = "http://www.facebook.com/dialog/oauth/?" +
-							"client_id=101233880035662" +
-							"&redirect_uri=http://www.pinbelle.com/extranewgwt/fbcreateUser" +
-							"&state=allo" +
-							"&scope=user_about_me,email"
-							;
-					Window.open(fbURL, "_blank", null);
-
-					checkCoockie();
+					UserArea.this.makeFbRequest("user_about_me,email");
 
 					// Schedule the timer to close the popup in 3 seconds.
 
@@ -242,6 +237,21 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 			}
 
 		}
+	}
+	
+	public void makeFbRequest(String scopeParams) {
+		GoogleAnalytics.trackEvent("Pinbelle", "User_FBLogin_Clicked", "default");
+		String fbURL = "http://www.facebook.com/dialog/oauth/?" +
+				"client_id=101233880035662" +
+				"&redirect_uri=http://pinbelle.com/extranewgwt/fbcreateUser" +
+				"&state=allo" +
+				//"&scope=user_about_me,email,manage_pages, publish_actions, publish_stream"
+				//"&scope=user_about_me,email"
+				"&scope=" + scopeParams;
+				;
+		Window.open(fbURL, "_blank", null);
+
+		checkCoockie();
 	}
 
 
@@ -325,6 +335,16 @@ public class UserArea extends Composite implements UserHasLoggedEventHandler {
 			setAnonim();
 			//setState(UNLOGGED);
 		}
+	}
+
+
+	@Override
+	public void onGrantFB(GrantFBEvent event) {
+		// TODO Auto-generated method stub
+		//Log.debug("No cookie");
+		this.setAnonim();
+		this.makeFbRequest("user_about_me,email,manage_pages, publish_actions, publish_stream");
+		
 	}
 
 }

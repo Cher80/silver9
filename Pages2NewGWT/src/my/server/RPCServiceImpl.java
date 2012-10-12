@@ -22,6 +22,7 @@ import my.server.exutor.ActivityExec;
 import my.server.exutor.Albums;
 import my.server.exutor.Anonim;
 import my.server.exutor.CommentsExec;
+import my.server.exutor.FBExec;
 import my.server.exutor.Images;
 import my.server.exutor.Login;
 import my.server.exutor.Register;
@@ -335,6 +336,19 @@ public class RPCServiceImpl extends RemoteServiceServlet implements RPCService {
 		topBlockObj.setStatObj(statObj);
 
 		return topBlockObj;
+	}
+
+
+
+
+	@Override
+	public ResponseStatus postFBPage(AlbumObj albumObj, User user)
+			throws RPCServiceExeption {
+		// TODO Auto-generated method stub
+		
+		FBExec fbExec = new FBExec(albumObj, user);
+		fbExec.fbPost();
+		return null;
 	}
 
 }

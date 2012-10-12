@@ -1,2 +1,3 @@
 # Module extranewgwt
 # RPC service class, partial path of RPC policy file
+my.client.rpcs.RPCService, C7CF1373D21E219A150B8F63B2F296BA.gwt.rpc

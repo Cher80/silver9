@@ -74,7 +74,7 @@ public class FBCreateUser extends HttpServlet {
 			String tokenResponse = null;
 		
 			try {
-				tokenResponse = readPage(oracle);
+				tokenResponse = CommonsServer.readPage(oracle);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -82,11 +82,12 @@ public class FBCreateUser extends HttpServlet {
 	
 			
 			LOG.info("tokenResponse= " + tokenResponse);
+			//AAABcEll1cU4BAALfhLKdUcKUEK5KXnJThcuVJkyZCGsFN6YOISFByApxl494sbreoyudYHJEqV6Ap5lz1AhaE73DOfCFc1LpEcIR5bgZDZD
+			//AAABcEll1cU4BAALfhLKdUcKUEK5KXnJThcuVJkyZCGsFN6YOISFByApxl494sbreoyudYHJEqV6Ap5lz1AhaE73DOfCFc1LpEcIR5bgZDZD
 			
-			
-			
-			String token = getParams(tokenResponse,"access_token");
-			int token_expires = Integer.parseInt( getParams(tokenResponse,"expires"));
+			String token = CommonsServer.getParams(tokenResponse,"access_token");
+			//int token_expires = Integer.parseInt( CommonsServer.getParams(tokenResponse,"expires"));
+			int token_expires = 999;
 			
 			LOG.info("token= " + token);
 			
@@ -95,7 +96,7 @@ public class FBCreateUser extends HttpServlet {
 
 			String userResponse = null;
 			try {
-				userResponse = readPage( new URL(getUser));
+				userResponse = CommonsServer.readPage( new URL(getUser));
 			} catch (Exception e) { 
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -137,74 +138,7 @@ public class FBCreateUser extends HttpServlet {
 
 	
 
-	protected String getParams(String paramsLine, String vartoget) {
-		String value = null;
-		String delimiter = "&";
-		/* given string will be split by the argument delimiter provided. */
-		String[] paramsArray;
-		
-		paramsArray = paramsLine.split(delimiter);
-		for (int i=0;i<paramsArray.length; i++) {
-			
-			
-			String delimiter2 = "=";
-			String[] paramsArray2;
-			paramsArray2 = paramsArray[i].split(delimiter2);
-			if (paramsArray2[0].trim().equals(vartoget)) {
-				
-				 value = paramsArray2[1];
-				 return value;
-			}
-		}
-		return null;
-	}
 	
-	
-	public String urlReader(String urlString) throws IOException {
-		    URL oracle = new URL(urlString);
-	        BufferedReader in = new BufferedReader(
-	        new InputStreamReader(oracle.openStream()));
-
-	        String inputLine;
-	        while ((inputLine = in.readLine()) != null)
-	            //System.out.println(inputLine);
-	        in.close();
-	        
-	        return inputLine;
-	}
-
-	
-	private String readPage(URL url) throws Exception {
-
-        DefaultHttpClient client = new DefaultHttpClient();
-        LOG.info("url.toURI()= " + url.toURI());
-        HttpGet request = new HttpGet(url.toURI());
-        HttpResponse response = client.execute(request);
-
-        Reader reader = null;
-        try {
-            reader = new InputStreamReader(response.getEntity().getContent());
-
-            StringBuffer sb = new StringBuffer();
-            {
-                int read;
-                char[] cbuf = new char[1024];
-                while ((read = reader.read(cbuf)) != -1)
-                    sb.append(cbuf, 0, read);
-            }
-
-            return sb.toString();
-
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
 
 

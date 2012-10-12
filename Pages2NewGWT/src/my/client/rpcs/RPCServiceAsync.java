@@ -47,6 +47,9 @@ public interface RPCServiceAsync {
 	void doImgCover(AlbumObj albumObj, ImgObj imgObj, AsyncCallback<ResponseStatus> callback);
 
 	void getTopBlock(CookieObj cookieObj, AsyncCallback<TopBlockObj> callback);
+
+	void postFBPage(AlbumObj albumObj, User user,
+			AsyncCallback<ResponseStatus> callback);
    
 	//void doSetTag(TagObj tagObj, AlbumObj albumObj, User user, AsyncCallback callback); 
 

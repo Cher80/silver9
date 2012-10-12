@@ -60,12 +60,18 @@ public class ActivityUnit extends Composite {
   		
   		actType.addStyleName("actType");
   		actType.addStyleName("text_11_grey");
-  		actType.setText("was " + activityObj.getActivityType() + "ed:");
+  		actType.setText("" + activityObj.getActivityType() + "ed:");
   		
   		actText.addStyleName("actText");
   		actText.addStyleName("text11_White");
   		if (activityObj.getActivityType().equals("TAG")) {
-  			actText.setText(activityObj.getTagReadableName());
+  			String textToSet = activityObj.getTagGroup() + " " +activityObj.getTagReadableName();
+  			
+  			/*
+  			if (activityObj.getTagGroup().equals("BRA")) {
+  				textToSet = activityObj.getTagReadableName() + " bra";
+  			}*/
+  			actText.setText(textToSet);
   		}
   		if (activityObj.getActivityType().equals("COMMENT")) {
   			if (activityObj.getCommentText().length()>23) {

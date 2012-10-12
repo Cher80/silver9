@@ -71,6 +71,7 @@ public class AlbumThumb extends Composite  {
 
 	private IconButt delAdmin = new IconButt();
 	private IconButt statusAdmin = new IconButt();
+	private IconButt fbPublishAdmin = new IconButt();
 
 	public AlbumThumb(AlbumObj albumObjj) {
 		super();
@@ -199,6 +200,8 @@ public class AlbumThumb extends Composite  {
 		if (ClientFactory.getUser().getUserRole()==2) {
 			panel.add(statusAdmin);
 			panel.add(delAdmin);
+			panel.add(fbPublishAdmin);
+			
 
 			if (albumObj.getStatus()==2) {
 				statusDigit = "p";
@@ -210,6 +213,24 @@ public class AlbumThumb extends Composite  {
 
 		}
 
+		
+		
+		fbPublishAdmin.addStyleName("fbPublishAdmin");
+		fbPublishAdmin.icon.addStyleName("AdminButtonIcon");
+		fbPublishAdmin.content.addStyleName("statusAdminContent");
+		fbPublishAdmin.text.addStyleName("AdminButtonText");
+		fbPublishAdmin.text.addStyleName("text11_White");
+		fbPublishAdmin.setText("Fb");
+
+		//panel.add(statusAdmin);
+
+		fbPublishAdmin.panel.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				doPostFB();
+			}
+		}); 
+		
+		
 		//private IconButt delAdmin = new IconButt();
 		//private IconButt statusAdmin = new IconButt();
 
@@ -356,6 +377,33 @@ public class AlbumThumb extends Composite  {
 		communicatorSvc.doDeAlbum(albumObj, callback);
 
 	}
+	
+	
+	
+	
+	public void doPostFB() {
+		RPCServiceAsync communicatorSvc = GWT.create(RPCService.class);
+
+		// Set up the callback object.
+		AsyncCallback callback = new AsyncCallback() {
+
+			public void onFailure(Throwable caught) { 
+
+				if (caught instanceof RPCServiceExeption) {
+					Notifications notif = new Notifications(((RPCServiceExeption)caught).getErrorCode(), true, true);
+				}
+			}
+
+			@Override
+			public void onSuccess(Object result) {
+				Notifications notif = new Notifications("Fb posted", true, true);
+			}
+		};
+
+		communicatorSvc.postFBPage(albumObj, ClientFactory.getUser(), callback);
+
+	}
+	
 
 
 	void doClear() {

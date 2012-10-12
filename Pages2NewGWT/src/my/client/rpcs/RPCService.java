@@ -42,6 +42,7 @@ public interface RPCService extends RemoteService {
 	ResponseStatus doAlbumStatus(AlbumObj albumObj, int statusPublished)  throws RPCServiceExeption;
 	ResponseStatus doDeAlbum(AlbumObj albumObj)  throws RPCServiceExeption;
 	ResponseStatus doImgStatus(ImgObj imgObj,  int statusPublished) throws RPCServiceExeption;
-	ResponseStatus doImgCover(AlbumObj albumObj, ImgObj imgObj) throws RPCServiceExeption; 
+	ResponseStatus doImgCover(AlbumObj albumObj, ImgObj imgObj) throws RPCServiceExeption;
+	ResponseStatus postFBPage(AlbumObj albumObj, User user) throws RPCServiceExeption;
 
 }

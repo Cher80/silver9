@@ -62,7 +62,7 @@ public class SocialBlock extends Composite  {
 		fbGroupButt.content.addStyleName("fbGroupContent");
 		fbGroupButt.text.addStyleName("fbGroupButtonText");
 		fbGroupButt.text.addStyleName("text11_White");
-		fbGroupButt.setText("Facebook group");
+		fbGroupButt.setText("Join us");
 		
 		
 		fbGroupButt.panel.addClickHandler(new ClickHandler() {
@@ -80,8 +80,9 @@ public class SocialBlock extends Composite  {
 		feedBackButt.panel.getElement().setAttribute("onclick", "UE.Popin.show(); return false;");
 		//http://www.facebook.com/PinBelle
 		
-		panel.add(feedBackButt);
+		
 		panel.add(fbGroupButt);
+		panel.add(feedBackButt);
 
 		//HandlerRegistration addScrollHandler = ScrollPanel.addScrollHandler(null);
 
