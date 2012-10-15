@@ -80,7 +80,7 @@ public final class MongoPool {
 			LOG.info("ImgsDBInited inited");
 			isImgsDBInited = true;
 		}
-		DB imgsDB = grabberMongo.getDB( "imgsdb" );
+		DB imgsDB = imgsMongo.getDB( "imgsdb" );
 		return imgsDB;
 	}
 	

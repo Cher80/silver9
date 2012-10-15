@@ -85,6 +85,18 @@
   
   
   
+  
+   <servlet>
+    <servlet-name>PagesHTML</servlet-name>
+    <servlet-class>my.server.htmlpages.PagesHTML</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PagesHTML</servlet-name>
+    <url-pattern>/extranewgwt/pageshtml</url-pattern>
+  </servlet-mapping>
+  
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>ExtraNewGWT.html</welcome-file>
